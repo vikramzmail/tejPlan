@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?><network description="" name="">
+    <physicalTopology>
+        <node name="Ambala" no = "0" type = "Multiplexer"/>
+        <node name="Sirihind" no = "1" type = "amplifier"/>
+        <node name="Ludhiana" no = "2" type = "amplifier"/>
+        <node name="Jalandhar" no = "3"  type = "Multiplexer" />
+        <node name="Nawashahar" no = "4" type = "amplifier" />
+        <node name="Ropar" no = "5" type = "amplifier"/>
+        <node name="Chandigarh" no = "6"  type = "Multiplexer"/>
+        <node name="Jagadhari" no = "7"  type = "amplifier"/>
+        <node name="Sahranpur-1" no = "8" type = "amplifier"/>
+        <node name="Luxar" no = "9" type = "amplifier"/>
+        <node name="Haridwar" no = "10" type = "amplifier"/>
+        <node name="Dehradoon" no = "11" type = "Multiplexer"/>
+        <node name="Sahranpur-2" no = "12" type = "amplifier"/>
+        <node name="Muzafarnagar" no = "13" type = "amplifier"/>
+        <node name="Meerut" no = "14"  type = "Multiplexer" />
+        <node name="Ghaziabad" no = "15" type = "Multiplexer"/>
+        <node name="Delhi" no = "16" type = "Multiplexer"/>
+        <node name="NIC CGO" no = "17" type = "Multiplexer"/>
+        <node name="NIC Shastri Park" no = "18" type = "Multiplexer"/>
+        <node name="Sonipat" no = "19" type = "amplifier"/>
+        <node name="Karnal" no = "20" type = "amplifier"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="50.0" linkLengthInKm="53.0" originNodeId="0"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="50.0" linkLengthInKm="60.0" originNodeId="1"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="50.0" linkLengthInKm="57.0" originNodeId="2"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="50.0" linkLengthInKm="80.0" originNodeId="3"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="50.0" linkLengthInKm="58.0" originNodeId="4"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="50.0" linkLengthInKm="70.0" originNodeId="5"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="48.0" originNodeId="6"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="50.0" linkLengthInKm="46.0" originNodeId="0"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="50.0" linkLengthInKm="36.0" originNodeId="7"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="8"/>
+        <link destinationNodeId="10" linkCapacityInErlangs="50.0" linkLengthInKm="28.0" originNodeId="9"/>
+        <link destinationNodeId="11" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="10"/>
+        <link destinationNodeId="12" linkCapacityInErlangs="50.0" linkLengthInKm="75.0" originNodeId="11"/>
+        <link destinationNodeId="13" linkCapacityInErlangs="50.0" linkLengthInKm="59.0" originNodeId="12"/>
+        <link destinationNodeId="14" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="13"/>
+        <link destinationNodeId="15" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="14"/>
+        <link destinationNodeId="16" linkCapacityInErlangs="50.0" linkLengthInKm="24.0" originNodeId="15"/>
+        <link destinationNodeId="17" linkCapacityInErlangs="50.0" linkLengthInKm="15.0" originNodeId="16"/>
+        <link destinationNodeId="18" linkCapacityInErlangs="50.0" linkLengthInKm="15.0" originNodeId="17"/>
+        <link destinationNodeId="16" linkCapacityInErlangs="50.0" linkLengthInKm="30.0" originNodeId="18"/>
+        <link destinationNodeId="19" linkCapacityInErlangs="50.0" linkLengthInKm="48.0" originNodeId="16"/>
+        <link destinationNodeId="20" linkCapacityInErlangs="50.0" linkLengthInKm="79.0" originNodeId="19"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="75.0" originNodeId="20"/>
+        <link destinationNodeId="20" linkCapacityInErlangs="50.0" linkLengthInKm="75.0" originNodeId="0"/>
+        <link destinationNodeId="19" linkCapacityInErlangs="50.0" linkLengthInKm="79.0" originNodeId="20"/>
+        <link destinationNodeId="16" linkCapacityInErlangs="50.0" linkLengthInKm="48.0" originNodeId="19"/>
+        <link destinationNodeId="16" linkCapacityInErlangs="50.0" linkLengthInKm="15.0" originNodeId="17"/>
+        <link destinationNodeId="17" linkCapacityInErlangs="50.0" linkLengthInKm="15.0" originNodeId="18"/>
+        <link destinationNodeId="18" linkCapacityInErlangs="50.0" linkLengthInKm="30.0" originNodeId="16"/>
+        <link destinationNodeId="15" linkCapacityInErlangs="50.0" linkLengthInKm="24.0" originNodeId="16"/>
+        <link destinationNodeId="14" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="15"/>
+        <link destinationNodeId="13" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="14"/>
+        <link destinationNodeId="12" linkCapacityInErlangs="50.0" linkLengthInKm="59.0" originNodeId="13"/>
+        <link destinationNodeId="11" linkCapacityInErlangs="50.0" linkLengthInKm="75.0" originNodeId="12"/>
+        <link destinationNodeId="10" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="11"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="50.0" linkLengthInKm="28.0" originNodeId="10"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="50.0" linkLengthInKm="51.0" originNodeId="9"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="50.0" linkLengthInKm="36.0" originNodeId="8"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="46.0" originNodeId="7"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="50.0" linkLengthInKm="48.0" originNodeId="0"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="50.0" linkLengthInKm="70.0" originNodeId="6"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="50.0" linkLengthInKm="58.0" originNodeId="5"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="50.0" linkLengthInKm="80.0" originNodeId="4"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="50.0" linkLengthInKm="57.0" originNodeId="3"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="50.0" linkLengthInKm="60.0" originNodeId="2"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="53.0" originNodeId="1"/>
+    </physicalTopology>
+</network>

@@ -1,0 +1,1279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd"[
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>Diode</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <span class="intro">
+                <big>Spice Modeling</big>
+                <br/>                <br/>
+                General form:
+                <code>DXXXXXXX N+ N- MNAME [AREA=VALUE] [M=VALUE] [PJ=VALUE] [OFF] [IC=VD] [TEMP=VALUE] [DTEMP=VALUE]</code>
+                <br/>
+                Examples:
+                <br/>
+                <code>DBRIDGE 2 10 DIODE1</code>
+                <br/>
+                <code>DCLMP 3 7 DMOD 3.0 IC=0.2</code>
+            </span>
+            <p>
+                The pn junction (diode) implemented in NGSPICE expands the original
+                spice's implementation. Perimetral effects and high injection level
+                have been introduced into the original model and temperature dependence
+                of some parameters has been added.
+            </p>
+            <p>
+                <var>N+</var> and <var>N-</var> are the positive and negative nodes, respectively.
+                <var>MNAME</var> is the model name, <var>AREA</var> is the area factor, <var>PJ</var>
+                is the perimeter factor, and <var>OFF</var> indicates an (optional)starting
+                condition on the device for dc analysis.  If the area factor is omitted,
+                a value of 1.0 is assumed. The (optional) initial condition specification
+                using <var>IC</var> is intended for use with the <var>UIC</var> option on
+                the @code{.tran} control line, when a transient analysis is desired starting
+                from other than the quiescent operating point. You should supply the inital
+                voltage across the diode there. The (optional) <var>TEMP</var> value is
+                the temperature at which this device is to operate, and overrides the
+                temperature specification on the @code{.option} control line. As always,
+                instance temperature can be specified as an offset to the circuit
+                temperature with the <var>DTEMP</var> option.
+            </p>
+            <p>
+                The dc characteristics of the diode are determined by the parameters
+                <var>IS</var> and <var>N</var>.  An ohmic resistance, <var>RS</var>, is
+                included. Charge storage effects are modelled by a transit time,
+                <var>TT</var>, and a nonlinear depletion layer capacitance which is
+                determined by the parameters <var>CJO</var>, <var>VJ</var>, and <var>M</var>.
+                The temperature dependence of the saturation current is defined by the
+                parameters <var>EG</var>, the energy and <var>XTI</var>, the saturation
+                current temperature exponent. The nominal temperature at which these
+                parameters were measured is <var>TNOM</var>, which defaults to the
+                circuit-wide value specified on the @code{.options} control line.
+                Reverse breakdown is modelled by an exponential increase in the
+                reverse diode current and is determined by the parameters <var>BV</var>
+                and <var>IBV</var> (both of which are positive numbers).
+            </p>
+            <br/>
+            <table border="1">
+                <tr><th>Junction DC parameters</th></tr>
+                <tr><td>Name</td><td>Parameter</td><td>Units</td><td>default</td><td>example</td><td>Scale factor</td></tr>
+                <tr><td>BV</td><td>Reverse breakdown voltage</td><td>V</td><td>infinite</td><td> 40.0</td></tr>
+                <tr><td>IBV</td><td>Current at breakdown voltage</td><td>A</td><td>1.0e-3</td><td> 1.0e-4</td></tr>
+                <tr><td>IK (IKF)</td><td>Forward knee current</td><td>A</td><td>1.0e-3</td><td> 1.0e-6</td></tr>
+                <tr><td>IK</td><td>Reverse knee current</td><td>A</td><td>1.0e-3</td><td> 1.0e-6</td></tr>
+                <tr><td>IS (JS)</td><td>Saturation current</td><td>A</td><td>1.0e-14</td><td>1.0e-16</td><td> area</td></tr>
+                <tr><td>JSW</td><td>Sidewall saturation current</td><td>A</td><td>1.0e-14</td><td>1.0e-15</td><td> perim.</td></tr>
+                <tr><td>N</td><td>Emission coefficient</td><td>-</td><td>1</td><td> 1.5</td></tr>
+                <tr><td>RS</td><td>Ohmic resistance</td><td>Ohm</td><td>0</td><td>100</td><td> 1/area</td></tr>
+                <tr><th>Junction capacitance parameters</th></tr>
+                <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td><td>Scale factor</td></tr>
+                <tr><td>CJO (CJ0)</td><td>Zero-bias junction bottowall capacitance</td><td>F</td><td>0.0</td><td>2pF</td><td> area</td></tr>
+                <tr><td>CJP (CJSW)</td><td>Zero-bias junction sidewall capacitance</td><td>F</td><td>0.0</td><td>.1pF</td><td> perim.</td></tr>
+                <tr><td>FC</td><td>Coefficient for forward-bias depletion bottomwall capacitance formula</td><td>-</td><td>0.5</td><td> -</td></tr>
+                <tr><td>FCS</td><td>Coefficient for forward-bias depletion sidewall capacitance formula</td><td>-</td><td>0.5</td><td> -</td></tr>
+                <tr><td>M (MJ)</td><td>Area junction grading coefficient</td><td>-</td><td>0.5</td><td> 0.5</td></tr>
+                <tr><td>MJSW</td><td>Periphery junction grading coefficient</td><td>-</td><td>0.33</td><td> 0.5</td></tr>
+                <tr><td>VJ</td><td>Junction potential</td><td>V</td><td>1</td><td> 0.6</td></tr>
+                <tr><td>PHP</td><td>Periphery junction potential</td><td>V</td><td>1</td><td> 0.6</td></tr>
+                <tr><td>TT</td><td>Transit-time</td><td>sec</td><td>0</td><td> 0.1ns</td></tr>
+                <tr><th>Temperature effects</th></tr>
+                <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>example</td><td> Scale factor</td></tr>
+                <tr><td>EG</td><td>Activation energy</td><td>eV</td><td>1.11</td><td> 1.11 Si</td></tr>
+                <tr><td></td><td></td><td></td><td></td><td> 0.69 Sbd</td></tr>
+                <tr><td></td><td></td><td></td><td></td><td> 0.67 Ge</td></tr>
+                <tr><td>TM1</td><td>1st order tempco for MJ</td><td>1/<sup>o</sup>C</td><td>0.0</td><td> -</td></tr>
+                <tr><td>TM2</td><td>2nd order tempco for MJ</td><td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td> -</td></tr>
+                <tr><td>TNOM</td><td>Parameter measurement temperature</td><td>C</td><td>27</td><td> 50</td></tr>
+                <tr><td>TRS</td><td>1st order tempco for RS</td><td>1/<sup>o</sup>C</td><td>0.0</td><td> -</td></tr>
+                <tr><td>TRS2</td><td>2nd order tempco for RS</td><td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td> -</td></tr>
+                <tr><td>TTT1</td><td>1st order tempco for TT</td><td>1/<sup>o</sup>C</td><td>0.0</td><td> -</td></tr>
+                <tr><td>TTT2</td><td>2nd order tempco for TT</td><td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td> -</td></tr>
+                <tr><td>XTI</td><td>Saturation-current temp. exp</td><td>-</td><td>3.0</td><td> 3.0 pn</td></tr>
+                <tr><td></td><td></td><td></td><td></td><td> 2.0 Sbd</td></tr>
+                <tr><th>Noise modeling</th></tr>
+                <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td><td> Scale factor</td></tr>
+                <tr><td>KF</td><td>Flicker noise coefficient</td><td>-</td><td>0</td><td></td></tr>
+                <tr><td>AF</td><td>Flicker noise exponent</td><td>-</td><td>1</td><td></td></tr>
+            </table>
+            <br/>
+            <p>
+                The junction diode is the the basic semiconductor device and the simplest
+                one modeled in NGSPICE, but it's model is quite complex, even if not
+                all the physical phenomena affecting a pn junction are modelled. The diode
+                is modeled in three different regions:
+            </p>
+            <p>
+                Forward bias: the anode is more positive than the cathode, the
+                diode is "on" and can conduct large currents. To avoid convergence
+                problems and unrealistic high current, it is better to specify a
+                series resistance to limit current with <var>RS</var> model parameter.
+            </p>
+            <p>
+                Reverse bias: the cathode is more positive than the anode and
+                the diode is "off". A reverse bias diode conducts a small leakage
+                current.
+            </p>
+            <p>
+                Breakdown: the breakdown region is modelled only if the <var>BV</var>
+                model parameter is given. When a diode enters breakdown the current
+                increase exponentially (remember to limit it). <var>BV</var> is a
+                positive value.
+            </p>
+            <a name="paramScaling">Parameters Scaling</a>
+            <p>
+                Model parameters are scaled using the unitless parameters <var>AREA</var>
+                and <var>PJ</var> and the multiplier <var>M</var> as depicted below:
+            </p>
+        <math xmlns="&mathml;" class="equation">
+            <mtable columnalign="left" groupalign="{left left left}">
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <maligngroup/>
+                            <mrow>
+                                <msub><mi>AREA</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <maligngroup/>
+                            <mrow>
+                                <mi>AREA</mi><mo>*</mo><mi>M</mi>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <maligngroup/>
+                            <mrow>
+                                <msub><mi>PJ</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <maligngroup/>
+                            <mrow>
+                                <mi>PJ</mi><mo>*</mo><mi>M</mi>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>IS</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>IS</mi>
+                                <mo>*</mo>
+                                <msub><mi>AREA</mi><mi>eff</mi></msub>
+                                <mo>+</mo>
+                                <mi>JSW</mi>
+                                <mo>*</mo>
+                                <msub><mi>PJ</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>IBV</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>IBV</mi><mo>*</mo> <msub><mi>AREA</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>IK</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>IK</mi><mo>*</mo> <msub><mi>AREA</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>IKR</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>IKR</mi><mo>*</mo> <msub><mi>AREA</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>CJ</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>CJ0</mi><mo>*</mo> <msub><mi>AREA</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mrow>
+                                <maligngroup/>
+                                <msub><mi>CJP</mi><mi>eff</mi></msub>
+                            </mrow>
+                            <maligngroup/>
+                            <mo>=</mo>
+                            <mrow>
+                                <maligngroup/>
+                                <mi>CJP</mi><mo>*</mo> <msub><mi>PJ</mi><mi>eff</mi></msub>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+            </mtable>
+        </math>
+        <br/>
+        <br/>
+        <a name="equations">Diode DC, Transient and AC model equations</a>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>I</mi><mi>D</mi></msub>
+                <mo>=</mo>
+                <mo>{</mo>
+                <mtable columnalign="left">
+                    <mtr>
+                        <mtd>
+                            <msub><mi>IS</mi><mi>eff</mi></msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <msup>
+                                    <mi>&ExponentialE;</mi>
+                                    <mfrac>
+                                        <mrow>
+                                            <mi>q</mi>
+                                            <mo>&InvisibleTimes;</mo>
+                                            <msub><mi>V</mi><mi>D</mi></msub>
+                                        </mrow>
+                                        <mrow><mi>N</mi><mo>&InvisibleTimes;</mo><mi>k</mi><mo>&InvisibleTimes;</mo><mi>T</mi></mrow>
+                                    </mfrac>
+                                </msup>
+                                <mo>-</mo>
+                                <mn>1</mn>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            <mo>*</mo>
+                            <mi>GMIN</mi>
+                        </mtd>
+                        <mtd>
+	    , if
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            &geq;
+                            <mo>-</mo><mn>3</mn>
+                            <mfrac>
+                                <mrow><mi>N</mi><mo>&InvisibleTimes;</mo><mi>k</mi><mo>&InvisibleTimes;</mo><mi>T</mi></mrow>
+                                <mi>q</mi>
+                            </mfrac>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <msub>
+                                <mrow><mo>-</mo><mi>IS</mi></mrow>
+                                <mi>eff</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>+</mo>
+                                <msup>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mfrac>
+                                            <mrow>
+                                                <mn>3</mn>
+                                                <mo>&InvisibleTimes;</mo>
+                                                <mi>N</mi>
+                                                <mo>&InvisibleTimes;</mo>
+                                                <mi>k</mi>
+                                                <mo>&InvisibleTimes;</mo>
+                                                <mi>T</mi>
+                                            </mrow>
+                                            <mrow>
+                                                <mi>q</mi>
+                                                <mo>&InvisibleTimes;</mo>
+                                                <msub><mi>V</mi><mi>D</mi></msub>
+                                                <mo>&InvisibleTimes;</mo>
+                                                <mi>e</mi>
+                                            </mrow>
+                                        </mfrac>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mn>3</mn>
+                                </msup>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            <mo>*</mo>
+                            <mi>GMIN</mi>
+                        </mtd>
+                        <mtd>
+	    , if
+                            <msub>
+                                <mrow><mo>-</mo><mi>BV</mi></mrow>
+                                <mi>eff</mi>
+                            </msub>
+                            &lt;
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            &lt;
+                            <mo>-</mo><mn>3</mn>
+                            <mfrac>
+                                <mrow><mi>N</mi><mo>&InvisibleTimes;</mo><mi>k</mi><mo>&InvisibleTimes;</mo><mi>T</mi></mrow>
+                                <mi>q</mi>
+                            </mfrac>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <msub>
+                                <mrow><mo>-</mo><mi>IS</mi></mrow>
+                                <mi>eff</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <msup>
+                                    <mi>&ExponentialE;</mi>
+                                    <mfrac>
+                                        <mrow>
+                                            <mo>-</mo><mi>q</mi>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <msub><mi>BV</mi><mi>eff</mi></msub><mo>+</mo> <msub><mi>V</mi><mi>D</mi></msub>
+                                                <mo>)</mo>
+                                            </mrow>
+                                        </mrow>
+                                        <mrow><mi>N</mi><mo>&InvisibleTimes;</mo><mi>k</mi><mo>&InvisibleTimes;</mo><mi>T</mi></mrow>
+                                    </mfrac>
+                                </msup>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            <mo>*</mo>
+                            <mi>GMIN</mi>
+                        </mtd>
+                        <mtd>
+	    , if 
+                            <msub><mi>V</mi><mi>D</mi></msub>
+                            &leq; <msub><mrow><mo>-</mo><mi>BV</mi></mrow><mi>eff</mi></msub>
+                        </mtd>
+                    </mtr>
+                </mtable>
+            </mrow>
+        </math>
+        <p>
+            The breakdown region must be described with more depth since the breakdown
+            is not modelled in physically.  As written before, the breakdown modelling
+            is based on two model parameters: the "nominal breakdown voltage" <var>BV</var>
+            and the current at the onset of breakdown <var>IBV</var>. For the diode
+            model to be consistent, the current value cannot be arbitrary chosen,
+            since the reverse bias and breakdown regions must match.
+        </p>
+        <p>
+            When the diode enters breakdown region from reverse bias, the current
+            is calculated using the formula:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>I</mi><mi>bdwn</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <msub><mrow><mo>-</mo><mi>IS</mi></mrow><mi>eff</mi></msub>
+                <mo>(</mo>
+                <msup>
+                    <mi>&ExponentialE;</mi>
+                    <mrow>
+                        <mfrac>
+                            <mrow>
+                                <mo>-</mo><mi>q</mi><mo>&InvisibleTimes;</mo><mi>BV</mi>
+                            </mrow>
+                            <mrow>
+                                <mi>N</mi><mo>&InvisibleTimes;</mo><mi>k</mi><mo>&InvisibleTimes;</mo><mi>T</mi>
+                            </mrow>
+                        </mfrac>
+                    </mrow>
+                </msup>
+                <mo>-</mo><mn>1</mn>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <p>
+            Note: if you look at the code in DiodeInstance.temperature() you will discover
+            that the exponential relation is replaced with a first order taylor
+            series expansion.
+        </p>
+        <p>
+            The computed current is necessary to adjust the breakdown voltage
+            making the two regions match. The algorithm is a little bit convoluted
+            and only a brief description is given here:
+        </p>
+        <span class="condition">if</span>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>IBV</mi><mi>eff</mi></msub> &lt; <msub><mi>I</mi><mi>bdwn</mi></msub>
+        </math>
+        <br/>
+        <br/>
+        <span class="condition">then</span>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>IBV</mi><mi>eff</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <msub><mi>I</mi><mi>bdwn</mi></msub>
+            </mrow>
+        </math>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>BV</mi><mi>eff</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>BV</mi>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <span class="condition">else</span>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>BV</mi><mi>eff</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mfrac>
+                    <mrow>
+                        <mi>BV</mi>
+                        <mo>-</mo>
+                        <mi>N</mi>
+                        <msub><mi>V</mi><mi>t</mi></msub>
+                        <mi>ln</mi><mo>&ApplyFunction;</mo><mo>(</mo><msub><mi>IBV</mi><mi>eff</mi></msub><mo>)</mo>
+                    </mrow>
+                    <mrow>
+                        <msub><mi>I</mi><mi>bdwn</mi></msub>
+                    </mrow>
+                </mfrac>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            Most real diodes shows a current increase that, at high current levels,
+            does not follow the exponential relationship given above. This behaviour
+            is due to high level of carriers injected into the junction. High
+            injection effects (as they are called) are modelled with <var>IK</var> and
+            <var>IKR</var>.
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>I</mi><mi>Deff</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mo>{</mo>
+                <mtable columnalign="left">
+                    <mtr>
+                        <mtd>
+                            <mfrac><msub><mi>I</mi><mi>D</mi></msub>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mo>+</mo>
+                                    <msqrt>
+                                        <mfrac>
+                                            <msub><mi>I</mi><mi>D</mi></msub>
+                                            <msub><mi>IK</mi><mi>eff</mi></msub>
+                                        </mfrac>
+                                    </msqrt>
+                                </mrow>
+                            </mfrac>
+                        </mtd>
+                        <mtd>
+                            <mrow>
+	    , if
+                                <msub><mi>V</mi><mi>D</mi></msub>
+                                &geq;
+                                <mo>-</mo><mn>3</mn>
+                                <mfrac>
+                                    <mrow><mi>N</mi>
+                                        <mo>&InvisibleTimes;</mo>
+                                        <mi>k</mi>
+                                        <mo>&InvisibleTimes;</mo>
+                                        <mi>T</mi>
+                                    </mrow>
+                                    <mi>q</mi>
+                                </mfrac>
+                            </mrow>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <mfrac>
+                                <msub><mi>I</mi><mi>D</mi></msub>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mo>+</mo>
+                                    <mrow>
+                                        <msqrt>
+                                            <mrow>
+                                                <mfrac>
+                                                    <msub><mi>I</mi><mi>D</mi></msub>
+                                                    <msub><mi>IKR</mi><mi>eff</mi></msub>
+                                                </mfrac>
+                                            </mrow>
+                                        </msqrt>
+                                    </mrow>
+                                </mrow>
+                            </mfrac>
+                        </mtd>
+                        <mtd>
+	, otherwise
+                        </mtd>
+                    </mtr>
+                </mtable>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            Diode capacitance is divided into two different terms:
+        </p>
+        <a name="depletion">Depletion capacitance</a>
+        <p>
+            Depletion capacitance is composed by two different contributes, one
+            associated to the bottom of the junction (bottowall depletion capacitance)
+            and the other to the periphery (sidewall depletion capacitance).
+        </p>
+        <p>
+            The basic equations are:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><mi>Diode</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <msub><mi>C</mi><mi>diffusion</mi></msub><mo>+</mo><msub><mi>C</mi><mi>depletion</mi></msub>
+            </mrow>
+        </math>
+        <p>
+            Where the depletion capacitance is defined as:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><mi>depletion</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <msub><mi>C</mi><msub><mi>depl</mi><mi>bw</mi></msub></msub>
+                <mo>+</mo>
+                <msub><mi>C</mi><msub><mi>depl</mi><mi>sw</mi></msub></msub>
+            </mrow>
+        </math>
+        <a name="diffusion">Diffusion capacitance</a>
+        <p>
+            The diffusion capacitance, due to the injected minority carriers is
+            modeled with the transit time <var>TT</var>:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><mi>diffusion</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mfrac>
+                    <mrow>
+                        <mo>&PartialD;</mo>
+                        <msub><mi>ID</mi><mi>eff</mi></msub>
+                    </mrow>
+                    <mrow>
+                        <mo>&PartialD;</mo>
+                        <msub><mi>V</mi><mi>D</mi></msub>
+                    </mrow>
+                </mfrac>
+                <mo>&InvisibleTimes;</mo>
+                <mi>TT</mi>
+            </mrow>
+        </math>
+        <p>
+            The depletion capacitance is more complex to model, since the function
+            used to approximate it diverges when the diode voltage become greater
+            than the junction built-in potential. To avoid function divergence, the
+            capacitance function is approximated with a linear extrapolation for
+            applied voltage greater than a fraction of the junction built-in potential.
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><msub><mi>depl</mi><mi>bw</mi></msub></msub>
+                <mo>=</mo>
+                <mo>{</mo>
+                <mtable columnalign="left">
+                    <mtr>
+                        <mtd>
+                            <mrow>
+                                <msub><mi>CJ</mi><mi>eff</mi></msub>
+                                <mo>*</mo>
+                                <msup>
+                                    <mrow>
+                                        (
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mfrac>
+                                            <msub><mi>V</mi><mi>D</mi></msub>
+                                            <mi>VJ</mi>
+                                        </mfrac>
+                                        )
+                                    </mrow>
+                                    <mrow><mo>-</mo><mi>MJ</mi></mrow>
+                                </msup>
+                            </mrow>
+                        </mtd>
+                        <mtd>
+		    , if 
+                            <msub><mi>V</mi><mi>D</mi></msub> &lt; <mi>FC</mi><mo>*</mo><mi>VJ</mi>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <msub><mi>CJ</mi><mi>eff</mi></msub>
+                            <mo>*</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi>FC</mi>
+                                    <mo>*</mo>
+                                    (
+                                    <mn>1</mn>
+                                    <mo>+</mo>
+                                    <mi>MJI</mi>
+                                    )
+                                    <mo>+</mo>
+                                    <mi>MJ</mi>
+                                    <mo>*</mo>
+                                    <mfrac>
+                                        <msub><mi>V</mi><mi>D</mi></msub>
+                                        <mi>VJ</mi>
+                                    </mfrac>
+                                </mrow>
+                                <msup>
+                                    <mrow>
+                                        (
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mi>FC</mi>
+                                        )
+                                    </mrow>
+                                    <mrow>
+                                        (
+                                        <mn>1</mn>
+                                        <mo>+</mo>
+                                        <mi>MJ</mi>
+                                        )
+                                    </mrow>
+                                </msup>
+                            </mfrac>
+                        </mtd>
+                        <mtd>
+                            <mtext>, otherwise </mtext>
+                        </mtd>
+                    </mtr>
+                </mtable>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><msub><mi>depl</mi><mi>sw</mi></msub></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mo>{</mo>
+                <mtable columnalign="left">
+                    <mtr>
+                        <mtd>
+                            <mrow>
+                                <msub><mi>CJP</mi><mi>eff</mi></msub>
+                                <mo>*</mo>
+                                <msup>
+                                    <mrow>
+                                        (
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mfrac>
+                                            <msub><mi>V</mi><mi>D</mi></msub>
+                                            <mi>PHP</mi>
+                                        </mfrac>
+                                        )
+                                    </mrow>
+                                    <mrow><mo>-</mo><mi>MJSW</mi></mrow>
+                                </msup>
+                            </mrow>
+                        </mtd>
+                        <mtd>, if
+                            <mrow>
+                                <msub><mi>V</mi><mi>D</mi></msub>
+                                &lt;
+                                <mi>FCS</mi><mo>*</mo><mi>PHP</mi>
+                            </mrow>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <msub><mi>CJP</mi><mi>eff</mi></msub>
+                            <mo>*</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi>FCS</mi>
+                                    <mo>*</mo>
+                                    (
+                                    <mn>1</mn>
+                                    <mo>+</mo>
+                                    <mi>MJSW</mi>
+                                    )
+                                    <mo>+</mo>
+                                    <mi>MJSW</mi>
+                                    <mo>*</mo>
+                                    <mfrac>
+                                        <msub><mi>V</mi><mi>D</mi></msub>
+                                        <mi>PHP</mi>
+                                    </mfrac>
+                                </mrow>
+                                <msup>
+                                    <mrow>
+                                        (1<mo>-</mo><mi>FCS</mi>)
+                                    </mrow>
+                                    <mrow>
+                                        (
+                                        <mn>1</mn>
+                                        <mo>+</mo>
+                                        <mi>MJSW</mi>
+                                        )
+                                    </mrow>
+                                </msup>
+                            </mfrac>
+                        </mtd>
+                        <mtd>, otherwise</mtd>
+                    </mtr>
+                </mtable>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The temperature affects many of the parameters in the equations above,
+            the following equations show how. One of the most significant parameter
+            that varies with the temperature for a semiconductor is the band-gap
+            energy:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>EG</mi><mi>nom</mi></msub>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mn>1.16</mn>
+                <mo>-</mo>
+                <msup><mrow><mn>7.02</mn><mi>e</mi></mrow><mrow><mo>-</mo><mn>4</mn></mrow></msup>
+                <mo>*</mo>
+                <mfrac>
+                    <mrow>
+                        <msup><mi>TNOM</mi><mn>2</mn></msup>
+                    </mrow>
+                    <mrow><mi>TNOM</mi> <mo>+</mo> <mn>1108.0</mn></mrow>
+                </mfrac>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>EG</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mn>1.16</mn>
+                <mo>-</mo>
+                <msup><mrow><mn>7.02</mn><mi>e</mi></mrow><mrow><mo>-</mo><mn>4</mn></mrow></msup>
+                <mo>*</mo>
+                <mfrac>
+                    <msup><mi>T</mi><mn>2</mn></msup>
+                    <mrow><mi>TNOM</mi> <mo>+</mo><mn>1108.0</mn></mrow>
+                </mfrac>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The leakeage currents temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>IS</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>IS</mi>
+                <mo>*</mo>
+                <msup>
+                    <mi>&ExponentialE;</mi>
+                    <mrow>
+                        <mfrac><mi>logfactor</mi><mi>N</mi>
+                        </mfrac>
+                    </mrow>
+                </msup>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>JSW</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>JSW</mi>
+                <mo>*</mo>
+                <msup>
+                    <mi>&ExponentialE;</mi>
+                    <mrow><mfrac><mi>logfactor</mi><mi>N</mi></mfrac></mrow>
+                </msup>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            where "logfactor" is defined:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                logfactor
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mfrac><mi>EG</mi><mrow><msub><mi>V</mi><mi>t</mi></msub>(<mi>TNOM</mi>)</mrow> </mfrac>
+                <mo>-</mo>
+                <mrow><mfrac><mi>EG</mi><mrow><msub><mi>V</mi><mi>t(T)</mi></msub></mrow></mfrac></mrow>
+                <mo>+</mo>
+                <mi>XTI</mi><mo>*</mo>
+                <mrow>
+                    <mi>ln</mi>
+                    <mo>&ApplyFunction; </mo>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac><mi>T</mi><mi>TNOM</mi></mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The contact potentials (bottowall an sidewall) temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>VJ</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>VJ</mi>
+                <mo>*</mo>
+                <mo>(</mo><mfrac><mi>T</mi><mi>TNOM</mi></mfrac><mo>)</mo>
+                <mo>-</mo>
+                <msub><mi>V</mi><mi>t(T)</mi></msub>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>3</mn>
+                <mo>*</mo>
+                <mrow>
+                    <mi>ln</mi>
+                    <mo>&ApplyFunction; </mo>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac><mi>T</mi><mi>TNOM</mi></mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                    <mrow>
+                        <mo>+</mo>
+                        <mfrac><msub><mi>EG</mi><mi>nom</mi></msub><mrow><msub><mi>V</mi><mi>t(TNOM)</mi></msub></mrow></mfrac>
+                        <mo>-</mo>
+                        <mfrac><mi>EG(T)</mi><msub><mi>V</mi><mi>t(T)</mi></msub></mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>PHP</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>PHP</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mfrac><mi>T</mi><mi>TNOM</mi></mfrac>
+                <mo>)</mo>
+                <mo>-</mo>
+                <msub><mi>V</mi><mi>t(T)</mi></msub>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>3</mn>
+                <mo>*</mo>
+                <mrow>
+                    <mi>ln</mi>
+                    <mo>&ApplyFunction; </mo>
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac><mi>T</mi><mi>TNOM</mi></mfrac>
+                        <mo>)</mo>
+                    </mrow>
+                </mrow>
+                <mrow>
+                    <mo>+</mo>
+                    <mfrac>
+                        <msub><mi>EG</mi><mi>nom</mi></msub>
+                        <msub><mi>V</mi><mrow><mi>t</mi><mo>(</mo><mi>TNOM</mi><mo>)</mo></mrow></msub>
+                    </mfrac>
+                    <mo>-</mo>
+                    <mfrac><mi>EG(T)</mi><msub><mi>V</mi><mi>t(T)</mi></msub></mfrac>
+                    <mo>)</mo>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The depletion capacitances temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>CJ</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>CJ</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>MJ</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <msup>
+                    <mn>4.0e</mn>
+                    <mrow><mo>-</mo><mn>4</mn></mrow>
+                </msup>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo> <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>-</mo>
+                <mfrac><mi>VJ(T)</mi><mi>VJ</mi></mfrac>
+                <mo>+</mo>
+                <mn>1</mn>
+                <mo>)</mo>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>CJSW</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>CJSW</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>MJSW</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <msup>
+                    <mn>4.0e</mn>
+                    <mrow>
+                        <mo>-</mo><mn>4</mn>
+                    </mrow>
+                </msup>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>-</mo>
+                <mfrac><mrow><mi>PHP</mi><mo>(</mo><mi>T</mi><mo>)</mo></mrow><mi>PHP</mi></mfrac>
+                <mo>+</mo>
+                <mn>1</mn>
+                <mo>)</mo>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The transit time temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>TT</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>TT</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>TTT1</mi><mo>*</mo>
+                <mo>(</mo><mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>+</mo>
+                <mi>TTT2</mi>
+                <mo>*</mo>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>T</mi>
+                        <mo>-</mo>
+                        <mi>TNOM</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                </msup>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The junction grading coefficient temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>MJ</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>MJ</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>TM1</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>+</mo>
+                <mi>TM2</mi>
+                <mo>*</mo>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>T</mi>
+                        <mo>-</mo>
+                        <mi>TNOM</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                </msup>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            The series resistance temperature dependence is:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>RS</mi>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>=</mo>
+            <mrow>
+                <mi>RS</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>TRS</mi>
+                <mo>*</mo>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>+</mo>
+                <mi>TRS2</mi>
+                <mo>*</mo>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>T</mi>
+                        <mo>-</mo>
+                        <mi>TNOM</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                </msup>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <!-- <table>
+      <tr><th>Diode - localInstance parameters (input-output)</th></tr>
+      <tr><td>off</td><td>Initially off</td></tr>
+      <tr><td>temp</td><td>Instance temperature</td></tr>
+      <tr><td>ic</td><td>Initial device voltage</td></tr>
+      <tr><td>area</td><td>Area factor</td></tr>
+      <tr><th>Diode - localInstance parameters (output-only)</th></tr>
+      <tr><td>vd</td><td>Diode voltage</td></tr>
+      <tr><td>id</td><td>Diode current</td></tr>
+      <tr><td>c</td><td>Diode current</td></tr>
+      <tr><td>gd</td><td>Diode conductance</td></tr>
+      <tr><td>cd</td><td>Diode capacitance</td></tr>
+      <tr><td>charge</td><td>Diode capacitor charge</td></tr>
+      <tr><td>capcur</td><td>Diode capacitor current</td></tr>
+      <tr><td>p</td><td>Diode power</td></tr>
+      <tr><th>Diode - localInstance parameters (input-only)</th></tr>
+      <tr><td>d</td><td>Diode localInstance</td></tr>
+      <tr><th>Diode - localInstance parameters (input-output)</th></tr>
+      <tr><td>is</td><td>Saturation current</td></tr>
+      <tr><td>tnom</td><td>Parameter measurement temperature</td></tr>
+      <tr><td>rs</td><td>Ohmic resistance</td></tr>
+      <tr><td>n</td><td>Emission Coefficient</td></tr>
+      <tr><td>tt</td><td>Transit Time</td></tr>
+      <tr><td>cjo</td><td>Junction capacitance</td></tr>
+      <tr><td>cj0</td><td>null</td></tr>
+      <tr><td>vj</td><td>Junction potential</td></tr>
+      <tr><td>m</td><td>Grading coefficient</td></tr>
+      <tr><td>eg</td><td>Activation energy</td></tr>
+      <tr><td>xti</td><td>Saturation current temperature exp.     </td></tr>
+      <tr><td>kf</td><td>flicker noise coefficient</td></tr>
+      <tr><td>af</td><td>flicker noise exponent</td></tr>
+      <tr><td>fc</td><td>Forward bias junction fit parameter</td></tr>
+      <tr><td>bv</td><td>Reverse breakdown voltage</td></tr>
+      <tr><td>ibv</td><td>Current at reverse breakdown voltage</td></tr>
+      <tr><th>Diode - localInstance parameters (output-only)</th></tr>
+      <tr><td>cond</td><td>Ohmic conductance</td></tr>
+  </table>
+        -->
+        </body>
+    </html>

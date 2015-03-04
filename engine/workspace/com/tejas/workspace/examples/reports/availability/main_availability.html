@@ -1,0 +1,291 @@
+<html>
+<head><title>Availability report</title></head>
+<body>
+<h1>Contents</h1>
+
+<ul>
+	<li><a href='#sectionIntroduction'>Introduction</a>
+	    <ul>
+		    <li><a href='#sectionCharacterizationFailureStates'>Characterization of failure states</a></li>
+		    <li><a href='#sectionRe-establishmentMechanisms'>Re-establishment mechanisms</a></li>
+		    <li><a href='#sectionRe-establishmentOptions'>Options for re-establishment approaches</a></li>
+	    </ul>
+	</li>
+	<li><a href='#sectionAvailabilitySingleState'>Availability computation under a failure state</a></li>
+	<li><a href='#sectionAvailabilityStateSet'>Availability computation under a failure state set</a></li>
+	<li><a href='#sectionInformationTables'>Information tables</a>
+	    <ul>
+		    <li><a href='#perRouteInfo'>Per-route availability</a></li>
+		    <li><a href='#perDemandInfo'>Per-demand availability</a></li>
+		    <li><a href='#networkInfo'>Network-wide availability</a></li>
+	    </ul>
+	</li>
+	<li><a href='#sectionReferences'>References</a></li>
+</ul>
+
+<a name='sectionIntroduction'></a>
+<h1>Introduction</h1>
+
+<p>As any engineering system, a network (or a part thereof) can fail for a number of reasons: faulty hardware, software bugs, breakage of physical medium (e.g. fiber cables), and even because of power outages. These are examples of failures that affect specific and, generally, separated network elements. The issue is that designed networks are resilient (robust) to failures, i.e., the networks are able to carry (possible decreased) traffic demands also when a part of network resources are temporarily failed.</p>
+
+<p>In this report, the availability of the network under different failures is analyzed.</p>
+
+<p>Let be <i>G(N,E)</i> a network where <i>N</i> is the set of nodes and <i>E</i> is the set of links. Nodes and links are built on certain resources:</p>
+
+<p>In order to study the reliability of a network, these resources or elements are grouped into failure groups or SRGs (<i>Shared Risk Group</i>).</p>
+
+<p>A failure group is defined as a set of network elements which are affected by the same failure risk. Therefore, all the elements go to a failure state at the same time. Let <i>F</i> be the set of SRGs within the network and <i>f &isin; F</i> a failure group. Then:</p>
+<ul>
+    <li>Nodes and links can be attached to none, one or several failure groups.</li>
+    <li>Given a node <i>n</i>, we denote <i>F(n)</i> as the set of failure groups associated to that node.</li>
+    <li>Likewise, <i>F(e)</i> denotes the set of failure groups associated to link <i>e</i>.</li>
+    <li>When a node or link is not attached to any failure group (e.g. <i>F(n)=&empty;</i>), it is assumed that it will not suffer any fault. Otherwise, a node or link is down if any of the failure group associated is faulty.</li>
+</ul>
+
+<a name='sectionCharacterizationFailureStates'></a>
+<h2>Characterization of failure states</h2>
+
+<p>The different failure situations are specified by the availability status of the links and nodes. Each failure state (situation) <i>s</i> is characterized by a vector of binary node availability coefficients <i>&alpha;<sub>n</sub><sup>s</sup></i> and a vector of binary link availability coefficients <i>&alpha;<sub>e</sub><sup>s</sup></i>, where <i>s = 0, 1, ..., S</i> is the predefined list of failure situations. Although it is a common practice in the literature, no single-failure assumption is made. Conversely, we use the concept of <i>shared risk group</i> or failure group.</p>
+
+<p>A shared risk group (SRG) is a set of network elements that are collectively impacted by a specific fault or fault type. For example, a shared risk link group (SRLG) is the union of all the links on those fibers that are routed in the same physical conduit in a fiber-span network. This concept includes, besides shared conduit, other types of compromise such as shared fiber cable, power sharing...</p>
+
+<p>Let <i>F</i> be a set of failure groups defined within the network. We denote <i>f&isin;F</i> as a failure group. Nodes and links can be attached to none, one or several failure groups. Given a node <i>n</i>, we denote <i>F(n)</i> as the set of failure groups associated to that node. Likewise, <i>F(e)</i> denotes the set of failure groups associated to link <i>e</i>. When a node or link is not attached to any failure group (e.g. <i>F(n)=&empty;</i>), it is assumed that it will not suffer any fault. Otherwise, a node or link is down if any of the failure group associated is faulty.</p>
+
+<p><b>Example</b>: In the network defined in the following figure, the links traverse several conduits from the origin node to their respective destination node. If the conduit is cutted, all links are broken. To model this fact, we assume that every conduit is a failure group. Hence, each link is associated to every failure group corresponding to the traversed conduits: <i>F(e<sub>12</sub>) = {f<sub>1</sub>, f<sub>3</sub>}, F(e<sub>13</sub>) = {f<sub>1</sub>, f<sub>2</sub>}, F(e<sub>23</sub>) = &empty;</i>.</p>
+
+<center><img src='sampleNetwork.png' /></center>
+
+<p>Given a failure group <i>f</i>, we denote <i>MTTF<sub>f</sub></i> and <i>MTTR<sub>f</sub></i> as the <i>Mean Time To Fail</i> and <i>Mean Time To Repair</i> of the group, respectively. The availability <i>A<sub>f</sub></i> of a group <i>f</i> is defined as the fraction of time in which the group is up:</p>
+
+<center><img src='availability.png' /></center>
+
+<!--
+A_{f} = \frac{MTTF_{f}}{MTTF_{f}+MTTR_{f}}
+-->
+
+<p>We denote <i>S</i> as the set of possible states in which the network can be found. A network state <i>s</i> is defined by the set of affected failure groups. We denote <i>s<sub>0</sub></i> as the normal operation state in which no resource is faulty (<i>s<sub>0</sub>=&empty;</i>).</p>
+
+<p>Given a path <i>p</i>, we denote as <i>F(p)</i> as the set of failure groups associated to that path. Typically that is equal to the union of the failure group set of nodes and links within the path.
+
+<center>
+	<img src='failureGroupsPath.png' />
+</center>
+
+<!--
+F(p) = \left[\bigcap_{e \in p} F(e)\right] \bigcap  \left[\bigcap_{n \in p} F(n)\right]
+-->
+
+For example, in the previous example, the path <i>p={e<sub>31</sub>, e<sub>12</sub>}</i> is attached to failure groups <i>F(p)={f<sub>1</sub>, f<sub>2</sub>, f<sub>3</sub>}</i>.
+
+<p>Likewise, given a demand <i>d</i>, we denote <i>F(d)</i> as the set of failure groups associated to any path carrying traffic of that demand. Finally, given a demand set <i>D</i>, we denote as <i>F(D)</i> as the set of failure groups traversed by any demand in <i>D</i>.</p>
+
+<p>As an assumption, when a network is in a state with no failures (<i>s<sub>0</sub></i>) every demand carries the 100% of the traffic. Conversely, when the network is found in a given state <i>s &ne; s<sub>0</sub></i>, it is likely to loss a fraction of traffic, depending on the fault and the protection/restoration mechanism defined within the network.</p>
+
+<p>Given a route <i>p<sub>d</sub></i>, a demand <i>d</i>, or a set of demands <i>D</i>, we define the concept of availability on a twofold manner:</p>
+
+<ul>
+	<li>Classic availability: Time percentage in which a path, demand or demand set carries the 100% of traffic which carried under the state <i>s<sub>0</sub></i>. We denote that value as <i>A(p<sub>d</sub>)</i>, <i>A(d)</i> or <i>A(D)</i>, respectively.</li>
+	<li>Weighted availability: Traffic fraction which is carried under a long time observing the network (when a succession of faults and reparations happens), with respect to the traffic carried under the state <i>s<sub>0</sub></i>. We denote that value as <img src='hatA.png' /><i>(p<sub>d</sub>)</i>, <img src='hatA.png' /><i>(d)</i> or <img src='hatA.png' /><i>(D)</i>, respectively. Note that the following is always satisfied:
+
+	<center>
+		<img src='availabilityComparison.png' />
+	</center>
+	</li>
+
+	<!--
+	\begin{align*}
+		A(p_{d}) &= \hat{A}(p_{d})\\
+		A(d) &= \hat{A}(d)\\
+		A(D) &= \hat{A}(D)\\
+	\end{align*}
+	-->
+
+</ul>
+
+<p>This report does not discuss the sequence of events of how network failures are monitored, detected, and mitigated. For more detail of this aspect, see [<a href='#RFC3469'>1</a>]. Also, the repair process following a failure is out of the scope here.</p>
+
+<a name='sectionRe-establishmentMechanisms'></a>
+<h2>Re-establishment mechanisms</h2>
+
+<p>An important feature of the mechanisms assuring network resilience is the way in which resources are re-established in case of failures, i.e., protection versus restoration. The term <i>protection</i> is used to describe mechanisms that take action to restore connections <i>before</i> the failure happens, while <i>restoration</i> refers to mechanisms with such actions taken <i>after</i> the failure. In fact, with protection no actions may be taken and still the network can be resilient, e.g., for networks designed with bifurcated routing (also known as path diversity).</p>
+
+<p>We classified re-establishment techniques into three different categories [<a href='#Wang2002'>2</a>]:</p>
+<ul>
+	<li>Path re-establishment</li>
+	<li>Subpath re-establishment</li>
+	<li>Link re-establishment</li>
+</ul>
+
+<p>In <i>path re-establishment</i>, when an element of a path fails, a route between the ingress node and the egress node of each active connection traversing the affected element should be found. Conversely, in <i>link re-establishment</i> a backup route between the adjacent nodes of the affected element should be found. Finally, in <i>subpath re-establishment</i> a backup route between a predecessor node before the failure and a node after the failure should be found.</p>
+
+<center>
+	<img src='reestablishmentTechniques.png' />
+</center>
+
+<a name='sectionRe-establishmentOptions'></a>
+<h2>Options for re-establishment approaches</h2>
+
+This section, provides a discussion of the principles and options of re-establishment. The options are presented in terms of atomic terms that may be combined to specify recovery approaches. Although some options are attractive, for the sake of simplicity are not considered within <tt>Net2Plan</tt>.
+
+<ul>
+	<li><p><i>Recovery granularity</i>. This option allows for the protection of a fraction of traffic within the backup path.</p>
+
+	<p>In <tt>Net2Plan</tt> this option is configured on a per-route basis by the boolean parameter <tt>partialRecoveryAllowed</tt>.</p></li>
+	<li><p><i>Post recovery operation</i>. When traffic is flowing on the backup path, decisions can be made as to whether to let the traffic remain on the backup path and consider it as a new primary path or to do a switch back to the old or to a new working path. Primary routes are pre-configured with the appropriate behavior to take when they are    restored to service. The choices are revertive and non-revertive mode. In <i>revertive mode</i>, if the primary path always is the preferred path, this path will be used whenever it is available. In <i>non-revertive mode</i>, there is no preferred path or it may be desirable to minimize further disruption of the service brought on by a revertive switching operation, hence a switch-back to the original primary path is not desired.</p>
+
+	<p>In <tt>Net2Plan</tt> this option is configured on a per-route basis by the boolean parameter <tt>revertiveMode</tt>.</p></li>
+	<li><p><i>Backup segment resource usage</i>. In the case of pre-reserved backup segments, there is the question of what use these resources may be put to when the backup path is not in use. There are three options:</p>
+		<ul>
+			<li><i>Shared-resource</i>: A shared recovery resource is dedicated for use by multiple primary resources that (according to SRGs) are not expected to fail simultaneously.</li>
+			<li><i>Dedicated-resource</i>: If the backup segment resources are dedicated, they may not be used for anything except carrying for a primary route traffic.</li>
+			<li><i>Extra-traffic-allowed</i>: If backup segments only carry traffic when primary path(s) fails, then it is possible to allow extra (low priority traffic) to use the reserved resources at other times. Extra traffic is, by definition, traffic that can be displaced (without violating service agreements) whenever the backup path resources are needed for carrying the primary path(s) traffic.</li>
+		</ul>
+
+		<p>In <tt>Net2Plan</tt> only the <i>Dedicated-resource</i> and <i>Shared-resource</i> options are considered.</p>
+	</li>
+	<li><p><i>Loop prevention</i>. A loop in an path is defined as the path traversing a node for more than once. In subpath and link restoration techniques, since the backup segment is identified as part of the primary path, it should be ensured that these two parts do not overlap with each other at any node.</p>
+
+	<p>In <tt>Net2Plan</tt> the kernel does not check for routing loops, the user is free to implement loop prevention mechanisms in their provisioning algorithms.</p></li>
+	<li><p><i>Split path protection</i>. In split path protection, multiple backup paths are allowed to carry the traffic of a working path based on a certain load splitting ratio. This is especially useful when no single backup path can be found to carry traffic from the primary path in case of a fault.</p>
+
+	<p>Provisioning algorithms have the option to define new routes, so users are free to decide the routing under failure states.</p></li>
+</ul>
+
+<a name='sectionAvailabilitySingleState'></a>
+<h1>Availability computation under a failure state</h1>
+
+<p>Given a network <i>G(N, E)</i>, a traffic demand set <i>D</i>, a routing, a protection/restoration policy, and a network state <i>s</i> with its associated affected failure group set <i>F(s)</i>, we can compute the blocked traffic <i>L(p<sub>d</sub>)<sup>s</sup></i>, <i>L(d)<sup>s</sup></i>, <i>L(D)<sup>s</sup></i>, as the fraction of the planned traffic for path <i>p<sub>d</sub></i>, for demand <i>d</i> or for demand set <i>D</i>, respectively, which was carried under the state <i>s<sub>0</sub></i>, but is not carried under the state <i>s</i>.</p>
+
+<p>From that values, we can compute availability of paths, demands and network in the following way:</p>
+
+<ul>
+	<li>
+
+		<p>Classic availability. In this case, the availability on a given state <i>s</i> is 1 if all planned traffic remains being carried. Otherwise, availability is equal to 0:</p>
+
+		<ul>
+			<li><i>A(d)<sup>s</sup>=1</i> if the 100% of <i>d &isin; D</i> traffic survives, and 0, otherwise.</li>
+			<li><i>A(D)<sup>s</sup>=1</i> if the 100% of <i>D</i> traffic survives, and 0, otherwise.</li>
+		</ul>
+
+	</li>
+	<li>
+
+		<p>Weighted availability. In this case, the availability is the fraction of traffic which survives:</p>
+
+		<ul>
+			<li><i>A(d)<sup>s</sup>=1-L(d)<sup>s</sup></i>.</li>
+			<li><i>A(D)<sup>s</sup>=1-L(D)<sup>s</sup></i>.</li>
+		</ul>
+
+	</li>
+
+</ul>
+
+<a name='sectionAvailabilityStateSet'></a>
+<h1>Availability computation under a failure state set</h1>
+
+<p>Suppose that a network is composed of a set of states <i>S</i>. <i>S</i> always contains the state <i>s<sub>0</sub></i>, and can contain other failure states to consider too. For example, every single failure (only a failure group), or every single or double failure. By doing so, we are assuming that the influence of other network states (e.g. triple failures) is negligible.</p>
+
+<p>Given a state <i>s &ne; s<sub>0</sub></i>, the set of failure groups with a fault is denoted by <i>F(s)</i>. Therefore, assuming that faults in failure groups happen in an statistically independent way, we have the fraction of time <i>&pi;<sub>s</sub></i> in which the network can be found under state <i>s</i> is given by:</p>
+
+<center>
+	<img src='pi_s.png' />
+</center>
+
+<!--
+\pi_s = \prod_{f \in F(s)} (1 - A_f) \prod_{f \not \in F(s)} A_f
+-->
+
+<p>Hence, the fraction of time in which network can be found under the state <i>s<sub>0</sub></i> is given by:</p>
+
+<center>
+	<img src='pi_s0.png' />
+</center>
+
+<!--
+\pi_{s_0} = \prod_{f \in F} A_f
+-->
+
+where <i>F</i> is the set of all failure groups within the network. We can compute the fraction of time <i>&pi;</i><sub>excess</sub> in which the network is under a network state not considered in <i>S</i> as follows:
+
+<center>
+	<img src='pi_excess.png' />
+</center>
+
+<!--
+\pi_{\text{excess}} = 1 - \sum_{s \in S} \pi_s
+-->
+
+In case that <i>&pi;</i><sub>excess</sub> is a low value, we know that the error made when we do not consider every possible network state is low.
+
+From that values we can compute the availability values of routes, demands and network in the following way:
+
+<ul>
+	<li>Classic availability: We averaged the availability of every network state, with the fraction of time in which network can be found under this state:
+
+	<center>
+		<img src='classicAvailability.png' />
+	</center>
+
+	<!--
+	\begin{align*}
+	A(d) &= (\pi_{s_0} + \pi_{\text{excess}}) A(d)^{s_0} + \sum_{s \in S-s_0} \pi_s A(d)^s \\
+	A(D) &= (\pi_{s_0} + \pi_{\text{excess}}) A(D)^{s_0} + \sum_{s \in S-s_0} \pi_s A(D)^s
+	\end{align*}
+	-->
+	</li>
+	<li>Weighted availability: We averaged the availability of every network state, with the fraction of time in which network can be found under this state:
+
+	<center>
+		<img src='weightedAvailability.png' />
+	</center>
+
+	<!--
+	\begin{align*}
+	\hat A(d) &= (\pi_{s_0} + \pi_{\text{excess}}) \hat A(d)^{s_0} + \sum_{s \in S-s_0} \pi_s \hat A(d)^s \\
+	\hat A(D) &= (\pi_{s_0} + \pi_{\text{excess}}) \hat A(D)^{s_0} + \sum_{s \in S-s_0} \pi_s \hat A(D)^s
+	\end{align*}
+	-->
+	</li>
+</ul>
+
+Note that states not considered in <i>S</i> are included within the "no failure" state <i>s<sub>0</sub></i>, that is, we are giving an optimistic estimation of the availability. We can give a pesimistic estimation assuming that during the fraction of time given by <i>&pi;</i><sub>excess</sub>, the network is faulty and its availability is zero:
+
+<center>
+	<img src='pesimisticAvailability.png' />
+</center>
+
+<!--
+\begin{align*}
+A(p_d) &= \pi_{s_0} A(p_d)^{s_0} + \sum_{s \in S-s_0} \pi_s A(p_d)^s \\
+A(d) &= \pi_{s_0} A(d)^{s_0} + \sum_{s \in S-s_0} \pi_s A(d)^s \\
+A(D) &= \pi_{s_0} A(D)^{s_0} + \sum_{s \in S-s_0} \pi_s A(D)^s\\
+\hat A(p_d) &= \pi_{s_0} \hat A(p_d)^{s_0} + \sum_{s \in S-s_0} \pi_s \hat A(p_d)^s \\
+\hat A(d) &= \pi_{s_0} \hat A(d)^{s_0} + \sum_{s \in S-s_0} \pi_s \hat A(d)^s \\
+\hat A(D) &= \pi_{s_0} \hat A(D)^{s_0} + \sum_{s \in S-s_0} \pi_s \hat A(D)^s
+\end{align*}
+-->
+
+<a name='sectionInformationTables'></a>
+<h1>Information tables</h1>
+
+<h2><a name='perDemandInfo'>Per-demand availability</a></h2>
+
+#perDemandInfo#
+
+<h2><a name='networkInfo'>Network-wide availability</a></h2>
+
+#networkInfo#
+
+<a name='sectionReferences'></a>
+<h1>References</h1>
+
+<a name='RFC3469'></a>
+[1] V. Sharma and F. Hellstrand (Eds.), "Framework for Multi-Protocol Label Switching (MPLS)-based Recovery", RFC 3469, 2003.
+<br />
+<a name='Wang2002'></a>
+[2] J. Wang, L. Sahasrabuddhe and B. Mukherjee, "Path vs. Subpath vs. Link Restoration for Fault Management in IP-over-WDM Networks: Performance Comparisons Using GMPLS Control Signaling", <i>IEEE Communications Magazine</i>, vol. 40, no. 11, pp. 80-87, 2002.
+
+</body>
+</html>

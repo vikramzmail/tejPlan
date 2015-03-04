@@ -1,0 +1,25 @@
+Basic RC circuit
+r1 1 2 10.0
+r2 2 0 20.0
+*l 1 2 1.0
+*c 2 0 20.0
+vin 1 0 dc 30
+*vin 1 0 pwl(0 1 2 3) ac 1
+*vin 1 0 pulse(0 1)
+*vin 1 0 sin(0 1 1)
+*vin 1 0 exp(0 1)
+*vin 1 0 sffm(0 1)
+*.options noacct
+*.tran  0.1 7.0
+*.print tran  v(2) i(vin)
+*.plot tran  v(2) i(vin)
+*.dc vin 0.1 1 0.1
+*.print dc  v(2) i(vin)
+.op
+*.plot dc  v(2) i(vin)
+*.ac dec 10 .01 10
+*.AC oct 10 0.1 10
+*.AC LIN 10 0.1 10
+*.plot ac  v(2) i(vin)
+*.print ac  v(2)
+.end

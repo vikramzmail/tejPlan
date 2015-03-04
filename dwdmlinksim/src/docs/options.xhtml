@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <p>
+Simulator Variables (.OPTIONS)
+
+
+Various parameters of the simulations available in Ngspice can be altered
+to control the accuracy, speed, or default values for some devices.
+These parameters may be changed via the "set" command (described later
+in the section on the interactive front-end) or via the ".OPTIONS" line:
+
+ General form:
+
+<code>
+     .OPTIONS OPT1 OPT2 ... (or OPT=OPTVAL ...)
+</code>
+
+
+ Examples:
+
+<code>
+     .OPTIONS RELTOL=.005 TRTOL=8
+</code>
+
+
+The options line allows the user to reset program control and user
+options for specific simulation purposes.  Additional options for Nutmeg
+may be specified as well and take effect when Nutmeg reads the input
+file.  Options specified to Nutmeg via the 'set' command are also passed
+on to NGSPICE as if specified on a .OPTIONS line.  See the following
+section on the interactive command interpreter for the parameters which
+may be set with a .OPTIONS line and the format of the 'set' command.
+Any combination of the following options may be included, in any order.
+'x' (below) represents some positive number.
+
+@vtable @code
+
+@item ABSTOL=x
+
+resets the absolute current error tolerance of the program.  The default
+value is 1 picoamp.
+
+@item BADMOS3
+
+Use the older version of the MOS3 model with the "kappa" discontinuity.
+
+@item CHGTOL=x
+
+resets the charge tolerance of the program.  The default value is
+1.0e-14.
+
+@item DEFAD=x
+
+resets the value for MOS drain diffusion area; the default is 0.0.
+
+@item DEFAS=x
+
+resets the value for MOS source diffusion area; the default is 0.0.
+
+@item DEFL=x
+
+resets the value for MOS channel length; the default is 100.0
+micrometer.
+
+@item DEFW=x
+
+resets the value for MOS channel width; the default is 100.0 micrometer.
+
+@item GMIN=x
+
+resets the value of GMIN, the minimum conductance allowed by the
+program.  The default value is 1.0e-12.
+
+@item ITL1=x
+
+resets the dc iteration limit.  The default is 100.
+
+@item ITL2=x
+
+resets the dc transfer curve iteration limit.  The default is 50.
+
+@item ITL3=x
+
+resets the lower transient analysis iteration limit.  the default value
+is 4.  (Note: not implemented in Ngspice).
+
+@item ITL4=x
+
+resets the transient analysis timepoint iteration limit.  the default is
+10.
+
+@item ITL5=x
+
+resets the transient analysis total iteration limit.  the default is
+5000.  Set ITL5=0 to omit this test.  (Note: not implemented in Ngspice).
+
+@item KEEPOPINFO
+
+Retain the operating point information when either an AC, Distortion, or
+Pole-Zero analysis is run.  This is particularly useful if the circuit
+is large and you do not want to run a (redundant) ".OP" analysis.
+
+@item METHOD=name
+
+sets the numerical integration method used by NGSPICE.  Possible names are
+"Gear" or "trapezoidal" (or just "trap").  The default is trapezoidal.
+
+@item PIVREL=x
+
+resets the relative ratio between the largest column entry and an
+acceptable pivot value. The default value is 1.0e-3.  In the numerical
+pivoting algorithm the allowed minimum pivot value is determined by
+EPSREL=AMAX1(PIVREL*MAXVAL, PIVTOL) where MAXVAL is the maximum element
+in the column where a pivot is sought (partial pivoting).
+
+@item PIVTOL=x
+
+resets the absolute minimum value for a matrix entry to be accepted as a
+pivot.  The default value is 1.0e-13.
+
+@item RELTOL=x
+
+resets the relative error tolerance of the program.  The default value
+is 0.001 (0.1%).
+
+@item TEMP=x
+
+Resets the operating temperature of the circuit.  The default value is
+27 deg C (300 deg K).  TEMP can be overridden by a temperature
+specification on any temperature dependent instance.
+
+@item TNOM=x
+
+resets the nominal temperature at which device parameters are measured.
+The default value is 27 deg C (300 deg K).  TNOM can be overridden by a
+specification on any temperature dependent device model.
+
+@item TRTOL=x
+
+resets the transient error tolerance.  The default value is 7.0.  This
+parameter is an estimate of the factor by which NGSPICE overestimates the
+actual truncation error.
+
+@item TRYTOCOMPACT
+
+Applicable only to the LTRA model.  When specified, the simulator tries
+to condense LTRA transmission lines' past history of input voltages and
+currents.
+
+@item VNTOL=x
+
+resets the absolute voltage error tolerance of the program.  The default
+value is 1 microvolt.
+
+@end vtable
+
+In addition, the following options have the listed effect when operating
+in spice2 emulation mode:
+
+@table @code
+
+@item ACCT
+
+causes accounting and run time statistics to be printed
+
+@item LIST
+
+causes the summary listing of the input data to be printed
+
+@item NOMOD
+
+suppresses the printout of the model parameters
+
+@item NOPAGE
+
+suppresses page ejects
+
+@item NODE
+
+causes the printing of the node table.
+
+@item OPTS
+
+causes the option values to be printed.
+        </p>
+    </body>
+</html>

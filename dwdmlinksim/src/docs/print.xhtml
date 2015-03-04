@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Print Output</title>
+    </head>
+    <body>
+        <span class="intro">
+            <big>.PRINT Lines</big><br/>
+            <br/>
+            <br/>
+            General form:<br/>
+            <br/>
+            <code>.PRINT PRTYPE OV1 [OV2 ... OV8]</code><br/>
+            <br/>
+            <br/>
+            Examples:<br/>
+            <br/>
+            <code>.PRINT TRAN V(4) I(VIN)</code><br/>
+            <code>.PRINT DC V(2) I(VSRC) V(23, 17)</code><br/>
+            <code>.PRINT AC VM(4, 2) VR(7) VP(8, 3)</code><br/>
+        </span>
+        <p>
+            The Print line defines the contents of a tabular listing of one to eight
+            output variables.  <var>PRTYPE</var> is the type of the analysis (DC, AC, TRAN<!--,
+            NOISE, or DISTO-->) for which the specified outputs are desired.<!--  The form
+            for voltage or current output variables is the same as given in the
+            previous section for the print command; Spice2 restricts the output
+            variable to the following forms (though this restriction is not enforced
+            by Ngspice):-->
+        </p>
+
+        V(N1[,N2])
+        <p>
+            specifies the voltage difference between nodes <var>N1</var> and <var>N2</var>.
+            If <var>N2</var> (and the preceding comma) is omitted, ground (0) is assumed.
+            <!--See the <a href="save.xhtml">save</a> command in the previous section for more details.-->
+            For compatibility with spice2, the following five additional values can be accessed for
+            the ac analysis by replacing the "V" in V(N1,N2) with:
+        </p>
+        <code>VR    -    real part</code><br/>
+        <code>VI    -    imaginary part</code><br/>
+        <code>VM    -    magnitude</code><br/>
+        <code>VP    -    phase</code><br/>
+        <code>VDB   -    20  log10(magnitude)</code><br/>
+        <br/>
+        I(VXXXXXXX)
+        <p>
+            specifies the current flowing in the independent voltage source named
+            VXXXXXXX.  Positive current flows from the positive node, through the
+            source, to the negative node.  For the ac analysis, the corresponding
+            replacements for the letter I may be made in the same way as described
+            for voltage outputs.
+        </p>
+        <!--p>
+            Output variables for the noise and distortion analyses have a different
+            general form from that of the other analyses.
+        </p-->
+        <p>
+            There is no limit on the number of .PRINT lines for each type of
+            analysis.
+        </p>
+    </body>
+</html>

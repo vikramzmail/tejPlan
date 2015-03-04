@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Switch</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <span class="intro">
+            <big>Spice Modeling</big>
+            <br/>	<br/>
+            General form:
+            <br/>
+            <code>SXXXXXXX N+ N- NC+ NC- MODEL [ON][OFF]</code><br/>
+            <code>WYYYYYYY N+ N- VNAM MODEL [ON][OFF]</code><br/>
+            <br/>
+            Examples:
+            <br/>
+            <code>s1 1 2 3 4 switch1 ON</code><br/>
+            <code>s2 5 6 3 0 sm2 off</code><br/>
+            <code>Switch1 1 2 10 0 smodel1</code><br/>
+            <code>w1 1 2 vclock switchmod1</code><br/>
+            <code>W2 3 0 vramp sm1 ON</code><br/>
+            <code>wreset 5 6 vclck lossyswitch OFF</code><br/>
+        </span>
+        <br/>
+        <p>
+            Nodes 1 and 2 are the nodes between which the switch terminals are
+            connected.  The model name is mandatory while the initial conditions are
+            optional.  For the voltage controlled switch, nodes 3 and 4 are the
+            positive and negative controlling nodes respectively.  For the current
+            controlled switch, the controlling current is that through the specified
+            voltage source.  The direction of positive controlling current flow is
+            from the positive node, through the source, to the negative node.
+        </p>
+        <p>
+            The switch model allows an almost ideal switch to be described in NGSPICE.
+            The switch is not quite ideal, in that the resistance can not change
+            from 0 to infinity, but must always have a finite positive value.  By
+            proper selection of the on and off resistances, they can be effectively
+            zero and infinity in comparison to other circuit elements.  The
+            parameters available are:
+        </p>
+        <table border="1">
+            <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Switch</td></tr>
+            <tr><td>VT</td><td>Threshold voltage</td><td>Volts</td><td>0.0</td><td>S</td></tr>
+            <tr><td>IT</td><td>Threshold current</td><td>Amps</td><td>0.0</td><td>W</td></tr>
+            <tr><td>VH</td><td>Hysteresis voltage</td><td>Volts</td><td>0.0</td><td>S</td></tr>
+            <tr><td>IH</td><td>Hysteresis current</td><td>Amps</td><td>0.0</td><td>W</td></tr>
+            <tr><td>RON</td><td>On resistance</td><td>Z</td><td>1.0</td><td>both</td></tr>
+            <tr><td>ROFF</td><td>Off resistance</td><td>Z</td><td>1/GMIN*</td><td>both</td></tr>
+        </table>
+        <p>
+            *(See the .OPTIONS control line for a description of GMIN, its default
+            value results in an off-resistance of 1.0e+12 ohms.)
+        </p>
+        <p>
+            The use of an ideal element that is highly nonlinear such as a switch
+            can cause large discontinuities to occur in the circuit node voltages.
+            A rapid change such as that associated with a switch changing state can
+            cause numerical roundoff or tolerance problems leading to erroneous
+            results or timestep difficulties.  The user of switches can improve the
+            situation by taking the following steps:
+        </p>
+        <p>
+            First, it is wise to set ideal switch impedances just high or low enough
+            to be negligible with respect to other circuit elements.  Using switch
+            impedances that are close to "ideal" in all cases aggravates the problem
+            of discontinuities mentioned above.  Of course, when modelling real
+            devices such as MOSFETS, the on resistance should be adjusted to a
+            realistic level depending on the size of the device being modelled.
+        </p>
+        <p>
+            If a wide range of <var>ON</var> to <var>OFF</var> resistance must be used in the switches
+            (<var>ROFF</var>/<var>RON</var> >1e+12), then the tolerance on errors allowed during transient
+            analysis should be decreased by using the .OPTIONS control line and
+            specifying <var>TRTOL</var> to be less than the default value of 7.0.  When
+            switches are placed around capacitors, then the option <var>CHGTOL</var> should
+            also be reduced.  Suggested values for these two options are 1.0 and
+            1e-16 respectively.  These changes inform NGSPICE to be more careful
+            around the switch points so that no errors are made due to the rapid
+            change in the circuit.
+        </p>
+        <!--
+        <table border="1">
+                     <tr><th>CSwitch - Instance parameters (input-only)</th></tr>
+                     <tr><td>on</td><td>Initially closed</td></tr>
+                     <tr><td>off</td><td>Initially open</td></tr>
+                     <tr><th>CSwitch - Instance parameters (input-output)</th></tr>
+                     <tr><td>control</td><td>Name of controlling source</td></tr>
+                     <tr><th>CSwitch - Instance parameters (output-only)</th></tr>
+                     <tr><td>posIndex</td><td>Positive node Index</td></tr>
+                     <tr><td>negIndex</td><td>Negative node Index</td></tr>
+                     <tr><td>i</td><td>Switch current</td></tr>
+                     <tr><td>p</td><td>Instantaneous power</td></tr>
+                     <tr><th>CSwitch - Instance parameters (input-output)</th></tr>
+                     <tr><td>csw</td><td>Current controlled switch localInstance</td></tr>
+                     <tr><td>it</td><td>Threshold current</td></tr>
+                     <tr><td>ih</td><td>Hysteresis current</td></tr>
+                     <tr><td>ron</td><td>Closed resistance</td></tr>
+                     <tr><td>roff</td><td>Open resistance</td></tr>
+                     <tr><th>CSwitch - localInstance parameters (output-only)</th></tr>
+                     <tr><td>gon</td><td>Closed conductance</td></tr>
+                     <tr><td>goff</td><td>Open conductance</td></tr>
+             </table>
+	-->
+    </body>
+</html>

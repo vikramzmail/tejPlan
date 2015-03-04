@@ -1,0 +1,25 @@
+BJT DC Test
+
+vcc 4 0 10
+vin 1 0 sin(4 1 1)
+
+ccouple 1 2 1
+
+*ibias 0 1 sin(0 100uA 1)
+rbias 2 4 10k
+rbias2 0 2 10k
+rload 4 3 1k
+
+*q1 3 2 0 0 test
+*.op
+*.model test npn kf=1e-20 af=1 bf=100 rb=10 level=2
+m1  3 2  0 5 m w=88.9u  l=25.4u
+.model m nmos(level=5 nsub=2.2e15 uo=575 ucrit=49k uexp=0.1 tox=0.11u xj=2.95u cgso=1.5n cgdo=1.5n cbd=4.5f cbs=4.5f ld=2.4485u nss=3.2e10 kp=2e-5 phi=0.6 )
+*.model m nmos(level=1 nsub=2.2e15 uo=575 tox=0.11u cgso=1.5n cgdo=1.5n cbd=4.5f cbs=4.5f ld=2.4485u nss=3.2e10 kp=2e-5 phi=0.6 )
+*.model m nmos(level=6 nsub=2.2e15 uo=575 tox=0.11u cgso=1.5n cgdo=1.5n cbd=4.5f cbs=4.5f ld=2.4485u nss=3.2e10 phi=0.6 )
+
+.tran 0.1 10
+.print tran v(3) v(2)
+*.plot tran v(3) v(2)
+.end
+* mos 5 foobar mos6 off mos9 .op a little off bsim2 & 2 bad

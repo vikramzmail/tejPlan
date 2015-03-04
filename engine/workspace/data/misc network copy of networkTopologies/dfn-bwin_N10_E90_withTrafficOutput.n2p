@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?><network description="DFN-Verein bwin Network with 10 nodes and 90 unidirectional links, including a demand set. All links capacities are set to the same value so that no link becomes over-subscribed under shortest-path routing (measured in km)&#10;&#10;Source: SNDLib" name="DFN-Verein bwin Network">
+    <physicalTopology>
+        <node name="Frankfurt" xCoord="8.4" yCoord="50.07"/>
+        <node name="Koeln" xCoord="6.57" yCoord="50.57"/>
+        <node name="Hamburg" xCoord="10.02" yCoord="53.34"/>
+        <node name="Hannover" xCoord="9.44" yCoord="52.23"/>
+        <node name="Karlsruhe" xCoord="8.24" yCoord="49.01"/>
+        <node name="Stuttgart" xCoord="9.11" yCoord="48.47"/>
+        <node name="Muenchen" xCoord="11.34" yCoord="48.08"/>
+        <node name="Nuernberg" xCoord="11.05" yCoord="49.27"/>
+        <node name="Berlin" xCoord="13.18" yCoord="52.32"/>
+        <node name="Leipzig" xCoord="12.22" yCoord="51.21"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="163.07404232826255" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="163.07404232826255" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="631.8430159669726" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="631.8430159669726" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="361.29040806354135" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="361.29040806354135" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="520.2184596697051" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="520.2184596697051" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="368.97864086475266" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="368.97864086475266" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="466.5161164670735" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="466.5161164670735" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="550.5208236279537" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="550.5208236279537" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="602.6147325646799" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="602.6147325646799" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="266.3915151946094" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="266.3915151946094" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="381.8455737820721" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="381.8455737820721" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="368.41768550383114" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="368.41768550383114" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="113.78275633152843" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="113.78275633152843" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="233.18261280773092" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="233.18261280773092" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="366.21753512228224" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="366.21753512228224" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="359.6393263737435" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="359.6393263737435" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="513.6004385493457" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="513.6004385493457" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="136.10272271663098" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="136.10272271663098" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="518.3530638529688" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="518.3530638529688" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="307.5937285446502" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="307.5937285446502" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="660.7642206473352" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="660.7642206473352" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="505.32606508447617" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="505.32606508447617" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="251.7425991126649" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="251.7425991126649" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="460.57463922330794" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="460.57463922330794" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="329.05031819270437" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="329.05031819270437" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="340.26860058395073" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="340.26860058395073" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="442.97733996763316" numWavelengths="40" originNodeId="9"/>
+        <link destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="442.97733996763316" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="405.50883830210194" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="405.50883830210194" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="491.64039087707204" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="491.64039087707204" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="139.16643246990338" numWavelengths="40" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="139.16643246990338" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="415.7091130659515" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="415.7091130659515" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="374.42163901313126" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="374.42163901313126" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="507.18094432657847" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="507.18094432657847" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="419.4172843477005" numWavelengths="40" originNodeId="3"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="419.4172843477005" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="194.51079108121493" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="194.51079108121493" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="622.5437877889075" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="622.5437877889075" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="251.55859913745752" numWavelengths="40" originNodeId="5"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="251.55859913745752" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="394.4947803980175" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="394.4947803980175" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="597.914406786791" numWavelengths="40" originNodeId="6"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="597.914406786791" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="210.8031627375643" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="210.8031627375643" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="253.94019985815578" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="253.94019985815578" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="759.8089512569853" numWavelengths="40" originNodeId="1"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="759.8089512569853" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="313.5809550104727" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="313.5809550104727" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="413.38133521406087" numWavelengths="40" originNodeId="7"/>
+        <link destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="413.38133521406087" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="587.0554890237889" numWavelengths="40" originNodeId="8"/>
+        <link destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="587.0554890237889" numWavelengths="40" originNodeId="0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="119.12146925084521" numWavelengths="40" originNodeId="4"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="119.12146925084521" numWavelengths="40" originNodeId="0"/>
+    </physicalTopology>
+    <demandSet>
+        <demandEntry egressNodeId="1" ingressNodeId="0" offeredTrafficInErlangs="60.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="0" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="0" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="0" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="6" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="3" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="9" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="2" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="8" offeredTrafficInErlangs="20.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="0" offeredTrafficInErlangs="40.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="0" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="4" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="1" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="1" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="4" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="0" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="1" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="0" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="4" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="5" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="3" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="8" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="0" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="6" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="9" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="8" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="9" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="5" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="2" ingressNodeId="7" offeredTrafficInErlangs="10.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="5" offeredTrafficInErlangs="30.0"/>
+        <demandEntry egressNodeId="7" ingressNodeId="2" offeredTrafficInErlangs="10.0"/>
+    </demandSet>
+    <routingInfo>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="0">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="1">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="2">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="3">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="5">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="39">
+            <linkEntry id="77"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="55" seqWavelengths="0">
+            <linkEntry id="53"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="55" seqWavelengths="1">
+            <linkEntry id="53"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="55" seqWavelengths="2">
+            <linkEntry id="53"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="22" seqWavelengths="0">
+            <linkEntry id="17"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="22" seqWavelengths="1">
+            <linkEntry id="17"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="22" seqWavelengths="2">
+            <linkEntry id="17"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="11" seqWavelengths="0">
+            <linkEntry id="89"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="11" seqWavelengths="1">
+            <linkEntry id="89"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="11" seqWavelengths="3">
+            <linkEntry id="89"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="11" seqWavelengths="6">
+            <linkEntry id="89"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="66" seqWavelengths="0">
+            <linkEntry id="67"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="66" seqWavelengths="1">
+            <linkEntry id="67"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="66" seqWavelengths="2">
+            <linkEntry id="67"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="1" seqWavelengths="0">
+            <linkEntry id="73"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="1" seqWavelengths="1">
+            <linkEntry id="73"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="2" seqWavelengths="0">
+            <linkEntry id="37"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="2" seqWavelengths="1">
+            <linkEntry id="37"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="3" seqWavelengths="1">
+            <linkEntry id="87"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="3" seqWavelengths="2">
+            <linkEntry id="87"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="77" seqWavelengths="0">
+            <linkEntry id="51"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="77" seqWavelengths="1">
+            <linkEntry id="51"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="77" seqWavelengths="3">
+            <linkEntry id="51"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="44" seqWavelengths="1">
+            <linkEntry id="76"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="44" seqWavelengths="2">
+            <linkEntry id="76"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="44" seqWavelengths="39">
+            <linkEntry id="76"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="16" seqWavelengths="1">
+            <linkEntry id="55"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="18" seqWavelengths="1">
+            <linkEntry id="21"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="17" seqWavelengths="0">
+            <linkEntry id="78"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="28" seqWavelengths="0">
+            <linkEntry id="27"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="23" seqWavelengths="2">
+            <linkEntry id="75"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="35" seqWavelengths="0">
+            <linkEntry id="34"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="31" seqWavelengths="1">
+            <linkEntry id="80"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="26" seqWavelengths="1">
+            <linkEntry id="3"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="7" seqWavelengths="0">
+            <linkEntry id="52"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="7" seqWavelengths="1">
+            <linkEntry id="52"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="32" seqWavelengths="1">
+            <linkEntry id="54"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="34" seqWavelengths="1">
+            <linkEntry id="56"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="67" seqWavelengths="1">
+            <linkEntry id="6"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="86" seqWavelengths="1">
+            <linkEntry id="12"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="80" seqWavelengths="0">
+            <linkEntry id="14"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="89" seqWavelengths="1">
+            <linkEntry id="10"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="83" seqWavelengths="1">
+            <linkEntry id="8"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="85" seqWavelengths="39">
+            <linkEntry id="49"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="5" seqWavelengths="0">
+            <linkEntry id="16"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="5" seqWavelengths="2">
+            <linkEntry id="16"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="19" seqWavelengths="1">
+            <linkEntry id="20"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="64" seqWavelengths="0">
+            <linkEntry id="57"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="51" seqWavelengths="1">
+            <linkEntry id="18"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="62" seqWavelengths="1">
+            <linkEntry id="64"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="53" seqWavelengths="1">
+            <linkEntry id="62"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="78" seqWavelengths="1">
+            <linkEntry id="60"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="65" seqWavelengths="0">
+            <linkEntry id="58"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="60" seqWavelengths="0">
+            <linkEntry id="47"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="33" seqWavelengths="0">
+            <linkEntry id="88"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="33" seqWavelengths="1">
+            <linkEntry id="88"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="33" seqWavelengths="2">
+            <linkEntry id="88"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="15" seqWavelengths="1">
+            <linkEntry id="79"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="27" seqWavelengths="1">
+            <linkEntry id="7"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="39" seqWavelengths="1">
+            <linkEntry id="19"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="29" seqWavelengths="1">
+            <linkEntry id="23"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="42" seqWavelengths="39">
+            <linkEntry id="29"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="48" seqWavelengths="1">
+            <linkEntry id="83"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="50" seqWavelengths="1">
+            <linkEntry id="39"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="47" seqWavelengths="1">
+            <linkEntry id="41"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="88" seqWavelengths="0">
+            <linkEntry id="66"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="88" seqWavelengths="1">
+            <linkEntry id="66"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="88" seqWavelengths="2">
+            <linkEntry id="66"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="20" seqWavelengths="39">
+            <linkEntry id="26"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="70" seqWavelengths="1">
+            <linkEntry id="13"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="41" seqWavelengths="1">
+            <linkEntry id="65"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="13" seqWavelengths="2">
+            <linkEntry id="22"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="14" seqWavelengths="0">
+            <linkEntry id="70"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="72" seqWavelengths="1">
+            <linkEntry id="24"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="63" seqWavelengths="1">
+            <linkEntry id="68"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="36" seqWavelengths="1">
+            <linkEntry id="45"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="4" seqWavelengths="0">
+            <linkEntry id="72"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="4" seqWavelengths="3">
+            <linkEntry id="72"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="21" seqWavelengths="1">
+            <linkEntry id="74"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="69" seqWavelengths="1">
+            <linkEntry id="15"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="40" seqWavelengths="0">
+            <linkEntry id="63"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="38" seqWavelengths="39">
+            <linkEntry id="28"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="46" seqWavelengths="39">
+            <linkEntry id="71"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="24" seqWavelengths="2">
+            <linkEntry id="32"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="57" seqWavelengths="39">
+            <linkEntry id="30"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="52" seqWavelengths="39">
+            <linkEntry id="5"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="9" seqWavelengths="1">
+            <linkEntry id="36"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="56" seqWavelengths="1">
+            <linkEntry id="35"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="87" seqWavelengths="1">
+            <linkEntry id="11"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="75" seqWavelengths="1">
+            <linkEntry id="61"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="37" seqWavelengths="39">
+            <linkEntry id="82"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="82" seqWavelengths="1">
+            <linkEntry id="25"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="10" seqWavelengths="1">
+            <linkEntry id="33"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="84" seqWavelengths="39">
+            <linkEntry id="84"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="12" seqWavelengths="39">
+            <linkEntry id="43"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="8" seqWavelengths="0">
+            <linkEntry id="86"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="8" seqWavelengths="2">
+            <linkEntry id="86"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="30" seqWavelengths="0">
+            <linkEntry id="81"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="59" seqWavelengths="1">
+            <linkEntry id="9"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="43" seqWavelengths="1">
+            <linkEntry id="59"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="54" seqWavelengths="1">
+            <linkEntry id="38"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="71" seqWavelengths="1">
+            <linkEntry id="69"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="58" seqWavelengths="39">
+            <linkEntry id="31"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="76" seqWavelengths="2">
+            <linkEntry id="85"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="49" seqWavelengths="0">
+            <linkEntry id="1"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="6" seqWavelengths="1">
+            <linkEntry id="50"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="6" seqWavelengths="2">
+            <linkEntry id="50"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="45" seqWavelengths="1">
+            <linkEntry id="2"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="81" seqWavelengths="39">
+            <linkEntry id="48"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="68" seqWavelengths="39">
+            <linkEntry id="46"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="61" seqWavelengths="0">
+            <linkEntry id="40"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="74" seqWavelengths="0">
+            <linkEntry id="44"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="73" seqWavelengths="0">
+            <linkEntry id="4"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="79" seqWavelengths="39">
+            <linkEntry id="42"/>
+        </route>
+        <route carriedTrafficInErlangs="10.0" demandId="25" seqWavelengths="1">
+            <linkEntry id="0"/>
+        </route>
+    </routingInfo>
+</network>

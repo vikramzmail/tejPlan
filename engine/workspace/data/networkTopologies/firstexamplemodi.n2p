@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><network description="" name="">
+    <physicalTopology>
+        <node name="Node 1" xCoord="504.2727355957031" yCoord="-33.0"/>
+        <node name="Node 3" xCoord="500.0" yCoord="-135.0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="1"/>
+    </physicalTopology>
+</network>

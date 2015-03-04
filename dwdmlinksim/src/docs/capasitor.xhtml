@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd" [
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>Capasitor's</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <span class="intro">
+                <big>Capasitor's</big>
+                <br/>
+                <br/>
+	        General form:
+                <br/>
+                <code>CXXXXXXX N+ N- [VALUE] [MNAME] [M=VALUE] [SCALE=VALUE] [TEMP=VALUE]
+                    [DTEMP=VALUE] [IC=INIT_CONDITION]</code>
+                <br/>
+                <br/>
+                Examples:
+                <br/>
+                <code>CBYP 13 0 1UF</code>
+                <br/>
+                <code>COSC 17 23 10U IC=3V</code><br/>
+            </span>
+            <p>
+                Ngspice provides a detailed model for capacitors.  Capacitors in the netlist can
+                be specified giving their capacitance or their geometrical and physical
+                characteristics. Following the original spice3 "convention", capacitors
+                specified by their geometrical or physical characteristics are called
+                "semiconductor capacitors" and are described in the next section.
+            </p>
+            <p>
+                In this first form <var>N+</var> and <var>N-</var> are the positive and negative
+                element nodes, respectively and  <var>VALUE</var> is the capacitance in Farads.
+            </p>
+            <p>
+                Capacitance can be specified in the instance line as in the examples above or
+                in a <span class="command">.model</span> line, as in the example below:
+            </p>
+            <code>C1 15 5 cstd</code><br/>
+            <code>C2  2 7 cstd</code><br/>
+            <br/>
+            <code>.model cstd C cap=3n</code>
+            <p>
+                Both capacitors have a capacitance of 3nF.
+            </p>
+            <p>
+                If you want to simulate temperature dependence of a capacitor, you need to
+                specify its temperature coefficients, using a <span class="command">.model</span> line, like in the
+                example below:
+            </p>
+            <code>CEB 1 2 1u cap1 dtemp=5</code><br/>
+            <br/>
+            <code>.MODEL cap1 C tc1=0.001</code>
+            <p>
+                The (optional) initial condition is the initial (timezero) value of
+                capacitor voltage (in Volts).  Note that the initial conditions (if any)
+                apply 'only' if the <var>UIC</var> option is specified on the <span class="command">.tran</span>
+                control line.
+            </p>
+            <p>
+                Ngspice calculates the nominal capacitance as described below:
+            </p>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>C</mi><mi>nom</mi></msub>
+            <mo>=</mo>
+            <mrow><mi>value</mi><mo>*</mo><mi>scale</mi><mo>*</mo><mi>m</mi></mrow>
+        </math>
+        <br/>
+        <br/>
+        <a name="semicap">Capasitor - SemiConductor</a>
+        <br/>
+        <br/>
+	General form:
+        <br/>
+        <code>
+            CXXXXXXX N+ N- [VALUE] [MNAME] [L=LENGTH] [W=WIDTH] [M=VALUE]
+            [SCALE=VALUE] [TEMP=VALUE] [DTEMP=VALUE] [IC=INIT_CONDITION]
+        </code>
+        <br/>
+        <p>
+            Examples:
+        </p>
+        <code>CLOAD 2 10 10P</code><br/>
+        <code>CMOD 3 7 CMODEL L=10u W=1u</code>
+
+        <p>
+            This is the more general form of the Capacitor presented in section
+            (@pxref{Capacitors}), and allows for the calculation of the actual capacitance
+            value from strictly geometric information and the specifications of the process.
+            If <var>VALUE</var> is specified, it defines the capacitance and both process and
+            geometrical information are discarded. If <var>VALUE</var> is not specified, the
+            capacitance is calculated from information contained model <var>MNAME</var> and
+            the given length and width (<var>L</var>, <var>W</var> keywords, respectively)
+            It is possible to specify  <var>MNAME</var> only, without geometrical dimensions
+            and set the capacitance in the <span class="command">.model</span> line (@pxref{Capacitors})
+        </p>
+        <p>
+            The capacitor model contains process information that may be used to
+            compute the capacitance from strictly geometric infordation.
+        </p>
+        <table border="1">
+            <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td></tr>
+            <tr><td>CAP</td><td>Model capacitance</td><td>F</td><td>0.0</td><td>1e-6</td></tr>
+            <tr><td>CJ</td><td>Junction bottom capacitance</td><td>F/meters<sup>2</sup></td><td>-</td><td>5e-5</td></tr>
+            <tr><td>CJSW</td><td>Junction sidewall capacitance</td><td>F/meters</td><td>-</td><td>2e-11</td></tr>
+            <tr><td>DEFW</td><td>Default device width</td><td>meters</td><td>1e-6</td><td>2e-6</td></tr>
+            <tr><td>DEFL</td><td>Default device length</td><td>meters</td><td>0.0</td><td>1e-6</td></tr>
+            <tr><td>NARROW</td><td>Narrowing due to side etching</td><td>meters</td><td>0.0</td><td>1e-7</td></tr>
+            <tr><td>SHORT</td><td>Shorting due to side etching</td><td>meters</td><td>0.0</td><td>1e-7</td></tr>
+            <tr><td>TC1</td><td>First order temperature coeff.</td><td>F/<sup>o</sup>C</td><td>0.0</td><td>0.001</td></tr>
+            <tr><td>TC2</td><td>Second order temperature coeff.</td><td>F/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td>0.0001</td></tr>
+            <tr><td>TNOM</td><td>Parameter measurement temperature</td><td><sup>o</sup>C</td><td>27</td><td>50</td></tr>
+            <tr><td>DI</td><td>Relative dielectric constant</td><td>F/m</td><td>0.0</td><td>1</td></tr>
+            <tr><td>THICK</td><td>Insulator thickness</td><td>meters</td><td>0.0</td><td>1e-9</td></tr>
+        </table>
+        <br/>
+        <p>
+            The capacitor has a capacitance computed as:
+        </p>
+        <p>
+            If <var>VALUE</var> is specified on the instance line then
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>C</mi><mi>nom</mi></msub>
+            <mo>=</mo>
+            <mrow>
+                <mrow>
+                    <mi>value</mi>
+                    <mo>*</mo>
+                    <mi>scale</mi>
+                </mrow>
+                <mo>*</mo>
+                <mi>m</mi>
+            </mrow>
+        </math>
+        <p>
+            If model capacitance is specified then
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>C</mi><mi>nom</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mrow>
+                        <mi>CAP</mi>
+                        <mo>*</mo>
+                        <mi>scale</mi>
+                    </mrow>
+                    <mo>*</mo>
+                    <mi>m</mi>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            If neither <var>VALUE</var> nor <var>CAP</var> are specified, then geometrical and
+            physical parameters are take into account:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>C</mi><mi>0</mi></msub>
+            <mo>=</mo>
+            <mi>CJ</mi>
+            <mo>&af;</mo>
+            <mo>(</mo>
+            <mi>l</mi>
+            <mo>-</mo>
+            <mi>SHORT</mi>
+            <mo>)</mo>
+            <mo>&af;</mo>
+            <mo>(</mo>
+            <mi>w</mi>
+            <mo>-</mo>
+            <mi>NARROW</mi>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mn>2</mn>
+            <mo>&af;</mo>
+            <mi>CJSW</mi>
+            <mo>&af;</mo>
+            <mo>(</mo>
+            <mi>l</mi>
+            <mo>-</mo>
+            <mi>SHORT</mi>
+            <mo>+</mo>
+            <mi>w</mi>
+            <mo>-</mo>
+            <mi>NARROW</mi>
+            <mo>)</mo>
+        </math>
+        <p>
+            <var>CJ</var> can be explicitly given on the <span class="command">.model</span> line or calculated
+            by physical parameters. When <var>CJ</var> is not given, is calculated as:
+        </p>
+        <p>
+            If <var>THICK</var> is not zero:
+        </p>
+        <p>
+            if <var>DI</var> is specified:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mi>CJ</mi>
+            <mo>=</mo>
+            <mfrac>
+                <mrow>
+                    <mi>DI</mi>
+                    <mo>*</mo>
+                    <msub><mi>&straightepsilon;</mi><mi>0</mi></msub>
+                </mrow>
+                <mi>THICK</mi>
+            </mfrac>
+        </math>
+        <p>
+            otherwise:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mi>CJ</mi>
+            <mo>=</mo>
+            <mrow>
+                <mfrac>
+                    <msub>
+                        <mo>&straightepsilon;</mo>
+                        <msub><mi>SiO</mi><mi>2</mi></msub>
+                    </msub>
+                    <mi>THICK</mi>
+                </mfrac>
+            </mrow>
+        </math>
+        <p>
+            with:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>&straightepsilon;</mi><mi>0</mi></msub>
+            <mo>=</mo>
+            <msup><mrow><mn>8.854214871</mn><mi>e</mi></mrow><mrow><mo>-</mo><mn>12</mn></mrow></msup>
+            <mfrac><mi>F</mi><mi>m</mi></mfrac>
+        </math>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>&straightepsilon;</mi><msub><mi>SiO</mi><mi>2</mi></msub></msub>
+            <mo>=</mo>
+            <msup>
+                <mrow>
+                    <mn>3.4531479969</mn>
+                    <mi>e</mi>
+                </mrow>
+                <mrow>
+                    <mo>-</mo>
+                    <mn>11</mn>
+                </mrow>
+            </msup>
+            <mfrac><mi>F</mi><mi>m</mi></mfrac>
+        </math>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>C</mi><mi>nom</mi></msub>
+            <mo>=</mo>
+            <mrow>
+                <msub><mi>C</mi><mi>0</mi></msub>
+                <mo>*</mo>
+                <mi>scale</mi>
+                <mo>*</mo>
+                <mi>m</mi>
+            </mrow>
+        </math>
+        <p>
+            After the nominal capacitance is calculated, it is adjusted for temperature
+            by the formula:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mi>C</mi>
+            <mo>(</mo>
+            <mi>T</mi>
+            <mo>)</mo>
+            <mo>=</mo>
+            <mrow>
+                <mi>C</mi>
+                <mo>(</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>&it;</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <msub><mi>TC</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>+</mo>
+                <msub>
+                    <mi>TC</mi>
+                    <mn>2</mn>
+                </msub>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>T</mi>
+                        <mo>-</mo>
+                        <mi>TNOM</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                </msup>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <p>
+	where
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mi>C</mi>
+            <mo>(</mo>
+            <mi>TNOM</mi>
+            <mo>)</mo>
+            <mo>=</mo>
+            <msub><mi>C</mi><mi>nom</mi></msub>
+        </math>
+        <p>
+            In the above formula, '<math xmlns="&mathml;"><mi>T</mi></math>'
+        represents the instance temperature, which can be
+        explicitly using the <var>TEMP</var> keyword or os calculated using the
+        circuit temperature and <var>DTEMP</var>, if present.
+        </p>
+        </body>
+    </html>

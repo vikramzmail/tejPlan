@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><network description="Fictitious mesh network connecting the four most populated cities in Spain. It is composed of 4 nodes and 10 unidirectional links. It does not contain any traffic demand" name="4-node network">
+    <physicalTopology>
+        <node level="1" name="Madrid" population="3265038" xCoord="0.0" yCoord="0.0"/>
+        <node level="1" name="Barcelona" population="1615448" xCoord="652.15083456" yCoord="107.07645432"/>
+        <node level="1" name="Valencia" population="798033" xCoord="368.39358024" yCoord="-105.44054568"/>
+        <node level="1" name="Sevilla" population="703021" xCoord="-256.0699284" yCoord="-337.34176296"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="25.0" linkLengthInKm="660.882802081464" originNodeId="0"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="25.0" linkLengthInKm="383.186036587115" originNodeId="0"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="25.0" linkLengthInKm="423.52245898859" originNodeId="0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="25.0" linkLengthInKm="660.882802081464" originNodeId="1"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="25.0" linkLengthInKm="354.516085203796" originNodeId="1"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="25.0" linkLengthInKm="383.186036587115" originNodeId="2"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="25.0" linkLengthInKm="354.516085203796" originNodeId="2"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="25.0" linkLengthInKm="666.132755686826" originNodeId="2"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="25.0" linkLengthInKm="423.52245898859" originNodeId="3"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="25.0" linkLengthInKm="666.132755686826" originNodeId="3"/>
+    </physicalTopology>
+</network>

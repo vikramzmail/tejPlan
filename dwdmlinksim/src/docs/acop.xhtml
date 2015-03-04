@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Small-Signal AC Analysis</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <p>
+            The ac small-signal portion of NGSPICE computes the ac output variables
+            as a function of frequency.  The program first computes the dc
+            operating point of the circuit and determines linearized, small-signal
+            models for all of the nonlinear devices in the circuit.  The resultant
+            linear circuit is then analyzed over a user-specified range of
+            frequencies.  The desired output of an ac small-signal analysis is
+            usually a transfer function (voltage gain, transimpedance, etc).  If
+            the circuit has only one ac input, it is convenient to set that input
+            to unity and zero phase, so that output variables have the same value
+            as the transfer function of the output variable with respect to the
+            input.
+        </p>
+        <p>
+            .AC:  Small-Signal AC Analysis
+            <br/>
+            <br/>
+            General form:
+        </p>
+        <code>.AC DEC ND FSTART FSTOP</code><br/>
+        <code>.AC OCT NO FSTART FSTOP</code><br/>
+        <code>.AC LIN NP FSTART FSTOP</code>
+        <p>
+            Examples:
+        </p>
+        <br/>
+        <code>.AC DEC 10 1 10K</code><br/>
+        <code>.AC DEC 10 1K 100MEG</code><br/>
+        <code>.AC LIN 100 1 100HZ</code>
+        <p>
+            <var>DEC</var> stands for decade variation, and <var>ND</var> is the number of points per
+            decade.  <var>OCT</var> stands for octave variation, and <var>NO</var> is the number of points
+            per octave.  <var>LIN</var> stands for linear variation, and <var>NP</var> is the number of
+            points.  <var>FSTART</var> is the starting frequency, and <var>FSTOP</var> is the final
+            frequency.  If this line is included in the input file, NGSPICE performs
+            an <var>AC</var> analysis of the circuit over the specified frequency range.  Note
+            that in order for this analysis to be meaningful, at least one
+            independent source must have been specified with an ac value.
+        </p>
+    </body>
+</html>

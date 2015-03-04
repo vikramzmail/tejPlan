@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><network description="" name="">
+    <physicalTopology>
+        <node name="Node 0" xCoord="59.0" yCoord="-33.0"/>
+        <node name="Node 1" xCoord="504.2727355957031" yCoord="-33.0"/>
+        <node name="Node 2" xCoord="59.0" yCoord="-135.09091186523438"/>
+        <node name="Node 3" xCoord="500.0" yCoord="-135.0"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="1"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="0"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="2"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="2"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="3"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="0.0" linkLengthInKm="0.0" originNodeId="2"/>
+    </physicalTopology>
+</network>

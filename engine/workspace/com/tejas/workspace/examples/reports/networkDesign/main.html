@@ -1,0 +1,160 @@
+<html>
+<head><title>Network design report</title></head>
+<body>
+
+<h1>Contents</h1>
+
+<ul>
+	<li><a href='#sectionIntroduction'>Introduction</a></li>
+	<li><a href='#sectionTopologyMetrics'>Topology metrics</a></li>
+	<li><a href='#sectionCapacityMetrics'>Capacity metrics</a></li>
+	<li><a href='#sectionTrafficMetrics'>Traffic (demands and routing) metrics</a></li>
+	<li><a href='#sectionNodeInformation'>Detailed per-node description</a></li>
+	<li><a href='#sectionLinkInformation'>Detailed per-link description</a></li>
+	<li><a href='#sectionDemandInformation'>Detailed per-demand description</a></li>
+	<li><a href='#sectionRouteInformation'>Detailed per-route description</a></li>
+	<li><a href='#sectionSegmentInformation'>Detailed per-protection segment description</a></li>
+	<li><a href='#sectionSRGInformation'>Detailed per-SRG description</a></li>
+</ul>
+
+<a name='sectionIntroduction'><h1>Introduction</h1></a>
+
+<p>This report extracts information from the network topology: links and nodes in the network, and adds some metrics related to link capacities and offered and carried traffic, if this information is available. The description and formulas included in this report follow the notation guidelines described in the Notation section in the <tt>Net2Plan</tt> help file.</p>
+
+<a name='sectionTopologyMetrics'><h1>Topology metrics</h1></a>
+
+<p>This section includes some metrics calculated from the topology. Clicking the metric name links to the description of the metric.</p>
+
+<center>
+<table border="1">
+	<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+	<tr><td><a href='#metrics_numberOfNodes'>Number of nodes (|<i>N</i>|)</a></td><td>#topologyMetrics_N#</td></tr>
+	<tr><td><a href='#metrics_numberOfLinks'>Number of unidirectional links (|<i>E</i>|)</a></td><td>#topologyMetrics_E#</td></tr>
+	<tr><td><a href='#metrics_averageNodeDegree'>Average node degree</a></td><td>#topologyMetrics_averageNodeDegree#</td></tr>
+	<tr><td><a href='#metrics_averageLinkDistance'>Average link distance (km)</a></td><td>#topologyMetrics_averageLinkLength#</td></tr>
+	<tr><td><a href='#metrics_networkDiameter_hops'>Network diameter (hops)</a></td><td>#topologyMetrics_networkDiameter_hops#</td></tr>
+	<tr><td><a href='#metrics_networkDiameter_km'>Network diameter (km)</a></td><td>#topologyMetrics_networkDiameter_km#</td></tr>
+	<tr><td><a href='#metrics_averageShortestPath_hops'>Average shortest path distance (hops)</a></td><td>#topologyMetrics_averageShortestPath_hops#</td></tr>
+	<tr><td><a href='#metrics_averageShortestPath_km'>Average shortest path distance (km)</a></td><td>#topologyMetrics_averageShortestPath_km#</td></tr>
+	<tr><td><a href='#metrics_isConnected'>Connected topology?</a></td><td>#topologyMetrics_isConnected#</td></tr>
+	<tr><td><a href='#metrics_isBidirectional'>Bidirectional topology (links)?</a></td><td>#topologyMetrics_isBidirectional#</td></tr>
+	<tr><td><a href='#metrics_isWeightedBidirectional'>Bidirectional topology (links & capacities)?</a></td><td>#topologyMetrics_isWeightedBidirectional#</td></tr>
+	<tr><td><a href='#metrics_isSimple'>Simple topology?</a></td><td>#topologyMetrics_isSimple#</td></tr>
+</table>
+</center>
+
+<dl>
+	<dt><a name='metrics_numberOfNodes'></a>Number of nodes (|<i>N</i>|)</dt><dd>The number of nodes of the topology.</dd>
+	<dt><a name='metrics_numberOfLinks'></a>Number of unidirectional links (|<i>E</i>|)</dt><dd>The number of unidirectional links of the topology.</dd>
+	<dt><a name='metrics_averageNodeDegree'>Average node degree</a></dt><dd>This is the ratio between the number of links and number of nodes in the network. Is given by:<center><br /><img src='averageNodeDegree.png' alt='Average node degree' /></center><br /></dd>
+	<dt><a name='metrics_averageLinkDistance'>Average link distance (km)</a></dt><dd>The sum of the distances in km of all the links, divided by the number of links. Is given by:<center><br /><img src='averageLinkDistance.png' alt='Average link distance (km)' /></center><br /></dd>
+	<dt><a name='metrics_networkDiameter_hops'>Network diameter (hops)</a></dt><dd>The number of hops that has the shortest path (in number of hops) with largest number of hops among all the shortest paths between every node pair in the network. Is given by:<center><br /><img src='networkDiameter_hops.png' alt='Network diameter (hops)' /></center><br />where <i>SP<sub>h</sub></i>(<i>i</i>&rarr;<i>j</i>) is a shortest path in number of hops from node <i>i</i> to node <i>j</i>, and as usual |<i>p</i>| represents the number of traversed links of a path <i>p</i>.</dd>
+	<dt><a name='metrics_networkDiameter_km'>Network diameter (km)</a></dt><dd>The length in km that has the shortest path (in km) with largest length (in km) among all the shortest paths between every node pair in the network. Is given by:<center><br /><img src='networkDiameter_km.png' alt='Network diameter (km)' /></center><br />where <i>SP<sub>km</sub></i>(<i>i</i>&rarr;<i>j</i>) is a shortest path in km from node <i>i</i> to node <i>j</i>, and as usual <i>l<sub>km</sub></i>(<i>p</i>) represents the sum of the km traversed by path <i>p</i>.</dd>
+	<dt><a name='metrics_averageShortestPath_hops'>Average shortest path distance (hops)</a></dt><dd>The average number of hops of the shortest paths (in number of hops) among every node pair in the network. Is given by:<center><br /><img src='averageShortestPath_hops.png' alt='Average shortest path distance (hops)' /></center><br />where <i>SP<sub>h</sub></i>(<i>i</i>&rarr;<i>j</i>) is a shortest path in number of hops from node <i>i</i> to node <i>j</i>, and as usual |<i>p</i>| represents the number of traversed links of a path <i>p</i>.</dd>
+	<dt><a name='metrics_averageShortestPath_km'>Average shortest path distance (km)</a></dt><dd>The average length in km of the shortest paths (in km) among all the shortest paths between every node pair in the network. Is given by:<center><br /><img src='averageShortestPath_km.png' alt='Average shortest path distance (km)' /></center><br />where <i>SP<sub>km</sub></i>(<i>i</i>&rarr;<i>j</i>) is a shortest path in km from node <i>i</i> to node <i>j</i>, and as usual <i>l<sub>km</sub></i>(<i>p</i>) represents the sum of the km traversed by path <i>p</i>.</dd>
+	<dt><a name='metrics_isConnected'></a>Connected topology?</dt><dd>'Yes' if the topology is connected, 'No' otherwise. A topology is connected if for every two nodes <i>i</i>,<i>j</i> &isin; <i>N</i>, <i>i</i>&ne;<i>j</i>, there is a path between them traversing the links in the network.</dd>
+	<dt><a name='metrics_isBidirectional'>Bidirectional topology (links)?</a></dt><dd>'Yes' if the topology is bidirectional according to the links, 'No' otherwise. A topology is bidirectional according to the links, if for every two nodes <i>i</i>,<i>j</i> &isin; <i>N</i>, <i>i</i>&ne;<i>j</i>, the number of links <i>i</i>&rarr;<i>j</i> equals the number of links <i>j</i>&rarr;<i>i</i>.</dd>
+	<dt><a name='metrics_isWeightedBidirectional'>Bidirectional topology (links and capacities)?</a></dt><dd>'Yes' if the topology is bidirectional according to the links and the capacities, 'No' otherwise. A topology is bidirectional according to the links and the capacities, if for every two nodes <i>i</i>,<i>j</i> &isin; <i>N</i>, <i>i</i>&ne;<i>j</i>, the number of links <i>i</i>&rarr;<i>j</i>, at a given capacity value <i>u</i>, equals the number of links <i>j</i>&rarr;<i>i</i> with the same capacity value.</dd>
+	<dt><a name='metrics_isSimple'>Simple topology?</a></dt><dd>'Yes' if the topology is simple, 'No' otherwise. A topology is simple of it does not have parallel links nor self-links. Two links <i>e</i>, <i>e</i>' are parallel if they have the same input node and the same output node (<i>a</i>(<i>e</i>) = <i>a</i>(<i>e</i>'), <i>b</i>(<i>e</i>) = <i>b</i>(<i>e</i>')). Link <i>e</i> is a self-link if <i>a</i>(<i>e</i>) = <i>b</i>(<i>e</i>). Self-links are not allowed in <tt>Net2Plan</tt>.</dd>
+</dl>
+
+
+<a name='sectionCapacityMetrics'><h1>Capacity metrics</h1></a>
+<p>This section includes some metrics calculated from link capacities. Clicking the metric name links to the description of the metric.</p>
+<center>
+<table border="1">
+	<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+	<tr><td><a href='#metrics_maximumCapacity'>Maximum capacity installed in a link (Erlangs, bps)</a></td><td>#capacityMetrics_maxCapacity#</td></tr>
+	<tr><td><a href='#metrics_minimumCapacity'>Minimum capacity installed in a link (Erlangs, bps)</a></td><td>#capacityMetrics_minCapacity#</td></tr>
+	<tr><td><a href='#metrics_averageCapacity'>Average capacity installed in a link (Erlangs, bps)</a></td><td>#capacityMetrics_averageCapacity#</td></tr>
+	<tr><td><a href='#metrics_totalCapacity'>Total capacity installed in a link (Erlangs, bps)</a></td><td>#capacityMetrics_totalCapacity#</td></tr>
+	<tr><td><a href='#metrics_capacityModuleSize'>Capacity module size (Erlangs, bps)</a></td><td>#capacityMetrics_capacityModule#</td></tr>
+</table>
+</center>
+
+<dl>
+	<dt><a name='metrics_maximumCapacity'></a>Maximum capacity installed in a link (Erlangs, bps)</dt><dd>The maximum capacity (in Erlangs and in bps) installed among the links of the network. The capacity values in Erlangs come directly from the <tt>netPlan</tt> field <tt>linkCapacityInErlangs</tt>. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>.</dd>
+	<dt><a name='metrics_minimumCapacity'></a>Minimum capacity installed in a link (Erlangs, bps)</dt><dd>The minimum capacity (in Erlangs and in bps) installed among the links of the network. The capacity values in Erlangs come directly from the <tt>netPlan</tt> field <tt>linkCapacityInErlangs</tt>. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>.</dd>
+	<dt><a name='metrics_averageCapacity'></a>Average capacity installed in a link (Erlangs, bps)</dt><dd>The average capacity (in Erlangs and in bps) installed among the links of the network. The capacity values in Erlangs come directly from the <tt>netPlan</tt> field <tt>linkCapacityInErlangs</tt>. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>. Noting by <i>u<sub>e</sub></i> the capacity of the links in Erlangs, and by <i>R</i> the binary rate equivalent to one Erlang, the average capacity installed in Erlangs is given by:<center><br /><img src='averageCapacity_erlangs.png' alt='Average capacity installed in a link (Erlangs)'/></center><br />and the average link capacity in bps is given by:<center><br /><img src='averageCapacity_bps.png' alt='Average capacity installed in a link (bps)'/></center><br /></dd>
+	<dt><a name='metrics_totalCapacity'></a>Total capacity installed in a link (Erlangs, bps)</dt><dd>The total capacity (in Erlangs and in bps) installed in the network, summing the capacity in all the links. The capacity values in Erlangs come directly from the <tt>netPlan</tt> field <tt>linkCapacityInErlangs</tt>. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>. Noting by <i>u<sub>e</sub></i> the capacity of the links in Erlangs, and by <i>R</i> the binary rate equivalent to one Erlang, the total capacity installed in Erlangs is given by:<center><br /><img src='totalCapacity_erlangs.png' alt='Total capacity installed in the network (Erlangs)'/></center><br />and the total link capacity in bps is given by:<center><br /><img src='totalCapacity_bps.png' alt='Total capacity installed in the network (bps)'/></center><br /></dd>
+	<dt><a name='metrics_capacityModuleSize'></a>Capacity module size (Erlangs, bps)</dt><dd>The greatest common divisor of the capacities in the links. If the capacities in the links are modular (that is, a multiple of a basic module of capacity), this value will show the capacity of the modules. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>.</dd>
+</dl>
+
+<a name='sectionTrafficMetrics'><h1>Traffic (demands and routing) metrics</h1></a>
+<p>This section includes some metrics calculated from traffic demands and routing (if available). Clicking the metric name links to the description of the metric.</p>
+<center>
+<table border="1">
+	<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+	<tr><td><a href='#metrics_totalOfferedTraffic'>Total offered traffic (Erlangs, bps)</a></td><td>#trafficMetrics_totalOfferedTraffic#</td></tr>
+	<tr><td><a href='#metrics_totalCarriedTraffic'>Total carried traffic (Erlangs, bps)</a></td><td>#trafficMetrics_totalCarriedTraffic#</td></tr>
+	<tr><td><a href='#metrics_averageOfferedTraffic'>Average offered traffic per demand (Erlangs, bps)</a></td><td>#trafficMetrics_averageOfferedTraffic#</td></tr>
+	<tr><td><a href='#metrics_averageCarriedTraffic'>Average carried traffic per demand (Erlangs, bps)</a></td><td>#trafficMetrics_averageCarriedTraffic#</td></tr>
+	<tr><td><a href='#metrics_blockedTraffic'>Blocked traffic (%)</a></td><td>#trafficMetrics_blockedTraffic#</td></tr>
+	<tr><td><a href='#metrics_avgNumHops'>Avg. number of hops</a></td><td>#trafficMetrics_numHops#</td></tr>
+</table>
+</center>
+
+<dl>
+	<dt><a name='metrics_totalOfferedTraffic'></a>Total offered traffic to the network (Erlangs, bps)</dt><dd>The total offered traffic (in Erlangs and in bps) to the network, summing the offered traffic by all the demands. The offered traffic values in Erlangs come directly from the <tt>netPlan</tt> field <tt>offeredTrafficInErlangs</tt>. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>.</dd>
+	<dt><a name='metrics_totalCarriedTraffic'></a>Total carried traffic by the network (Erlangs, bps)</dt><dd>The total carried traffic (in Erlangs and in bps) to the network, summing the carried traffic by all the routes. The values in bps are obtained by multiplying the values in Erlangs by the <tt>binaryRateInBitsPerSecondPerErlang</tt> constant in the Options menu of <tt>Net2Plan</tt>.</dd>
+	<dt><a name='metrics_averageOfferedTraffic'></a>Average offered traffic per demand by the network (Erlangs, bps)</dt><dd>The offered traffic per demand (in Erlangs and in bps) to the network. It is equivalent to divide the total offered traffic to the network by the number of demands.</dd>
+	<dt><a name='metrics_averageCarriedTraffic'></a>Average carried traffic per demand by the network (Erlangs, bps)</dt><dd>The carried traffic per demand (in Erlangs and in bps) by the network. It is equivalent to divide the total carried traffic to the network by the number of demands.</dd>
+	<dt><a name='metrics_blockedTraffic'></a>Blocked traffic (%)</dt><dd>The percentage of traffic which is blocked (not carried) by the network.</dd>
+        <dt><a name='metrics_avgNumHops'></a>Avg. number of hops</dt><dd>It represents the ratio between the in-network traffic (total sum of the carried traffic in all links) and the total carried traffic.</dd>
+</dl>
+
+<a name='sectionNodeInformation'><h1>Detailed per-node description</h1></a>
+
+<p>This section provides a tabular information per node. Clicking in the column name links to a description of the column value.</p>
+
+<center>
+#nodeInformationTable#
+</center>
+
+<dl>
+<dt><a name='detailedPerNodeDescription_id'></a>Node id</dt><dd>Internal (unique) identifier of the node for <tt>Net2Plan</tt>. It is the index of the node in the related tables in <tt>netPlan</tt>.</dd>
+<dt><a name='detailedPerNodeDescription_name'></a>Node name</dt><dd>The name of the node as it appears in <tt>nodeName</tt> field of <tt>netPlan</tt>.</dd>
+<dt><a name='detailedPerNodeDescription_xyCoord'></a>X-Coord, Y-Coord</dt><dd>The XY coordinates of the node as they appear in <tt>nodeXYPositionTable</tt> field of <tt>netPlan</tt>. The coordinates are measured in km.</dd>
+<dt><a name='detailedPerNodeDescription_attributes'></a>Attributes</dt><dd>The attributes of the node as they appear in <tt>nodeAttributes</tt> field of <tt>netPlan</tt>. The number of attributes of each node is variable. Each attribute is composed of a name and a value. Usual attributes are node population, or node level (used in some traffic matrix generation models).</dd>
+</dl>
+
+<a name='sectionLinkInformation'><h1>Detailed per-link description</h1></a>
+
+<center>
+#linkInformationTable#
+</center>
+
+<dl>
+<dt><a name='detailedPerLinkDescription_id'></a>Link id</dt><dd>Internal (unique) identifier of the node for <tt>Net2Plan</tt>. It is the index of the link in the related tables in <tt>netPlan</tt>.</dd>
+<dt><a name='detailedPerLinkDescription_start'></a>Start</dt><dd>The node id and node name (in brackets) of the initial node of the link.</dd>
+<dt><a name='detailedPerLinkDescription_end'></a>End</dt><dd>The node id and node name (in brackets) of the end node of the link.</dd>
+<dt><a name='detailedPerLinkDescription_linkLength'></a>Link length (km)</dt><dd>The length of the link in km, as given by the <tt>netPlan</tt> table <tt>linkLengthInKm</tt>.</dd>
+<dt><a name='detailedPerLinkDescription_attributes'></a>Attributes</dt><dd>The attributes of the link as they appear in <tt>linkAttributes</tt> field of <tt>netPlan</tt>. The number of attributes of each link is variable. Each attribute is composed of a name and a value.</dd>
+</dl>
+
+<a name='sectionDemandInformation'><h1>Detailed per-demand description</h1></a>
+
+<center>
+#demandInformationTable#
+</center>
+
+<a name='sectionRouteInformation'><h1>Detailed per-route description</h1></a>
+
+<center>
+#routeInformationTable#
+</center>
+
+<a name='sectionSegmentInformation'><h1>Detailed per-protection segment description</h1></a>
+
+<center>
+#segmentInformationTable#
+</center>
+
+<a name='sectionSRGInformation'><h1>Detailed per-SRG description</h1></a>
+
+<center>
+#srgInformationTable#
+</center>
+
+</body>
+</html>

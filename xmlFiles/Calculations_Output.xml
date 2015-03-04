@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Complete_calc_Info>
+<Path demandId="0" destination="3" routeId="5-7-9-11" source="6">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="174.04341479827315" Power_in_dBm="-1.446491199829931E-15" linkID="5" measurementType="Tx_ADD" nodeID="6"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.96124376722559" Power_in_dBm="-14.000000000000002" linkID="5" measurementType="Tx" nodeID="6"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374431" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="680.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374431" Power_in_dBm="-1.8000000000000007" linkID="5" measurementType="Rx" nodeID="5"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="680.0" OSNR_in_dB="37.38227472416807" Power_in_dBm="-16.8" linkID="5" measurementType="Tx" nodeID="5"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="1080.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.38227472416807" Power_in_dBm="-25.600000000000005"/>
+<Calc Amp_Type="LineAmp" CalcPoint="7" Disp_in_ps_per_nm="1080.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.949224617961427" Power_in_dBm="-5.600000000000003"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" DCM_type="DCM60km" Disp_in_ps_per_nm="60.0" Intermediate_Node_Names="DCM" OSNR_in_dB="26.949224617961427" Power_in_dBm="-9.600000000000003" linkID="7" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="9" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="60.0" OSNR_in_dB="26.64629086294203" Power_in_dBm="-25.600000000000005" linkID="7" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="10" Disp_in_ps_per_nm="460.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="26.64629086294203" Power_in_dBm="-34.400000000000006"/>
+<Calc Amp_Type="LineAmp" CalcPoint="11" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="460.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="17.933860581872533" Power_in_dBm="-14.400000000000006" linkID="9" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="12" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="460.0" OSNR_in_dB="17.81659527763814" Power_in_dBm="-29.400000000000006" linkID="9" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="13" Disp_in_ps_per_nm="860.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="17.81659527763814" Power_in_dBm="-38.20000000000001"/>
+<Calc Amp_Type="PreAmp" CalcPoint="14" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="860.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="12.321528618485026" Power_in_dBm="-18.200000000000006" linkID="11" measurementType="Rx" nodeID="3"/>
+<Calc CalcPoint="15" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="860.0" OSNR_in_dB="12.243917053792226" Power_in_dBm="-33.20000000000001" linkID="11" measurementType="Rx_DROP" nodeID="3"/>
+</Path>
+<Path demandId="1" destination="2" routeId="0-18-16-14" source="7">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="0" measurementType="Tx_ADD" nodeID="7"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.96124376722705" Power_in_dBm="-14.0" linkID="0" measurementType="Tx" nodeID="7"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374446" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374446" Power_in_dBm="0.1999999999999994" linkID="0" measurementType="Rx" nodeID="8"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238858" Power_in_dBm="-14.800000000000002" linkID="0" measurementType="Tx" nodeID="8"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238858" Power_in_dBm="-23.6"/>
+<Calc CalcPoint="7" DCM_type="DCM60km" Disp_in_ps_per_nm="-220.0" Intermediate_Node_Names="DCM" OSNR_in_dB="37.59994649238858" Power_in_dBm="-27.6"/>
+<Calc Amp_Type="LineAmp" CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="-220.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="25.109326863913992" Power_in_dBm="-7.600000000000003" linkID="18" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="9" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="-220.0" OSNR_in_dB="24.98162655142743" Power_in_dBm="-23.6" linkID="18" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="10" Disp_in_ps_per_nm="180.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="24.98162655142743" Power_in_dBm="-32.400000000000006"/>
+<Calc Amp_Type="LineAmp" CalcPoint="11" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="180.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="19.221456455679856" Power_in_dBm="-12.400000000000006" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="12" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="180.0" OSNR_in_dB="19.12173015177811" Power_in_dBm="-27.400000000000006" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="13" Disp_in_ps_per_nm="580.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="19.12173015177811" Power_in_dBm="-36.2"/>
+<Calc Amp_Type="PreAmp" CalcPoint="14" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="580.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="14.113951232434054" Power_in_dBm="-16.200000000000006" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="15" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="580.0" OSNR_in_dB="14.039931279667107" Power_in_dBm="-31.20000000000001" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="2" destination="2" routeId="5-7-16-14" source="6">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="174.04341479827315" Power_in_dBm="-1.446491199829931E-15" linkID="5" measurementType="Tx_ADD" nodeID="6"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.96124376722559" Power_in_dBm="-14.000000000000002" linkID="5" measurementType="Tx" nodeID="6"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374431" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="680.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374431" Power_in_dBm="-1.8000000000000007" linkID="5" measurementType="Rx" nodeID="5"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="680.0" OSNR_in_dB="37.38227472416807" Power_in_dBm="-16.8" linkID="5" measurementType="Tx" nodeID="5"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="1080.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.38227472416807" Power_in_dBm="-25.600000000000005"/>
+<Calc Amp_Type="LineAmp" CalcPoint="7" Disp_in_ps_per_nm="1080.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.949224617961427" Power_in_dBm="-5.600000000000003"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" DCM_type="DCM60km" Disp_in_ps_per_nm="60.0" Intermediate_Node_Names="DCM" OSNR_in_dB="26.949224617961427" Power_in_dBm="-9.600000000000003" linkID="7" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="9" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="60.0" OSNR_in_dB="26.64629086294203" Power_in_dBm="-25.600000000000005" linkID="7" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="10" Disp_in_ps_per_nm="460.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="26.64629086294203" Power_in_dBm="-34.400000000000006"/>
+<Calc Amp_Type="LineAmp" CalcPoint="11" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="460.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="17.933860581872533" Power_in_dBm="-14.400000000000006" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="12" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="460.0" OSNR_in_dB="17.81659527763814" Power_in_dBm="-29.400000000000006" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="13" Disp_in_ps_per_nm="860.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="17.81659527763814" Power_in_dBm="-38.20000000000001"/>
+<Calc Amp_Type="PreAmp" CalcPoint="14" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="860.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="12.321528618485026" Power_in_dBm="-18.200000000000006" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="15" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="860.0" OSNR_in_dB="12.243917053792226" Power_in_dBm="-33.20000000000001" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="3" destination="3" routeId="0-18-9-11" source="7">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="0" measurementType="Tx_ADD" nodeID="7"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.96124376722705" Power_in_dBm="-14.0" linkID="0" measurementType="Tx" nodeID="7"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374446" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374446" Power_in_dBm="0.1999999999999994" linkID="0" measurementType="Rx" nodeID="8"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238858" Power_in_dBm="-14.800000000000002" linkID="0" measurementType="Tx" nodeID="8"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238858" Power_in_dBm="-23.6"/>
+<Calc CalcPoint="7" DCM_type="DCM60km" Disp_in_ps_per_nm="-220.0" Intermediate_Node_Names="DCM" OSNR_in_dB="37.59994649238858" Power_in_dBm="-27.6"/>
+<Calc Amp_Type="LineAmp" CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="-220.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="25.109326863913992" Power_in_dBm="-7.600000000000003" linkID="18" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="9" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="-220.0" OSNR_in_dB="24.98162655142743" Power_in_dBm="-23.6" linkID="18" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="10" Disp_in_ps_per_nm="180.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="24.98162655142743" Power_in_dBm="-32.400000000000006"/>
+<Calc Amp_Type="LineAmp" CalcPoint="11" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="180.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="19.221456455679856" Power_in_dBm="-12.400000000000006" linkID="9" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="12" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="180.0" OSNR_in_dB="19.12173015177811" Power_in_dBm="-27.400000000000006" linkID="9" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="13" Disp_in_ps_per_nm="580.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="19.12173015177811" Power_in_dBm="-36.2"/>
+<Calc Amp_Type="PreAmp" CalcPoint="14" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="580.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="14.113951232434054" Power_in_dBm="-16.200000000000006" linkID="11" measurementType="Rx" nodeID="3"/>
+<Calc CalcPoint="15" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="580.0" OSNR_in_dB="14.039931279667107" Power_in_dBm="-31.20000000000001" linkID="11" measurementType="Rx_DROP" nodeID="3"/>
+</Path>
+<Path demandId="4" destination="0" routeId="10-8" source="3">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="0.0" linkID="10" measurementType="Tx_ADD" nodeID="3"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.0" linkID="10" measurementType="Tx" nodeID="3"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999848" linkID="10" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-14.800000000000002" linkID="10" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000004" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-19.600000000000005" linkID="8" measurementType="Rx_DROP" nodeID="0"/>
+</Path>
+<Path demandId="4" destination="0" routeId="10-8" source="3">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="0.0" linkID="10" measurementType="Tx_ADD" nodeID="3"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.0" linkID="10" measurementType="Tx" nodeID="3"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999848" linkID="10" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-14.800000000000002" linkID="10" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000004" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-19.600000000000005" linkID="8" measurementType="Rx_DROP" nodeID="0"/>
+</Path>
+<Path demandId="4" destination="0" routeId="10-8" source="3">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="0.0" linkID="10" measurementType="Tx_ADD" nodeID="3"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.0" linkID="10" measurementType="Tx" nodeID="3"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999848" linkID="10" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-14.800000000000002" linkID="10" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000004" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-19.600000000000005" linkID="8" measurementType="Rx_DROP" nodeID="0"/>
+</Path>
+<Path demandId="4" destination="0" routeId="10-8" source="3">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="0.0" linkID="10" measurementType="Tx_ADD" nodeID="3"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.0" linkID="10" measurementType="Tx" nodeID="3"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="9.0"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999848" linkID="10" measurementType="Rx" nodeID="4"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-14.800000000000002" linkID="10" measurementType="Tx" nodeID="4"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000004" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-19.600000000000005" linkID="8" measurementType="Rx_DROP" nodeID="0"/>
+</Path>
+<Path demandId="5" destination="2" routeId="16-14" source="0">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="16" measurementType="Tx_ADD" nodeID="0"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.9612437672267" Power_in_dBm="-14.0" linkID="16" measurementType="Tx" nodeID="0"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374443" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374443" Power_in_dBm="0.1999999999999994" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-14.800000000000002" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000003" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-18.6" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="5" destination="2" routeId="16-14" source="0">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="16" measurementType="Tx_ADD" nodeID="0"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.9612437672267" Power_in_dBm="-14.0" linkID="16" measurementType="Tx" nodeID="0"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374443" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374443" Power_in_dBm="0.1999999999999994" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-14.800000000000002" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000003" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-18.6" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="5" destination="2" routeId="16-14" source="0">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="16" measurementType="Tx_ADD" nodeID="0"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.9612437672267" Power_in_dBm="-14.0" linkID="16" measurementType="Tx" nodeID="0"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374443" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374443" Power_in_dBm="0.1999999999999994" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-14.800000000000002" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000003" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-18.6" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="5" destination="2" routeId="16-14" source="0">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="9.64327466553287E-16" linkID="16" measurementType="Tx_ADD" nodeID="0"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.9612437672267" Power_in_dBm="-14.0" linkID="16" measurementType="Tx" nodeID="0"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.99940765374443" Power_in_dBm="9.000000000000002"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.99940765374443" Power_in_dBm="0.1999999999999994" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-14.800000000000002" linkID="16" measurementType="Tx" nodeID="1"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.59994649238855" Power_in_dBm="-23.6"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="27.872322787911497" Power_in_dBm="-3.600000000000003" linkID="14" measurementType="Rx" nodeID="2"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="27.775925803301075" Power_in_dBm="-18.6" linkID="14" measurementType="Rx_DROP" nodeID="2"/>
+</Path>
+<Path demandId="6" destination="1" routeId="18-16" source="8">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="-2.410818666383218E-15" linkID="18" measurementType="Tx_ADD" nodeID="8"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.000000000000002" linkID="18" measurementType="Tx" nodeID="8"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="8.999999999999998"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999662" linkID="18" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-15.800000000000004" linkID="18" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-24.600000000000005"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.968483076820277" Power_in_dBm="-4.600000000000006" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="26.86995219178649" Power_in_dBm="-19.600000000000005" linkID="16" measurementType="Rx_DROP" nodeID="1"/>
+</Path>
+<Path demandId="6" destination="1" routeId="18-16" source="8">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="-2.410818666383218E-15" linkID="18" measurementType="Tx_ADD" nodeID="8"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.000000000000002" linkID="18" measurementType="Tx" nodeID="8"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="8.999999999999998"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999662" linkID="18" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-15.800000000000004" linkID="18" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-24.600000000000005"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.968483076820277" Power_in_dBm="-4.600000000000006" linkID="16" measurementType="Rx" nodeID="1"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="26.86995219178649" Power_in_dBm="-19.600000000000005" linkID="16" measurementType="Rx_DROP" nodeID="1"/>
+</Path>
+<Path demandId="7" destination="5" routeId="8-6" source="4">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="-2.410818666383218E-15" linkID="8" measurementType="Tx_ADD" nodeID="4"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.000000000000002" linkID="8" measurementType="Tx" nodeID="4"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="8.999999999999998"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999662" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-15.800000000000004" linkID="8" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-24.600000000000005"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.968483076820277" Power_in_dBm="-4.600000000000006" linkID="6" measurementType="Rx" nodeID="5"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="26.86995219178649" Power_in_dBm="-19.600000000000005" linkID="6" measurementType="Rx_DROP" nodeID="5"/>
+</Path>
+<Path demandId="7" destination="5" routeId="8-6" source="4">
+<Calc CalcPoint="1" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="NaN" Power_in_dBm="-2.410818666383218E-15" linkID="8" measurementType="Tx_ADD" nodeID="4"/>
+<Calc CalcPoint="2" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="0.0" OSNR_in_dB="47.961243767226776" Power_in_dBm="-14.000000000000002" linkID="8" measurementType="Tx" nodeID="4"/>
+<Calc Amp_Type="Booster" CalcPoint="3" Disp_in_ps_per_nm="0.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="37.999407653744434" Power_in_dBm="8.999999999999998"/>
+<Calc CalcPoint="4" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.999407653744434" Power_in_dBm="0.19999999999999662" linkID="8" measurementType="Rx" nodeID="0"/>
+<Calc CalcPoint="5" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="400.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-15.800000000000004" linkID="8" measurementType="Tx" nodeID="0"/>
+<Calc CalcPoint="6" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="FiberLink" Link_Length="40.0" OSNR_in_dB="37.599946492388554" Power_in_dBm="-24.600000000000005"/>
+<Calc Amp_Type="PreAmp" CalcPoint="7" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" Intermediate_Node_Names="Amplifier" OSNR_in_dB="26.968483076820277" Power_in_dBm="-4.600000000000006" linkID="6" measurementType="Rx" nodeID="5"/>
+<Calc CalcPoint="8" Customer_Defined_Node_Type="ROADM" Disp_in_ps_per_nm="800.0" OSNR_in_dB="26.86995219178649" Power_in_dBm="-19.600000000000005" linkID="6" measurementType="Rx_DROP" nodeID="5"/>
+</Path>
+</Complete_calc_Info>

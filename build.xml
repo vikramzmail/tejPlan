@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<project default="main" basedir=".">
+
+<echo message="Creating jar of algorithm classes"/>
+	<target name="main" >
+		<jar destfile="lib/algorithms.jar" basedir="bin" includes="com/tejas/workspace/**"/>
+	</target>
+</project>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Non-Linear Independant Source</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <span class="intro">
+            <big>Non-Linear Independant Source</big>
+            <br/>
+            <br/>
+            General form:
+            <br/>
+            <code>BXXXXXXX N+ N- [I=EXPR]| [V=EXPR]</code>
+            <br/>
+            <br/>
+            Examples:
+            <br/>
+            <code>B1 0 1 I=cos(v(1))+sin(v(2))</code><br/>
+            <code>B1 0 1 V=ln(cos(log(v(1,2)^2)))-v(3)^4+v(2)^v(1)</code><br/>
+            <code>B1 3 4 I=17</code><br/>
+            <code>B1 3 4 V=exp(pi^i(vdd))</code><br/>
+        </span>
+        <p>
+            <var>N+</var> is the positive node, and <var>N-</var> is the negative node.
+            The values of the <var>V</var> and <var>I</var> parameters determine the
+            voltages and currents across and through the device, respectively.
+            If <var>I</var> is given then the device is a current source, and if <var>V</var> is given the
+            device is a voltage source.  One and only one of these parameters must be given.
+        </p>
+        <p>
+            The small-signal AC behaviour of the nonlinear source is a linear
+            dependent source (or sources) with a proportionality constant equal to
+            the derivative (or derivatives) of the source at the DC operating point.
+        </p>
+        <p>
+            The expressions given for <var>V</var> and <var>I</var> may be any function of voltages and
+            currents through voltage sources in the system.  The following functions
+            of real variables are defined:
+        </p>
+        <table>
+            <tr><td>abs</td><td>asinh</td><td>cosh</td><td>sin</td></tr>
+            <tr><td>acos</td><td>atan</td><td>exp</td><td>sinh</td></tr>
+            <tr><td>acosh</td><td>atanh</td><td>ln</td><td>sqrt</td></tr>
+            <tr><td>asin</td><td>cos</td><td>log</td><td>tan</td></tr>
+        </table>
+        <p>
+            The function "u" is the unit step function, with a value of one for
+            arguments greater than zero and a value of zero for arguments less than
+            zero.  The function "uramp" is the integral of the unit step: for an
+            input x, the value is zero if x is less than zero, or if x is greater
+            than zero the value is x. The function "u2" returns a value of zero for
+            arguments less than zero, one for arguments greater than one and assumes
+            the value of the argument between these limits .These three functions are
+            useful in sythesizing piece-wise non-linear functions, though convergence
+            may be adversely affected.
+        </p>
+        <p>
+            The following standard operators are defined:
+        </p>
+        <code>+       -       *       /       { }      unary -</code>
+        <p>
+            If the argument of log, ln, or sqrt becomes less than zero, the absolute
+            value of the argument is used.  If a divisor becomes zero or the
+            argument of log or ln becomes zero, an error will result.  Other
+            problems may occur when the argument for a function in a partial
+            derivative enters a region where that function is undefined.
+        </p>
+        <p>
+            To get time into the expression you can integrate the current from a
+            constant current source with a capacitor and use the resulting voltage
+            (don't forget to set the initial voltage across the capacitor).
+            Non-linear resistors, capacitors, and inductors may be synthesized with
+            the nonlinear dependent source.  Non-linear resistors are obvious.
+            Nonlinear capacitors and inductors are implemented with their linear
+            counterparts by a change of variables implemented with the nonlinear
+            dependent source.  The following subcircuit will implement a nonlinear
+            capacitor:
+        </p>
+        <code>.Subckt nlcap   pos neg</code><br/>
+        <code>* Bx: calculate f(input voltage)</code><br/>
+        <code>Bx   1    0    v = f(v(pos,neg))</code><br/>
+        <code>* Cx: linear capacitance</code><br/>
+        <code>Cx   2    0    1</code><br/>
+        <code>* Vx: Ammeter to measure current into the capacitor</code><br/>
+        <code>Vx   2    1    DC 0Volts</code><br/>
+        <code>* Drive the current through Cx back into the circuit</code><br/>
+        <code>Fx   pos  neg  Vx 1</code><br/>
+        <code>.ends</code>
+        <p>Non-linear inductors are similar.</p>
+        <!--
+        <table border="1">
+            <tr><th>ASRC - localInstance parameters (input-only)</th></tr>
+            <tr><td>i</td><td>Current source</td></tr>
+            <tr><td>v</td><td>Voltage source</td></tr>
+            <tr><th>ASRC - localInstance parameters (output-only)</th></tr>
+            <tr><td>i</td><td>Current through source</td></tr>
+            <tr><td>v</td><td>Voltage across source</td></tr>
+            <tr><td>posIndex</td><td>Positive Node</td></tr>
+            <tr><td>negIndex</td><td>Negative Node</td></tr>
+        </table>
+	-->
+    </body>
+</html>

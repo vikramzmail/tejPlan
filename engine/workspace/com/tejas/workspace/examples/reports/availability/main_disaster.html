@@ -1,0 +1,60 @@
+<html>
+<head><title>Disaster-vulnerability report</title></head>
+<body>
+
+<h1>Contents</h1>
+
+<ul>
+	<li><a href='#sectionIntroduction'>Introduction</a>
+	<li><a href='#sectionInformationTables'>Information tables</a>
+	    <ul>
+		    <li><a href='#perRouteInfo'>Per-route availability</a></li>
+		    <li><a href='#perDemandInfo'>Per-demand availability</a></li>
+		    <li><a href='#networkInfo'>Network-wide availability</a></li>
+	    </ul>
+	</li>
+	<li><a href='#sectionReferences'>References</a></li>
+</ul>
+
+<a name='sectionIntroduction'></a>
+<h1>Introduction</h1>
+
+<p>A growing interest exists in the networking community to assess the network
+    vulnerability under unfortunate disasters provoking multiple failures. 
+    For these cases, complete network recovery is considered an unreachable 
+    target, and the interest shifts to evaluating which recovery schemes 
+    allows a larger portion of the traffic to survive. This report is suitable 
+    for this purpose. The user defines the SRGs in the network, identifying the 
+    set of multiple failure scenarios to consider. Then, the report estimates, 
+    for a given recovery scheme, the fraction of network traffic that survives 
+    in each case.</p>
+
+<p>Contrary to the availability report, here only single failure states are simulated,
+    where each failure state is given by a SRG going down, and all failure states
+    have the same probability to occur.</p>
+
+<p>Definitions and conventions about failure states, availability, and so on, are
+    the same as for the availability report.</p>
+
+<a name='sectionInformationTables'></a>
+<h1>Information tables</h1>
+
+<h2><a name='perDemandInfo'>Per-demand availability</a></h2>
+
+#perDemandInfo#
+
+<h2><a name='networkInfo'>Network-wide availability</a></h2>
+
+#networkInfo#
+
+<a name='sectionReferences'></a>
+<h1>References</h1>
+
+<a name='RFC3469'></a>
+[1] V. Sharma and F. Hellstrand (Eds.), "Framework for Multi-Protocol Label Switching (MPLS)-based Recovery", RFC 3469, 2003.
+<br />
+<a name='Wang2002'></a>
+[2] J. Wang, L. Sahasrabuddhe and B. Mukherjee, "Path vs. Subpath vs. Link Restoration for Fault Management in IP-over-WDM Networks: Performance Comparisons Using GMPLS Control Signaling", <i>IEEE Communications Magazine</i>, vol. 40, no. 11, pp. 80-87, 2002.
+
+</body>
+</html>

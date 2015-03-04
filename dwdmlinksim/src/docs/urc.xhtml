@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd" [
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>URC Lines</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <span class="intro">
+                <big>Spice Modeling</big>
+                <br/>
+                <br/>
+                General form:
+                <br/>
+                <code>UXXXXXXX N1 N2 N3 MNAME L=LENGTH [N=LUMPS]</code>
+                <br/>
+                <br/>
+                Examples:
+                <br/>
+                <code>U1 1 2 0 URCMOD L=50U</code><br/>
+                <code>URC2 1 12 2 UMODL l=1MIL N=6</code><br/>
+            </span>
+            <p>
+                <var>N1</var> and <var>N2</var> are the two element nodes the RC line connects, while <var>N3</var> is
+                the node to which the capacitances are connected.  <var>MNAME</var> is the model
+                name, <var>L</var>(LENGTH) is the length of the RC line in meters.  <var>N</var>(LUMPS), if specified,
+                is the number of lumped segments to use in modelling the RC line (see the
+                model description for the action taken if this parameter is omitted).
+            </p>
+            <a name="model">Uniform Distributed RC Model (URC)</a>
+            <p>
+                The URC model is derived from a model proposed by L.  Gertzberrg in
+                1974.  The model is accomplished by a subcircuit type expansion of the
+                URC line into a network of lumped RC segments with internally generated
+                nodes.  The RC segments are in a geometric progression, increasing
+                toward the middle of the URC line, with <math xmlns="&mathml;"><mi>K</mi></math> as a proportionality
+        constant.  The number of lumped segments used, if not specified for the
+        URC line device, is determined by the following formula:
+        </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>N</mi>
+                <mo>=</mo>
+                <mrow>
+                    <mfrac>
+                        <mrow>
+                            <mi>log</mi>
+                            <mo>&ApplyFunction;</mo>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>F</mi>
+                                <mi>max</mi>
+                            </msub>
+                            <mfrac>
+                                <mi>R</mi>
+                                <mi>L</mi>
+                            </mfrac>
+                            <mfrac>
+                                <mi>C</mi>
+                                <mi>L</mi>
+                            </mfrac>
+                            <mn>2</mn>
+                            <mi>J</mi>
+                            <msup>
+                                <mi>L</mi>
+                                <mn>2</mn>
+                            </msup>
+                            <msup>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mfrac>
+                                        <mrow>
+                                            <mo>(</mo>
+                                            <mi>K</mi>
+                                            <mo>-</mo>
+                                            <mn>1</mn>
+                                            <mo>)</mo>
+                                        </mrow>
+                                        <mi>K</mi>
+                                    </mfrac>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>)</mo>
+                        </mrow>
+                        <mrow>
+                            <mi>log</mi>
+                            <mo>&ApplyFunction;</mo>
+                            <mi>K</mi>
+                        </mrow>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            The URC line is made up strictly of resistor and capacitor segments
+            unless the <var>ISPERL</var> parameter is given a nonzero value, in which case the
+            capacitors are replaced with reverse biased diodes with a zero-bias
+            junction capacitance equivalent to the capacitance replaced, and with a
+            saturation current of <var>ISPERL</var> amps per meter of transmission line and an
+            optional series resistance equivalent to <var>RSPERL</var> ohms per meter.
+        </p>
+        <table border="1">
+            <tr><th>Name</th><th>Parameter</th><th>Units</th><th>Default</th><th>Example</th></tr>
+            <tr><td>K</td><td>Propagation Constant</td><td>-</td><td>2.0</td><td>1.2</td></tr>
+            <tr><td>FMAX</td><td>Maximum Frequency of interest</td><td>Hz</td><td>1.0G</td><td>6.5Meg</td></tr>
+            <tr><td>RPERL</td><td>Resistance per unit length</td><td>Z/m</td><td>1000</td><td>10</td></tr>
+            <tr><td>CPERL</td><td>Capacitance per unit length</td><td>F/m</td><td>1.0e-15</td><td>1pF</td></tr>
+            <tr><td>ISPERL</td><td>Saturation Current per unit length</td><td>A/m</td><td>0</td><td>-</td></tr>
+            <tr><td>RSPERL</td><td>Diode Resistance per unit length</td><td>Z/m</td><td>0</td><td>-</td></tr>
+        </table>
+        <br/>
+        <!--
+        <table border="1">
+            <tr><th>URC - Instance parameters (input-output)</th></tr>
+            <tr><td>l</td><td>Length of transmission line</td></tr>
+            <tr><td>n</td><td>Number of lumps</td></tr>
+            <tr><th>URC - Instance parameters (output-only)</th></tr>
+            <tr><td>posIndex</td><td>Positive node Index</td></tr>
+            <tr><td>negIndex</td><td>Negative node Index</td></tr>
+            <tr><td>gndIndex</td><td>Ground node Index</td></tr>
+            <tr><th>URC - Instance parameters (input-only)</th></tr>
+            <tr><td>urc</td><td>Uniform R.C. line Instance</td></tr>
+            <tr><th>URC - localInstance parameters (input-output)</th></tr>
+            <tr><td>k</td><td>Propagation constant</td></tr>
+            <tr><td>fMax</td><td>Maximum frequency of interest</td></tr>
+            <tr><td>rPerL</td><td>Resistance per unit length</td></tr>
+            <tr><td>cPerL</td><td>Capacitance per unit length</td></tr>
+            <tr><td>isPerL</td><td>Saturation current per length</td></tr>
+            <tr><td>rsPerL</td><td>Diode resistance per length</td></tr>
+        </table>
+        -->
+        </body>
+    </html>

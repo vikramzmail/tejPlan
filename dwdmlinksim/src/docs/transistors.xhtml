@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Transistors</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <p>
+            The area factor used on the diode, BJT, JFET, and MESFET devices
+            determines the number of equivalent parallel devices of a specified
+            model.  The affected parameters are marked with an asterisk under the
+            heading 'area' in the model descriptions below.  Several geometric
+            factors associated with the channel and the drain and source diffusions
+            can be specified on the MOSFET device line.
+        <p/>
+        <p>
+            Two different forms of initial conditions may be specified for some
+            devices.  The first form is included to improve the dc convergence for
+            circuits that contain more than one stable state.  If a device is
+            specified OFF, the dc operating point is determined with the terminal
+            voltages for that device set to zero.  After convergence is obtained,
+            the program continues to iterate to obtain the exact value for the
+            terminal voltages.  If a circuit has more than one dc stable state, the
+            OFF option can be used to force the solution to correspond to a desired
+            state.  If a device is specified OFF when in reality the device is
+            conducting, the program still obtains the correct solution (assuming the
+            solutions converge) but more iterations are required since the program
+            must independently converge to two separate solutions.  The .NODESET
+            control line serves a similar purpose as the OFF option.  The .NODESET
+            option is easier to apply and is the preferred means to aid convergence.
+        </p>
+        <p>
+            The second form of initial conditions are specified for use with the
+            transient analysis.  These are true 'initial conditions' as opposed to
+            the convergence aids above.  See the description of the .IC control line
+            and the .TRAN control line for a detailed explanation of initial
+            conditions.
+        </p>
+    </body>
+</html>

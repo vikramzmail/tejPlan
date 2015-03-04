@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network>
+   <physicalTopology>
+      <node name="Node 0" xCoord="0" yCoord="0"/>
+      <node name="Node 1" xCoord="0" yCoord="0"/>
+      <node name="Node 2" xCoord="0" yCoord="0"/>
+      <node name="Node 3" xCoord="0" yCoord="0"/>
+      <node name="Node 4" xCoord="0" yCoord="0"/>
+   </physicalTopology>
+   <demandSet>
+      <demandEntry egressNodeId="0" ingressNodeId="1" offeredTrafficInErlangs="21.5031275699194"/>
+      <demandEntry egressNodeId="0" ingressNodeId="2" offeredTrafficInErlangs="9.05049103632176"/>
+      <demandEntry egressNodeId="0" ingressNodeId="3" offeredTrafficInErlangs="6.35477629861905"/>
+      <demandEntry egressNodeId="0" ingressNodeId="4" offeredTrafficInErlangs="7.27523109655447"/>
+      <demandEntry egressNodeId="1" ingressNodeId="0" offeredTrafficInErlangs="21.5031275699194"/>
+      <demandEntry egressNodeId="1" ingressNodeId="2" offeredTrafficInErlangs="2.39472339701359"/>
+      <demandEntry egressNodeId="1" ingressNodeId="3" offeredTrafficInErlangs="0.651600812454015"/>
+      <demandEntry egressNodeId="1" ingressNodeId="4" offeredTrafficInErlangs="1.77785939123001"/>
+      <demandEntry egressNodeId="2" ingressNodeId="0" offeredTrafficInErlangs="9.05049103632176"/>
+      <demandEntry egressNodeId="2" ingressNodeId="1" offeredTrafficInErlangs="2.39472339701359"/>
+      <demandEntry egressNodeId="2" ingressNodeId="3" offeredTrafficInErlangs="0.241368806987187"/>
+      <demandEntry egressNodeId="2" ingressNodeId="4" offeredTrafficInErlangs="0.595506361054086"/>
+      <demandEntry egressNodeId="3" ingressNodeId="0" offeredTrafficInErlangs="6.35477629861905"/>
+      <demandEntry egressNodeId="3" ingressNodeId="1" offeredTrafficInErlangs="0.651600812454015"/>
+      <demandEntry egressNodeId="3" ingressNodeId="2" offeredTrafficInErlangs="0.241368806987187"/>
+      <demandEntry egressNodeId="3" ingressNodeId="4" offeredTrafficInErlangs="0.155315229846433"/>
+      <demandEntry egressNodeId="4" ingressNodeId="0" offeredTrafficInErlangs="7.27523109655447"/>
+      <demandEntry egressNodeId="4" ingressNodeId="1" offeredTrafficInErlangs="1.77785939123001"/>
+      <demandEntry egressNodeId="4" ingressNodeId="2" offeredTrafficInErlangs="0.595506361054086"/>
+      <demandEntry egressNodeId="4" ingressNodeId="3" offeredTrafficInErlangs="0.155315229846433"/>
+   </demandSet>
+</network>

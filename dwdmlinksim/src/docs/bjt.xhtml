@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Bipolar-Junction Transistor</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <span class="intro">
+            <big>Bipolar-Junction Transistor</big>
+            <br/>	<br/>
+            General form:
+            <br/>
+            <code>
+                QXXXXXXX NC NB NE [NS] MNAME [AREA=VALUE] [AREAC=VALUE] [AREAB=VALUE]
+                [M=VALUE] [OFF] [IC=VBE, VCE] [TEMP=VALUE] [DTEMP=VALUE]
+            </code>
+            <br/>
+            <br/>
+            Examples:
+            <br/>
+            <code>Q23 10 24 13 QMOD IC=0.6, 5.0</code><br/>
+            <code>Q50A 11 26 4 20 MOD1</code><br/>
+        </span>
+        <p>
+            <var>NC</var>, <var>NB</var>, and <var>NE</var> are the collector, base, and
+            emitter nodes, respectively. <var>NS</var> is the (optional) substrate
+            node.If unspecified, ground is used.  <var>MNAME</var> is the model name,
+            <var>AREA</var>, <var>AREAB</var>, <var>AREAC</var> are the area factors, and
+            <var>OFF</var> indicates an (optional) initial condition on the device
+            for the dc analysis.  If the area factor is omitted, a value of 1.0 is
+            assumed.  The (optional) initial condition specification using
+            <var>IC=vbe, vce</var> is intended for use with the  <var>UIC</var>
+            <span class="command">.tran</span> control line, when a transient analysis is desired
+            starting from other than the quiescent operating point.  See the
+            <span class="command">.ic</span> control line description for a better way to set
+            transient initial conditions.  The (optional) <var>TEMP</var> value is
+            the temperature at which this device is to operate, and overrides the
+            temperature specification on the <span class="command">.option</span> control line. Using
+            <var>DTEMP</var> option you can specify instance's temperature relative
+            to the circuit temperature.
+        </p>
+        <p>
+            NGSPICE provides two BJT device models. The <var>LEVEL</var> specifies the
+            model to be used:
+        </p>
+        <p>
+            level=1 : This is the original spice BJT model, and it is the
+            default model if the <var>LEVEL</var> keyword is not
+		specified on the <span class="command">.model</span> line.
+        </p>
+        <p>
+            level=2 : This is a modified version of the original spice
+            BJT that models both vertical and lateral devices and
+		includes temperature corrections of collector,
+		emitter and base resistors.
+        </p>
+        <a name="model">BJT Models (NPN/PNP)</a>
+        <p>
+            The bipolar junction transistor model in NGSPICE is an adaptation of the
+            integral charge control model of Gummel and Poon.  This modified
+            Gummel-Poon model extends the original model to include several effects
+            at high bias levels.  The model automatically simplifies to the simpler
+            Ebers-Moll model when certain parameters are not specified.  The
+            parameter names used in the modified Gummel-Poon model have been chosen
+            to be more easily understood by the program user, and to reflect better
+            both physical and circuit design thinking.
+        </p>
+        <p>
+            The dc model is defined by the parameters <var>IS</var>, <var>BF</var>,
+            <var>NF</var>, <var>ISE</var>, <var>IKF</var>, amd <var>NE</var> which determine
+            the forward current gain characteristics, <var>IS</var>, <var>BR</var>,
+            <var>NR</var>, <var>ISC</var>, <var>IKR</var>, and <var>NC</var> which determine
+            the reverse current gain characteristics, and <var>VAF</var> and <var>VAR</var>
+            which determine the output conductance for forward and reverse regions.
+            Level 2 model includes substrate saturation current <var>ISS</var>.
+        </p>
+        <p>
+            Three ohmic resistances <var>RB</var>, <var>RC</var>, and <var>RE</var>
+            are included, where <var>RB</var> can be high current dependent.  Base charge
+            storage is modelled by forward and reverse transit times, <var>TF</var> and
+            <var>TR</var>, the forward transit time <var>TF</var> being bias dependent if
+            desired, and nonlinear depletion layer capacitances which are determined by
+            <var>CJE</var>, <var>VJE</var>, and <var>NJE</var> for the B-E junction, <var>CJC</var>,
+            <var>VJC</var>, and <var>NJC</var> for the B-C junction and <var>CJS</var>,
+            <var>VJS</var>, and <var>MJS</var> for the C-S (Collector-Substrate) junction.
+            Level 2 model defines a substrate capacitance that will be connected to
+            device's base or collector, to model lateral or vertical devices.
+        </p>
+        <p>
+            The temperature dependence of the saturation currents, <var>IS</var> and
+            <var>ISS</var> (for level 2 model), is determined by the energy-gap,
+            <var>EG</var>, and the saturation current temperature exponent, <var>XTI</var>.
+            Additionally base current temperature dependence is modelled by the beta
+            temperature exponent <var>XTB</var> in the new model.  The values specified
+            are assumed to have been measured at the temperature <var>TNOM</var>, which
+            can be specified on the <span class="command">.options</span> control line or overridden by
+            a specification on the <span class="command">.model</span> line.
+        </p>
+        <p>
+            The BJT parameters used in the modified Gummel-Poon model are listed
+            below.<!--  The parameter names used in earlier versions of SPICE2 are still
+            accepted.-->
+        </p>
+        <table border="1">
+            <thead><strong>Modified Gummel-Poon BJT Parameters:</strong></thead>
+        <tbody>
+            <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td><td>Scale Factor</td></tr>
+            <tr><td>SUBS</td><td>substrate connection: 1 for vertical geometry, -1 for lateral geometry. (level 2 only)</td>
+                <td>-</td><td>1</td><td>1.0e-15</td></tr>
+            <tr><td>IS</td><td>transport saturation current</td>
+                <td>A</td><td>1.0e-16</td><td>1.0e-15</td></tr>
+            <tr><td>ISS</td>
+                <td>reverse saturation current, substrate-to-collector for vertical device or substrate-to-base for lateral(level 2 only)</td>
+                <td>A</td><td>1.0e-16</td><td>1.0e-15</td></tr>
+            <tr><td>BF</td><td>ideal maximum forward beta</td><td>-</td><td>100</td><td>100</td></tr>
+            <tr><td>NF</td><td>forward current emission coefficient</td><td>-</td><td>1.0</td><td>1</td></tr>
+            <tr><td>VAF</td><td>forward Early voltage</td><td>V</td><td>infinite</td><td>200</td></tr>
+            <tr><td>IKF</td><td>corner for forward beta current roll-off</td><td>A</td><td>infinite</td><td>0.01</td><td>area</td></tr>
+            <tr><td>ISE</td><td>B-E leakage saturation current</td><td>A</td><td>0</td><td>1.0e-13</td></tr>
+            <tr><td>NE</td><td>B-E leakage emission coefficient</td><td>-</td><td>1.5</td><td>2</td></tr>
+            <tr><td>BR</td><td>ideal maximum reverse beta</td><td>-</td><td>1</td><td>0.1</td></tr>
+            <tr><td>NR</td><td>reverse current emission coefficient</td>
+                <td>-</td><td>1</td><td>1</td></tr>
+            <tr><td>VAR</td><td>reverse Early voltage</td><td>V</td><td>infinite</td><td>200</td></tr>
+            <tr><td>IKR</td><td>corner for reverse beta high current roll-off</td><td>A</td><td>infinite</td><td>0.01</td><td>area</td></tr>
+            <tr><td>ISC</td><td>B-C leakage saturation current (area is "AREAB" for vertical devices and "AREAC" for lateral)</td>
+                <td>A</td><td>0</td><td>1.0e-13</td></tr>
+            <tr><td>NC</td><td>B-C leakage emission coefficient</td><td>-</td><td>2</td><td>1.5</td></tr>
+            <tr><td>RB</td><td>zero bias base resistance</td><td>Z</td><td>0</td><td>100</td><td>area</td></tr>
+            <tr><td>IRB</td><td>current where base resistance falls halfway to its min value</td><td>A</td><td>infinite</td><td>0.1</td><td>area</td></tr>
+            <tr><td>RBM</td><td>minimum base resistance at high currents</td><td>Z</td><td>RB</td><td>10</td><td>area</td></tr>
+            <tr><td>RE</td><td>emitter resistance  Z</td><td>0</td><td>1</td><td>area</td></tr>
+            <tr><td>RC</td><td>collector resistance  Z</td><td>0</td><td>10</td><td>area</td></tr>
+            <tr><td>CJE</td><td>B-E zero-bias depletion capacitance  F</td><td>0</td><td>2pF</td><td>area</td></tr>
+            <tr><td>VJE</td><td>B-E built-in potential</td><td>V</td><td>0.75</td><td>0.6</td></tr>
+            <tr><td>MJE</td><td>B-E junction exponential factor</td><td>-</td><td>0.33</td><td>0.33</td></tr>
+            <tr><td>TF</td><td>ideal forward transit time</td><td>sec</td><td>0</td><td>0.1ns</td></tr>
+            <tr><td>XTF</td><td>coefficient for bias dependence of TF</td>
+                <td>-</td><td>0</td><td>-</td><td>-</td></tr>
+            <tr><td>VTF</td>
+                <td>voltage describing VBC dependence of TF</td>
+                <td>V</td><td>infinite</td><td>-</td></tr>
+            <tr><td>ITF</td>
+                <td>high-current parameter for effect on TF</td>
+                <td>A</td><td>0</td><td>-</td><td>area</td></tr>
+            <tr><td>PTF</td>
+                <td>excess phase at freq=1.0/(TF*2PI) Hz</td>
+                <td>deg</td><td>0</td><td>-</td></tr>
+            <tr><td>CJC</td>
+                <td>B-C zero-bias depletion capacitance (area is "AREAB" for vertical devices and "AREAC" for lateral)</td>
+                <td>F</td><td>0</td><td>2pF</td></tr>
+            <tr><td>VJC</td><td>B-C built-in potential</td><td>V</td><td>0.75</td><td>0.5</td></tr>
+            <tr><td>MJC</td><td>B-C junction exponential factor</td><td>-</td><td>0.33</td><td>0.5</td></tr>
+            <tr><td>XCJC</td>
+                <td>fraction of B-C depletion capacitance connected to internal base node</td>
+                <td>-</td><td>1</td><td>-</td></tr>
+            <tr><td>TR</td><td>ideal reverse transit time</td><td>sec</td><td>0</td><td>10ns</td></tr>
+            <tr><td>CJS</td>
+                <td>zero-bias collector-substrate capacitance (area is "AREAC" for vertical devices and"AREAB" for lateral)</td>
+                <td>F</td><td>0</td><td>2pF</td></tr>
+            <tr><td>VJS</td>
+                <td>substrate junction built-in potential</td>
+                <td>V</td><td>0.75</td><td>-</td></tr>
+            <tr><td>MJS</td><td>substrate junction exponential factor</td><td>-</td><td>0</td><td>0.5</td></tr>
+            <tr><td>XTB</td>
+                <td>forward and reverse beta temperature exponent</td>
+                <td>0</td><td>-</td><td>-</td></tr>
+            <tr><td>EG</td>
+                <td>energy gap for temperature effect on IS</td>
+                <td>eV</td><td>1.11</td><td>-</td></tr>
+            <tr><td>XTI</td>
+                <td>temperature exponent for effect on IS</td>
+                <td>-</td><td>3</td><td>-</td></tr>
+            <tr><td>KF</td>
+                <td>flicker-noise coefficient</td>
+                <td>-</td><td>0</td><td>-</td></tr>
+            <tr><td>AF</td>
+                <td>flicker-noise exponent</td>
+                <td>-</td><td>1</td><td>-</td></tr>
+            <tr><td>FC</td>
+                <td>coefficient for forward-bias depletion capacitance formula</td>
+                <td>-</td><td>0.5</td><td>-</td></tr>
+            <tr><td>TNOM</td><td>Parameter measurement temperature</td><td><sup>o</sup>C</td><td>27</td><td>50</td></tr>
+            <tr><td>TRE1</td>
+                <td>1st order temperature coefficient for RE(level 2 only)</td>
+                <td>1/<sup>o</sup>C</td><td>0.0</td><td>1e-3</td></tr>
+            <tr><td>TRE2</td>
+                <td>2nd order temperature coefficient for RE (level 2 only)</td>
+                <td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td>1e-5</td></tr>
+            <tr><td>TRC1</td>
+                <td>1st order temperature coefficient for RC (level 2 only )</td>
+                <td>1/<sup>o</sup>C</td><td>0.0</td><td>1e-3</td></tr>
+            <tr><td>TRC2</td>
+                <td>2nd order temperature coefficient for RC (level 2 only)</td>
+                <td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td>1e-5</td></tr>
+            <tr><td>TRB1</td>
+                <td>1st order temperature coefficient for RB (level 2 only)</td>
+                <td>1/<sup>o</sup>C</td><td>0.0</td><td>1e-3</td></tr>
+            <tr><td>TRB2</td>
+                <td>2nd order temperature coefficient for RB(level 2 only)</td>
+                <td>1/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td>1e-5</td></tr>
+            <tr><td>TRB1</td>
+                <td>1st order temperature coefficient for RBM (level 2 only)</td>
+                <td>1/<sup>o</sup>C</td><td>TRB1</td><td>1e-3</td></tr>
+            <tr><td>TRB2</td>
+                <td>2nd order temperature coefficient for RBM (level 2 only)</td>
+                <td>1/<sup>o</sup>C<sup>2</sup></td><td>TRB2</td><td>1e-5</td></tr>
+        </tbody>
+    </table>
+    <!--
+        <table border="1">
+            <tr><th>BJT - Instance parameters (input-only)</th></tr>
+            <tr><td>ic</td><td>Initial condition vector</td></tr>
+            <tr><th>BJT - Instance parameters (input-output)</th></tr>
+            <tr><td>off</td><td>Device initially off</td></tr>
+            <tr><td>icvbe</td><td>Initial B-E voltage</td></tr>
+            <tr><td>icvce</td><td>Initial C-E voltage</td></tr>
+            <tr><td>area</td><td>Area factor</td></tr>
+            <tr><td>temp</td><td>localInstance temperature</td></tr>
+            <tr><th>BJT - Instance parameters (output-only)</th></tr>
+            <tr><td>colnode</td><td>collector node index</td></tr>
+            <tr><td>basenode</td><td>base node index</td></tr>
+            <tr><td>emitnode</td><td>emitter node index</td></tr>
+            <tr><td>substnode</td><td>substrate node index</td></tr>
+            <tr><td>colprimenode</td><td>Internal collector node</td></tr>
+            <tr><td>baseprimenode</td><td>Internal base node</td></tr>
+            <tr><td>emitprimenode</td><td>Internal emitter node</td></tr>
+            <tr><td>ic</td><td>Current at collector node</td></tr>
+            <tr><td>ib</td><td>Current at base node</td></tr>
+            <tr><td>ie</td><td>Emitter current</td></tr>
+            <tr><td>is</td><td>Substrate current</td></tr>
+            <tr><td>vbe</td><td>B-E voltage</td></tr>
+            <tr><td>vbc</td><td>B-C voltage</td></tr>
+            <tr><td>gm</td><td>Small signal transconductance</td></tr>
+            <tr><td>gpi</td><td>Small signal input conductance - pi</td></tr>
+            <tr><td>gmu</td><td>Small signal conductance - mu</td></tr>
+            <tr><td>gx</td><td>Conductance from base to internal base</td></tr>
+            <tr><td>go</td><td>Small signal output conductance</td></tr>
+            <tr><td>geqcb</td><td>d(Ibe)/d(Vbc)</td></tr>
+            <tr><td>gccs</td><td>Internal C-S cap. equiv. cond.</td></tr>
+            <tr><td>geqbx</td><td>Internal C-B-base cap. equiv. cond.</td></tr>
+            <tr><td>cpi</td><td>Internal base to emitter capactance</td></tr>
+            <tr><td>cmu</td><td>Internal base to collector capactiance</td></tr>
+            <tr><td>cbx</td><td>Base to collector capacitance</td></tr>
+            <tr><td>ccs</td><td>Collector to substrate capacitance</td></tr>
+            <tr><td>cqbe</td><td>Cap. due to charge storage in B-E jct.</td></tr>
+            <tr><td>cqbc</td><td>Cap. due to charge storage in B-C jct.</td></tr>
+            <tr><td>cqcs</td><td>Cap. due to charge storage in C-S jct.</td></tr>
+            <tr><td>cqbx</td><td>Cap. due to charge storage in B-X jct.</td></tr>
+            <tr><td>cexbc</td><td>Total Capacitance in B-X junction</td></tr>
+            <tr><td>qbe</td><td>Charge storage B-E junction</td></tr>
+            <tr><td>qbc</td><td>Charge storage B-C junction</td></tr>
+            <tr><td>qcs</td><td>Charge storage C-S junction</td></tr>
+            <tr><td>qbx</td><td>Charge storage B-X junction</td></tr>
+            <tr><td>p</td><td>Power dissipation</td></tr>
+            <tr><th>BJT - Instance parameters (input-output)</th></tr>
+            <tr><td>npn</td><td>NPN type device</td></tr>
+            <tr><td>pnp</td><td>PNP type device</td></tr>
+            <tr><td>is</td><td>Saturation Current</td></tr>
+            <tr><td>bf</td><td>Ideal forward beta</td></tr>
+            <tr><td>nf</td><td>Forward emission coefficient</td></tr>
+            <tr><td>vaf</td><td>Forward Early voltage</td></tr>
+            <tr><td>va</td><td>null</td></tr>
+            <tr><td>ikf</td><td>Forward beta roll-off corner current</td></tr>
+            <tr><td>ik</td><td>null</td></tr>
+            <tr><td>ise</td><td>B-E leakage saturation current</td></tr>
+            <tr><td>ne</td><td>B-E leakage emission coefficient</td></tr>
+            <tr><td>br</td><td>Ideal reverse beta</td></tr>
+            <tr><td>nr</td><td>Reverse emission coefficient</td></tr>
+            <tr><td>var</td><td>Reverse Early voltage</td></tr>
+            <tr><td>vb</td><td>null</td></tr>
+            <tr><td>ikr</td><td>reverse beta roll-off corner current</td></tr>
+            <tr><td>isc</td><td>B-C leakage saturation current</td></tr>
+            <tr><td>nc</td><td>B-C leakage emission coefficient</td></tr>
+            <tr><td>rb</td><td>Zero bias base resistance</td></tr>
+            <tr><td>irb</td><td>Current for base resistance=(rb+rbm)/2</td></tr>
+            <tr><td>rbm</td><td>Minimum base resistance</td></tr>
+            <tr><td>re</td><td>Emitter resistance</td></tr>
+            <tr><td>rc</td><td>Collector resistance</td></tr>
+            <tr><td>cje</td><td>Zero bias B-E depletion capacitance</td></tr>
+            <tr><td>vje</td><td>B-E built in potential</td></tr>
+            <tr><td>pe</td><td>null</td></tr>
+            <tr><td>mje</td><td>B-E junction grading coefficient</td></tr>
+            <tr><td>me</td><td>null</td></tr>
+            <tr><td>tf</td><td>Ideal forward transit time</td></tr>
+            <tr><td>xtf</td><td>Coefficient for bias dependence of TF</td></tr>
+            <tr><td>vtf</td><td>Voltage giving VBC dependence of TF</td></tr>
+            <tr><td>itf</td><td>High current dependence of TF</td></tr>
+            <tr><td>ptf</td><td>Excess phase</td></tr>
+            <tr><td>cjc</td><td>Zero bias B-C depletion capacitance</td></tr>
+            <tr><td>vjc</td><td>B-C built in potential</td></tr>
+            <tr><td>pc</td><td>null</td></tr>
+            <tr><td>mjc</td><td>B-C junction grading coefficient</td></tr>
+            <tr><td>mc</td><td>null</td></tr>
+            <tr><td>xcjc</td><td>Fraction of B-C cap to internal base</td></tr>
+            <tr><td>tr</td><td>Ideal reverse transit time</td></tr>
+            <tr><td>cjs</td><td>Zero bias C-S capacitance</td></tr>
+            <tr><td>ccs</td><td>Zero bias C-S capacitance</td></tr>
+            <tr><td>vjs</td><td>Substrate junction built in potential</td></tr>
+            <tr><td>ps</td><td>null</td></tr>
+            <tr><td>mjs</td><td>Substrate junction grading coefficient</td></tr>
+            <tr><td>ms</td><td>null</td></tr>
+            <tr><td>xtb</td><td>Forward and reverse beta temp. exp.</td></tr>
+            <tr><td>eg</td><td>Energy gap for IS temp. dependency</td></tr>
+            <tr><td>xti</td><td>Temp. exponent for IS</td></tr>
+            <tr><td>fc</td><td>Forward bias junction fit parameter</td></tr>
+            <tr><td>tnom</td><td>Parameter measurement temperature</td></tr>
+            <tr><td>kf</td><td>Flicker Noise Coefficient</td></tr>
+            <tr><td>af</td><td>Flicker Noise Exponent</td></tr>
+            <tr><th>BJT - localInstance parameters (output-only)</th></tr>
+            <tr><td>type</td><td>NPN or PNP</td></tr>
+            <tr><td>invearlyvoltf</td><td>Inverse early voltage:forward</td></tr>
+            <tr><td>invearlyvoltr</td><td>Inverse early voltage:reverse</td></tr>
+            <tr><td>invrollofff</td><td>Inverse roll off - forward</td></tr>
+            <tr><td>invrolloffr</td><td>Inverse roll off - reverse</td></tr>
+            <tr><td>collectorconduct</td><td>Collector conductance</td></tr>
+            <tr><td>emitterconduct</td><td>Emitter conductance</td></tr>
+            <tr><td>transtimevbcfact</td><td>Transit time VBC factor</td></tr>
+            <tr><td>excessphasefactor</td><td>Excess phase fact.</td></tr>
+        </table>
+    -->
+</body>
+</html>

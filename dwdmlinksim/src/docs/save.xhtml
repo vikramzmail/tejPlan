@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Raw Output</title>
+    </head>
+    <body>
+        <span class="intro">
+            .SAVE Lines
+            <br/>
+            <br/>
+            General form:<br/>
+            <br/>
+            <code>.SAVE vector vector vector ...</code><br/>
+            <br/>
+            <br/>
+            Examples:<br/>
+            <br/>
+            <code>.SAVE i(vin) input output</code><br/>
+            <code>.SAVE @@m1[id]</code>
+        </span>
+        <p>
+            The vectors listed on the .SAVE line are recorded in the rawfile for use
+            later with ngspice or nutmeg (nutmeg is just the data-analysis half of
+            ngspice, without the ability to simulate).  The standard vector names are
+            accepted.  If no .SAVE line is given, then the default set of vectors
+            are saved (node voltages and voltage source branch currents).  If .SAVE
+            lines are given, only those vectors specified are saved.<!--  For more
+            discussion on internal device data, see Appendix B.  See also the
+            section on the interactive command interpreter for information on how to
+            use the rawfile.-->
+        </p>
+    </body>
+</html>

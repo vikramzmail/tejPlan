@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd"[
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>MESFET;s</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <!--
+    
+            Copyright (C) 1996 The Regents of the University of California.
+            All Rights Reserved.
+    
+            Permission to use, copy, modify, and distribute this software and its
+            documentation for educational, research and non-profit purposes,
+            without fee, and without a written agreement is hereby granted,
+            provided that the above copyright notice, this paragraph and the
+            following three paragraphs appear in all copies.
+    
+            This software program and documentation are copyrighted by The Regents
+            of the University of California. The software program and
+            documentation are supplied "as is", without any accompanying services
+            from The Regents. The Regents does not warrant that the operation of
+            the program will be uninterrupted or error-free. The end-user
+            understands that the program was developed for research purposes and
+            is advised not to rely exclusively on the program for any reason.
+    
+            IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+            FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+            INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+            ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+            ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+            CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+            LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+            A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+            BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+            MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+            -->
+            <span class="intro">
+                <big>Spice Modeling</big>
+                <br/><br/>
+                General form:
+                <br/>
+                <code>        ZXXXXXXX ND NG NS MNAME [AREA] [OFF] [IC=VDS, VGS]</code>
+                <br/>
+                <br/>
+	Examples:
+                <br/>
+                <code>Z1 7 2 3 ZM1 OFF</code>
+            </span>
+            <a name="model">MESFET Models (NMF/PMF)</a>
+            <p>
+                The MESFET model is derived from the GaAs FET model of Statz et al.  as
+                described in [11].  The dc characteristics are defined by the parameters
+                <var>VTO</var>, <var>B</var>, and <var>BETA</var>, which determine the variation of drain current with
+                gate voltage, <var>ALPHA</var>, which determines saturation voltage, and <var>LAMBDA</var>,
+                which determines the output conductance.
+            </p>
+            <p>
+	The formula are given by:
+            </p>
+            <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>I</mi><mi>d</mi></msub>
+                <mo>=</mo>
+                <mo>{</mo>
+                <mtable columnalign="left">
+                    <mtr>
+                        <mtd>
+                            <mrow>
+                                <mo>(</mo>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>B</mi>
+                                        <mo>&InvisibleTimes;</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <msub><mi>V</mi><mi>gs</mi></msub>
+                                                <mo>-</mo>
+                                                <msub><mi>V</mi><mi>T</mi></msub>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mn>2</mn>
+                                        </msup>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo>+</mo>
+                                        <mi>b</mi>
+                                        <mo>&InvisibleTimes;</mo>
+                                        <mo>(</mo>
+                                        <msub><mi>V</mi><mi>gs</mi></msub>
+                                        <mo>-</mo>
+                                        <msub><mi>V</mi><mi>T</mi></msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                                <mo>|</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <msup>
+                                    <mrow>
+                                        <mo>|</mo>
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mi>A</mi>
+                                        <mfrac>
+                                            <mrow>
+                                                <msub><mi>V</mi><mi>ds</mi></msub>
+                                            </mrow>
+                                            <mn>3</mn>
+                                        </mfrac>
+                                        <mo>|</mo>
+                                    </mrow>
+                                    <mn>3</mn>
+                                </msup>
+                                <mo>|</mo>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>+</mo>
+                                <mi>L</mi>
+                                <msub><mi>V</mi><mi>ds</mi></msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </mtd>
+                        <mtd>
+	      , for
+                            <mn>0</mn>
+                            &lt;
+                            <msub><mi>V</mi><mi>ds</mi></msub>
+                            &lt;
+                            <mfrac><mn>3</mn><mi>A</mi></mfrac>
+                        </mtd>
+                    </mtr>
+                    <mtr>
+                        <mtd>
+                            <mrow>
+                                <mfrac>
+                                    <mrow>
+                                        <mi>B</mi>
+                                        <mo>&InvisibleTimes;</mo>
+                                        <msup>
+                                            <mrow>
+                                                <mo>(</mo>
+                                                <msub><mi>V</mi><mi>gs</mi></msub>
+                                                <mo>-</mo>
+                                                <msub><mi>V</mi><mi>T</mi></msub>
+                                                <mo>)</mo>
+                                            </mrow>
+                                            <mn>2</mn>
+                                        </msup>
+                                    </mrow>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo>+</mo>
+                                        <mi>b</mi>
+                                        <mo>(</mo>
+                                        <msub><mi>V</mi><mi>gs</mi></msub>
+                                        <mo>-</mo>
+                                        <msub><mi>V</mi><mi>T</mi></msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                </mfrac>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>+</mo>
+                                <mi>L</mi>
+                                <msub><mi>V</mi><mi>ds</mi></msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </mtd>
+                        <mtd>
+                            , for
+                            <msub><mi>V</mi><mi>ds</mi></msub>
+                            &gt; <mfrac><mn>3</mn><mi>A</mi></mfrac>
+                        </mtd>
+                    </mtr>
+                </mtable>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            Two ohmic resistances, <var>RD</var> and <var>RS</var>, are included.  Charge storage is
+            modeled by total gate charge as a function of gate-drain and gate-source
+            voltages and is defined by the parameters <var>CGS</var>, <var>CGD</var>, and <var>PB</var>.
+        </p>
+        <table border="1">
+            <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td></tr>
+            <tr><td>VTO</td><td>Pinch-off voltage</td><td>V</td><td>-2.0</td><td>-2.0</td></tr>
+            <tr><td>BETA</td><td>Transconductance parameter</td><td>A/V<sup>2</sup> </td><td>1.0e-4</td><td>1.0e-3</td></tr>
+            <tr><td>B</td><td>Doping tail extending parameter</td><td>1/V</td><td>0.3</td><td>0.3</td></tr>
+            <tr><td>ALPHA</td><td>Saturation voltage parameter</td><td>1/V</td><td>2</td><td>2</td></tr>
+            <tr><td>LAMBDA</td><td>Channel-length modulation parameter</td><td>1/V</td><td>0</td><td>1.0e-4</td></tr>
+            <tr><td>RD</td><td>Drain ohmic resistance</td><td>Z</td><td>0</td><td>100</td></tr>
+            <tr><td>RS</td><td>Source ohmic resistance</td><td>Z</td><td>0</td><td>100</td></tr>
+            <tr><td>CGS</td><td>Zero-bias G-S junction capacitance</td><td>F</td><td>0</td><td>5pF</td></tr>
+            <tr><td>CGD</td><td>Zero-bias G-D junction capacitance</td><td>F</td><td>0</td><td>1pF</td></tr>
+            <tr><td>PB</td><td>Gate junction potential</td><td>V</td><td>1</td><td>0.6</td></tr>
+            <tr><td>KF</td><td>Flicker noise coefficient</td><td>-</td><td>0</td><td>-</td></tr>
+            <tr><td>AF</td><td>Flicker noise exponent</td><td>-</td><td>1</td><td>-</td></tr>
+            <tr><td>FC</td><td>Coefficient for forward-bias depletion capacitance formula</td><td>-</td><td>0.5</td><td>-</td></tr>
+        </table>
+        <!--
+        <table>
+               <tbody>
+                    <tr>
+                        <th>MES - localInstance parameters (input-output)</th>
+                    </tr>
+                    <tr><td>area</td><td>Area factor</td></tr>
+                    <tr><td>icvds</td><td>Initial D-S voltage</td></tr>
+                    <tr><td>icvgs</td><td>Initial G-S voltage</td></tr>
+                    <tr>
+                        <th>MES - localInstance parameters (output-only)</th>
+                    </tr>
+                    <tr><td>off</td><td>Device initially off</td></tr>
+                    <tr><td>dnode</td><td>drain node index</td></tr>
+                    <tr><td>gnode</td><td>gate node index</td></tr>
+                    <tr><td>snode</td><td>source node index</td></tr>
+                    <tr><td>dprimenode</td><td>internal drain node index</td></tr>
+                    <tr><td>sprimenode</td><td>internal source node index</td></tr>
+                    <tr><td>vgs</td><td>Gate-Source voltage</td></tr>
+                    <tr><td>vgd</td><td>Gate-Drain voltage</td></tr>
+                    <tr><td>cg</td><td>Gate capacitance</td></tr>
+                    <tr><td>cd</td><td>Drain capacitance</td></tr>
+                    <tr><td>cgd</td><td>Gate-Drain capacitance</td></tr>
+                    <tr><td>gm</td><td>Transconductance</td></tr>
+                    <tr><td>gds</td><td>Drain-Source conductance</td></tr>
+                    <tr><td>ggs</td><td>Gate-Source conductance</td></tr>
+                    <tr><td>ggd</td><td>Gate-Drain conductance</td></tr>
+                    <tr><td>cqgs</td><td>Capacitance due to gate-source charge storage</td></tr>
+                    <tr><td>cqgd</td><td>Capacitance due to gate-drain charge storage</td></tr>
+                    <tr><td>qgs</td><td>Gate-Source charge storage</td></tr>
+                    <tr><td>qgd</td><td>Gate-Drain charge storage</td></tr>
+                    <tr><td>is</td><td>Source current</td></tr>
+                    <tr><td>p</td><td>Power dissipated by the mesfet</td></tr>
+                    <tr>
+                        <th>MES - localInstance parameters (input-only)</th>
+                    </tr>
+                    <tr><td>nmf</td><td>N type MESfet localInstance</td></tr>
+                    <tr><td>pmf</td><td>P type MESfet localInstance</td></tr>
+                    <tr>
+                        <th>MES - localInstance parameters (input-output)</th>
+                    </tr>
+                    <tr><td>vt0</td><td>Pinch-off voltage</td></tr>
+                    <tr><td>vto</td><td>null</td></tr>
+                    <tr><td>alpha</td><td>Saturation voltage parameter</td></tr>
+                    <tr><td>beta</td><td>Transconductance parameter</td></tr>
+                    <tr><td>lambda</td><td>Channel length modulation param.</td></tr>
+                    <tr><td>b</td><td>Doping tail extending parameter</td></tr>
+                    <tr><td>rd</td><td>Drain ohmic resistance</td></tr>
+                    <tr><td>rs</td><td>Source ohmic resistance</td></tr>
+                    <tr><td>cgs</td><td>G-S junction capacitance</td></tr>
+                    <tr><td>cgd</td><td>G-D junction capacitance</td></tr>
+                    <tr><td>pb</td><td>Gate junction potential</td></tr>
+                    <tr><td>is</td><td>Junction saturation current</td></tr>
+                    <tr><td>fc</td><td>Forward bias junction fit param.</td></tr>
+                    <tr><td>kf</td><td>Flicker noise coefficient</td></tr>
+                    <tr><td>af</td><td>Flicker noise exponent</td></tr>
+                    <tr>
+                        <th>MES - localInstance parameters (output-only)</th>
+                    </tr>
+                    <tr><td>type</td><td>N-type or P-type MESfet localInstance</td></tr>
+                    <tr><td>gd</td><td>Drain conductance</td></tr>
+                    <tr><td>gs</td><td>Source conductance</td></tr>
+                    <tr><td>depl_cap</td><td>Depletion capacitance</td></tr>
+                    <tr><td>vcrit</td><td>Critical voltage</td></tr>
+                </tbody>
+            </table>
+        -->
+
+        </body>
+    </html>

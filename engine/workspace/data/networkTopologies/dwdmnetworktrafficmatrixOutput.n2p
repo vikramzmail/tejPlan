@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?><network description="" name="">
+    <physicalTopology>
+        <node degree="4" name="Ambala" no="0" type="ROADM"/>
+        <node name="Sirihind" no="1" type="EDFA"/>
+        <node name="Ludhiana" no="2" type="EDFA"/>
+        <node degree="2" name="Jalandhar" no="3" type="ROADM"/>
+        <node name="Nawashahar" no="4" type="EDFA"/>
+        <node name="Ropar" no="5" type="EDFA"/>
+        <node degree="2" name="Chandigarh" no="6" type="ROADM"/>
+        <node name="Jagadhari" no="7" type="EDFA"/>
+        <node name="Sahranpur-1" no="8" type="EDFA"/>
+        <node name="Luxar" no="9" type="EDFA"/>
+        <node name="Haridwar" no="10" type="EDFA"/>
+        <node degree="11" name="Dehradoon" no="11" type="ROADM"/>
+        <node name="Sahranpur-2" no="12" type="EDFA"/>
+        <node name="Muzafarnagar" no="13" type="EDFA"/>
+        <node degree="2" name="Meerut" no="14" type="ROADM"/>
+        <node degree="3" name="Ghaziabad" no="15" type="ROADM"/>
+        <node degree=" 5" name="Delhi" no="16" type="ROADM"/>
+        <node degree=" 2" name="NIC CGO" no="17" type="ROADM"/>
+        <node degree="2" name="NIC Shastri Park" no="18" type="ROADM"/>
+        <node name="Sonipat" no="19" type="EDFA"/>
+        <node name="Karnal" no="20" type="EDFA"/>
+        <link LinkId="0" destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="53.0" numWavelengths="40" originNodeId="0" sublink="0"/>
+        <link LinkId="1" destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="60.0" numWavelengths="40" originNodeId="1" sublink="0"/>
+        <link LinkId="2" destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="57.0" numWavelengths="40" originNodeId="2" sublink="0"/>
+        <link LinkId="3" destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="80.0" numWavelengths="40" originNodeId="3" sublink="1"/>
+        <link LinkId="4" destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="58.0" numWavelengths="40" originNodeId="4" sublink="1"/>
+        <link LinkId="5" destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="70.0" numWavelengths="40" originNodeId="5" sublink="1"/>
+        <link LinkId="6" destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="48.0" numWavelengths="40" originNodeId="6" sublink="2"/>
+        <link LinkId="7" destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="46.0" numWavelengths="40" originNodeId="0" sublink="3"/>
+        <link LinkId="8" destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="36.0" numWavelengths="40" originNodeId="7" sublink="3"/>
+        <link LinkId="9" destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="8" sublink="3"/>
+        <link LinkId="10" destinationNodeId="10" linkCapacityInErlangs="400.0" linkLengthInKm="28.0" numWavelengths="40" originNodeId="9" sublink="3"/>
+        <link LinkId="11" destinationNodeId="11" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="10" sublink="3"/>
+        <link LinkId="12" destinationNodeId="12" linkCapacityInErlangs="400.0" linkLengthInKm="75.0" numWavelengths="40" originNodeId="11" sublink="4"/>
+        <link LinkId="13" destinationNodeId="13" linkCapacityInErlangs="400.0" linkLengthInKm="59.0" numWavelengths="40" originNodeId="12" sublink="4"/>
+        <link LinkId="14" destinationNodeId="14" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="13" sublink="4"/>
+        <link LinkId="15" destinationNodeId="15" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="14" sublink="5"/>
+        <link LinkId="16" destinationNodeId="16" linkCapacityInErlangs="400.0" linkLengthInKm="24.0" numWavelengths="40" originNodeId="15" sublink="6"/>
+        <link LinkId="17" destinationNodeId="17" linkCapacityInErlangs="400.0" linkLengthInKm="15.0" numWavelengths="40" originNodeId="16" sublink="7"/>
+        <link LinkId="18" destinationNodeId="18" linkCapacityInErlangs="400.0" linkLengthInKm="15.0" numWavelengths="40" originNodeId="17" sublink="8"/>
+        <link LinkId="19" destinationNodeId="16" linkCapacityInErlangs="400.0" linkLengthInKm="30.0" numWavelengths="40" originNodeId="18" sublink="9"/>
+        <link LinkId="20" destinationNodeId="19" linkCapacityInErlangs="400.0" linkLengthInKm="48.0" numWavelengths="40" originNodeId="16" sublink="10"/>
+        <link LinkId="21" destinationNodeId="20" linkCapacityInErlangs="400.0" linkLengthInKm="79.0" numWavelengths="40" originNodeId="19" sublink="10"/>
+        <link LinkId="22" destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="75.0" numWavelengths="40" originNodeId="20" sublink="10"/>
+        <link LinkId="23" destinationNodeId="20" linkCapacityInErlangs="400.0" linkLengthInKm="75.0" numWavelengths="40" originNodeId="0" sublink="10"/>
+        <link LinkId="24" destinationNodeId="19" linkCapacityInErlangs="400.0" linkLengthInKm="79.0" numWavelengths="40" originNodeId="20" sublink="10"/>
+        <link LinkId="25" destinationNodeId="16" linkCapacityInErlangs="400.0" linkLengthInKm="48.0" numWavelengths="40" originNodeId="19" sublink="10"/>
+        <link LinkId="26" destinationNodeId="16" linkCapacityInErlangs="400.0" linkLengthInKm="15.0" numWavelengths="40" originNodeId="17" sublink="7"/>
+        <link LinkId="27" destinationNodeId="17" linkCapacityInErlangs="400.0" linkLengthInKm="15.0" numWavelengths="40" originNodeId="18" sublink="8"/>
+        <link LinkId="28" destinationNodeId="18" linkCapacityInErlangs="400.0" linkLengthInKm="30.0" numWavelengths="40" originNodeId="16" sublink="9"/>
+        <link LinkId="29" destinationNodeId="15" linkCapacityInErlangs="400.0" linkLengthInKm="24.0" numWavelengths="40" originNodeId="16" sublink="6"/>
+        <link LinkId="30" destinationNodeId="14" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="15" sublink="5"/>
+        <link LinkId="31" destinationNodeId="13" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="14" sublink="4"/>
+        <link LinkId="32" destinationNodeId="12" linkCapacityInErlangs="400.0" linkLengthInKm="59.0" numWavelengths="40" originNodeId="13" sublink="4"/>
+        <link LinkId="33" destinationNodeId="11" linkCapacityInErlangs="400.0" linkLengthInKm="75.0" numWavelengths="40" originNodeId="12" sublink="4"/>
+        <link LinkId="34" destinationNodeId="10" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="11" sublink="3"/>
+        <link LinkId="35" destinationNodeId="9" linkCapacityInErlangs="400.0" linkLengthInKm="28.0" numWavelengths="40" originNodeId="10" sublink="3"/>
+        <link LinkId="36" destinationNodeId="8" linkCapacityInErlangs="400.0" linkLengthInKm="51.0" numWavelengths="40" originNodeId="9" sublink="3"/>
+        <link LinkId="37" destinationNodeId="7" linkCapacityInErlangs="400.0" linkLengthInKm="36.0" numWavelengths="40" originNodeId="8" sublink="3"/>
+        <link LinkId="38" destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="46.0" numWavelengths="40" originNodeId="7" sublink="3"/>
+        <link LinkId="39" destinationNodeId="6" linkCapacityInErlangs="400.0" linkLengthInKm="48.0" numWavelengths="40" originNodeId="0" sublink="2"/>
+        <link LinkId="40" destinationNodeId="5" linkCapacityInErlangs="400.0" linkLengthInKm="70.0" numWavelengths="40" originNodeId="6" sublink="1"/>
+        <link LinkId="41" destinationNodeId="4" linkCapacityInErlangs="400.0" linkLengthInKm="58.0" numWavelengths="40" originNodeId="5" sublink="1"/>
+        <link LinkId="42" destinationNodeId="3" linkCapacityInErlangs="400.0" linkLengthInKm="80.0" numWavelengths="40" originNodeId="4" sublink="1"/>
+        <link LinkId="43" destinationNodeId="2" linkCapacityInErlangs="400.0" linkLengthInKm="57.0" numWavelengths="40" originNodeId="3" sublink="0"/>
+        <link LinkId="44" destinationNodeId="1" linkCapacityInErlangs="400.0" linkLengthInKm="60.0" numWavelengths="40" originNodeId="2" sublink="0"/>
+        <link LinkId="45" destinationNodeId="0" linkCapacityInErlangs="400.0" linkLengthInKm="53.0" numWavelengths="40" originNodeId="1" sublink="0"/>
+    </physicalTopology>
+    <demandSet>
+        <demandEntry DemandId="0" egressNodeId="0" ingressNodeId="3" offeredTrafficInErlangs="20.0"/>
+        <demandEntry DemandId="1" egressNodeId="3" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="2" egressNodeId="6" ingressNodeId="11" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="3" egressNodeId="0" ingressNodeId="15" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="4" egressNodeId="0" ingressNodeId="17" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="5" egressNodeId="11" ingressNodeId="16" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="6" egressNodeId="16" ingressNodeId="6" offeredTrafficInErlangs="20.0"/>
+        <demandEntry DemandId="7" egressNodeId="0" ingressNodeId="11" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="8" egressNodeId="18" ingressNodeId="14" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="9" egressNodeId="14" ingressNodeId="0" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="10" egressNodeId="17" ingressNodeId="6" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="11" egressNodeId="3" ingressNodeId="14" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="12" egressNodeId="18" ingressNodeId="11" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="13" egressNodeId="15" ingressNodeId="18" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="14" egressNodeId="11" ingressNodeId="17" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="15" egressNodeId="11" ingressNodeId="14" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="16" egressNodeId="16" ingressNodeId="3" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="17" egressNodeId="3" ingressNodeId="11" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="18" egressNodeId="14" ingressNodeId="16" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="19" egressNodeId="18" ingressNodeId="15" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="20" egressNodeId="0" ingressNodeId="14" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="21" egressNodeId="11" ingressNodeId="15" offeredTrafficInErlangs="10.0"/>
+        <demandEntry DemandId="22" egressNodeId="14" ingressNodeId="17" offeredTrafficInErlangs="10.0"/>
+    </demandSet>
+    <routingInfo>
+        <route LinksTravelled="23-24-25-29-30" carriedTrafficInErlangs="10.0" demandId="9" seqWavelengths="1 1 1 1 1"/>
+        <route LinksTravelled="43-44-45" carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="0 0 0"/>
+        <route LinksTravelled="43-44-45" carriedTrafficInErlangs="10.0" demandId="0" seqWavelengths="2 2 2"/>
+        <route LinksTravelled="43-44-45-23-24-25" carriedTrafficInErlangs="10.0" demandId="16" seqWavelengths="5 5 5 5 5 5"/>
+        <route LinksTravelled="40-41-42" carriedTrafficInErlangs="10.0" demandId="1" seqWavelengths="39 39 39"/>
+        <route LinksTravelled="6-23-24-25" carriedTrafficInErlangs="10.0" demandId="6" seqWavelengths="3 3 3 3"/>
+        <route LinksTravelled="6-23-24-25" carriedTrafficInErlangs="10.0" demandId="6" seqWavelengths="4 4 4 4"/>
+        <route LinksTravelled="6-23-24-25-17" carriedTrafficInErlangs="10.0" demandId="10" seqWavelengths="2 2 2 2 2"/>
+        <route LinksTravelled="34-35-36-37-38" carriedTrafficInErlangs="10.0" demandId="7" seqWavelengths="39 39 39 39 39"/>
+        <route LinksTravelled="34-35-36-37-38-0-1-2" carriedTrafficInErlangs="10.0" demandId="17" seqWavelengths="1 1 1 1 1 1 1 1"/>
+        <route LinksTravelled="34-35-36-37-38-39" carriedTrafficInErlangs="10.0" demandId="2" seqWavelengths="0 0 0 0 0 0"/>
+        <route LinksTravelled="12-13-14-15-16-17-18" carriedTrafficInErlangs="10.0" demandId="12" seqWavelengths="37 37 37 37 37 37 37"/>
+        <route LinksTravelled="15-16-20-21-22" carriedTrafficInErlangs="10.0" demandId="20" seqWavelengths="2 2 2 2 2"/>
+        <route LinksTravelled="15-16-20-21-22-0-1-2" carriedTrafficInErlangs="10.0" demandId="11" seqWavelengths="4 4 4 4 4 4 4 4"/>
+        <route LinksTravelled="31-32-33" carriedTrafficInErlangs="10.0" demandId="15" seqWavelengths="1 1 1"/>
+        <route LinksTravelled="15-16-17-18" carriedTrafficInErlangs="10.0" demandId="8" seqWavelengths="38 38 38 38"/>
+        <route LinksTravelled="16-20-21-22" carriedTrafficInErlangs="10.0" demandId="3" seqWavelengths="1 1 1 1"/>
+        <route LinksTravelled="30-31-32-33" carriedTrafficInErlangs="10.0" demandId="21" seqWavelengths="0 0 0 0"/>
+        <route LinksTravelled="16-28" carriedTrafficInErlangs="10.0" demandId="19" seqWavelengths="39 39"/>
+        <route LinksTravelled="29-30-31-32-33" carriedTrafficInErlangs="10.0" demandId="5" seqWavelengths="2 2 2 2 2"/>
+        <route LinksTravelled="29-30" carriedTrafficInErlangs="10.0" demandId="18" seqWavelengths="3 3"/>
+        <route LinksTravelled="26-20-21-22" carriedTrafficInErlangs="10.0" demandId="4" seqWavelengths="3 3 3 3"/>
+        <route LinksTravelled="26-29-30-31-32-33" carriedTrafficInErlangs="10.0" demandId="14" seqWavelengths="4 4 4 4 4 4"/>
+        <route LinksTravelled="26-29-30" carriedTrafficInErlangs="10.0" demandId="22" seqWavelengths="39 39 39"/>
+        <route LinksTravelled="19-29" carriedTrafficInErlangs="10.0" demandId="13" seqWavelengths="0 0"/>
+    </routingInfo>
+</network>

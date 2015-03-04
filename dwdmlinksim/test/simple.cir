@@ -1,0 +1,24 @@
+Simple Circuit
+
+r1  0 1 5k
+r2 1 2 5k
+vin 2 0 1
+*vin 2 0 pwl(0 1 2 3)
+*vin 2 0 pulse(0 1)
+*vin 2 0 sin(0 1 1)
+*vin 2 0 exp(0 1)
+*vin 2 0 sffm(0 1)
+*.options noacct
+*.tran  0.1 10
+*.print tran  v(1) i(vin)
+*.plot tran  v(1) i(vin)
+*.dc vin 0.1 1 0.1
+*.print dc  v(1) i(vin)
+*.plot dc  v(1) i(vin)
+.ac dec 10 .01 10
+*.AC oct 10 0.1 10
+*.AC LIN 10 0.1 10
+.plot ac  v(1) i(vin)
+*.print ac  v(1)
+*.op
+.end

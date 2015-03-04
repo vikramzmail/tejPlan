@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd"[
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>Inductor</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <span class="intro">
+                <big>Spice Modeling</big>
+                <br/>	<br/>
+                General form:
+                <br/>
+                <code>LYYYYYYY N+ N- [VALUE] [MNAME] [NT=VALUE] [M=VALUE] [SCALE=VALUE] [TEMP=VALUE]
+                    [DTEMP=VALUE] [IC=INIT_CONDITION]</code>
+                <br/>
+                <br/>
+	Examples:
+                <br/>
+                <code>LLINK 42 69 1UH</code><br/>
+                <code>LSHUNT 23 51 10U IC=15.7MA</code>
+            </span>
+            <p>
+                The inductor device implemented into ngspice has many enhancements over
+                the original one. <var>N+</var> and <var>N-</var> are the positive and negative
+                element nodes, respectively. <var>VALUE</var> is the inductance in Henries.
+            </p>
+            <p>
+                Inductance can be specified in the instance line as in the examples above
+                or in a <span class="command">.model</span> line, as in the example below:
+            </p>
+            <code>L1 15 5 indmod1</code><br/>
+            <code>L2  2 7 indmod1</code><br/>
+            <br/>
+            <code>.model indmod1 L ind=3n</code>
+            <p>
+                Both inductors have an inductance of 3nH.
+            </p>
+            <p>
+                The <var>NT</var> is used in conjunction with a <span class="command">.model</span> line, and
+                is used to specify the number of turns of the inductor.
+            </p>
+            <p>
+                If you want to simulate temperature dependence of an inductor, you need
+                to specify its temperature coefficients, using a <span class="command">.model</span> line,
+                like in the example below:
+            </p>
+            <code>Lload 1 2 1u ind1 dtemp=5</code><br/>
+            <br/>
+            <code>.MODEL ind1 L tc1=0.001</code>
+            <p>
+                The (optional) initial condition is the initial (timezero) value of
+                inductor current (in Amps) that flows from <var>N+</var>, through the
+                inductor, to <var>N-</var>.  Note that the initial conditions (if any)
+                apply only if the <var>UIC</var> option is specified on the <span class="command">.tran</span>
+                analysis line.
+            </p>
+            <p>
+                Ngspice calculates the nominal inductance as described below:
+            </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>L</mi><mi>nom</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mfrac>
+                        <mrow>
+                            <mi>value</mi>
+                            <mo>*</mo>
+                            <mi>scale</mi>
+                        </mrow>
+                        <mi>m</mi>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            The inductor model contains physical and geometrical information that
+            may be used to compute the inductance of some common topologies like
+            solenoids and toroids, wound in air or other material with constant
+            magnetic permeability.
+        </p>
+        <table border="1">
+            <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td></tr>
+            <tr><td>IND</td><td>Model inductance</td><td>H</td><td>0.0</td><td>1e-3</td></tr>
+            <tr><td>CSECT</td><td>Cross section</td><td>meters<sup>2</sup></td><td>0.0</td><td>1e-3</td></tr>
+            <tr><td>LENGTH</td><td>Length</td><td>meters</td><td>0.0</td><td>1e-2</td></tr>
+            <tr><td>TC1</td><td>First order temperature coeff.</td><td>F/<sup>o</sup>C</td><td>0.0</td><td>0.001</td></tr>
+            <tr><td>TC2</td><td>Second order temperature coeff.</td><td>F/<sup>o</sup>C<sup>2</sup></td><td>0.0</td><td>0.0001</td></tr>
+            <tr><td>TNOM</td><td>Parameter measurement temperature</td><td><sup>o</sup>C</td><td>27</td><td>50</td></tr>
+            <tr><td>NT</td><td>Number of turns</td><td>-</td><td>0.0</td><td>10</td></tr>
+            <tr><td>MU</td><td>Relative magnetic permeability</td><td>H/meters</td><td>0.0</td><td>-</td></tr>
+        </table>
+        <br/>
+        <p>
+            The inductor has an inductance computed as:
+        </p>
+        <p>
+            If <var>VALUE</var> is specified on the instance line then
+        </p>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>L</mi><mi>nom</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mfrac>
+                        <mrow>
+                            <mi>value</mi>
+                            <mo>*</mo>
+                            <mi>scale</mi>
+                        </mrow>
+                        <mi>m</mi>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            If model inductance is specified then
+        </p>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>L</mi><mi>nom</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mfrac>
+                        <mrow>
+                            <mi>IND</mi>
+                            <mo>*</mo>
+                            <mi>scale</mi>
+                        </mrow>
+                        <mi>m</mi>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+
+        <p>
+            If neither <var>VALUE</var> nor <var>IND</var> are specified, then geometrical
+            and physical parameters are take into account. In the following formulas
+            <var>NT</var> refers to both instance and model parameter (instance parameter
+            overrides model parameter):
+        </p>
+        <p>
+            If <var>LENGTH</var> is not zero:
+        </p>
+
+        if <var>MU</var> is specified:
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <msub><mi>L</mi><mi>nom</mi></msub>
+            <mo>=</mo>
+            <mrow>
+                <mfrac>
+                    <mrow>
+                        <mi>MU</mi>
+                        <mo>*</mo>
+                        <msub><mi>mu</mi><mn>0</mn></msub>
+                        <mo>*</mo>
+                        <msup>
+                            <mi>NT</mi>
+                            <mn>2</mn>
+                        </msup>
+                        <mo>*</mo>
+                        <mi>CSECT</mi>
+                    </mrow>
+                    <mi>LENGTH</mi>
+                </mfrac>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+	otherwise:
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>L</mi><mi>nom</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mfrac>
+                        <mrow>
+                            <msub><mi>mu</mi><mn>0</mn></msub>
+                            <mo>*</mo>
+                            <msup>
+                                <mi>NT</mi>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>*</mo>
+                            <mi>CSECT</mi>
+                        </mrow>
+                        <mi>LENGTH</mi>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        with:
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <msub><mi>mu</mi><mi>0</mi></msub>
+                <mo>=</mo>
+                <mrow>
+                    <mrow>
+                        <mn>1.25663706143592e-6</mn>
+                    </mrow>
+                    <mfrac>
+                        <mi>H</mi>
+                        <mi>m</mi>
+                    </mfrac>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            After the nominal inductance is calculated, it is adjusted for temperature
+            by the formula:
+        </p>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <mi>L</mi><mo>(</mo><mi>T</mi><mo>)</mo>
+            <mo>=</mo>
+            <mrow>
+                <mi>L</mi><mo>(</mo><mi>TNOM</mi><mo>)</mo>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <msub><mi>TC</mi><mn>1</mn></msub>
+                <mo>(</mo>
+                <mi>T</mi>
+                <mo>-</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>+</mo>
+                <msub><mi>TC</mi><mn>2</mn></msub>
+                <msup>
+                    <mrow>
+                        <mo>(</mo>
+                        <mi>T</mi>
+                        <mo>-</mo>
+                        <mi>TNOM</mi>
+                        <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                </msup>
+                <mo>)</mo>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        where
+        <br/>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mi>L</mi>
+                <mo>(</mo>
+                <mi>TNOM</mi>
+                <mo>)</mo>
+                <mo>=</mo>
+                <mrow>
+                    <msub><mi>L</mi><mi>nom</mi></msub>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            In the above formula, <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>T</mi></math> represents the instance temperature,
+        which can be explicitly using the <var>TEMP</var> keyword or calculated
+        using the circuit temperature and <var>DTEMP</var>, if present.
+        </p>
+        <br/>
+        <br/>
+        <!--
+                <table border="1">
+                    <tr><th>Inductor - Instance parameters (input-output)</th></tr>
+                    <tr><td>inductance</td><td>Inductance of inductor</td></tr>
+                    <tr><td>ic</td><td>Initial current through inductor</td></tr>
+                    <tr><th>Inductor - Instance parameters (output-only)</th></tr>
+                    <tr><td>flux</td><td>Flux through inductor</td></tr>
+                    <tr><td>v</td><td>Terminal voltage of inductor</td></tr>
+                    <tr><td>c</td><td>Current through the inductor</td></tr>
+                    <tr><td>p</td><td>instantaneous power dissipated by the inductor</td></tr>
+                </table>
+        -->
+        </body>
+    </html>

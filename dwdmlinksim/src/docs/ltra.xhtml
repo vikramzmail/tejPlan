@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <p>
+Lossy Transmission Lines
+
+ General form:
+
+<code>
+  OXXXXXXX N1 N2 N3 N4 MNAME
+</code>
+
+
+ Examples:
+
+<code>
+  O23 1 0 2 0 LOSSYMOD
+  OCONNECT 10 5 20 5 INTERCONNECT
+</code>
+
+
+
+This is a two-port convolution model for singleconductor lossy
+transmission lines.  N1 and N2 are the nodes at port 1; N3 and N4 are
+the nodes at port 2.  Note that a lossy transmission line with zero loss
+may be more accurate than than the lossless transmission line due to
+implementation details.
+
+
+
+@node  Lossy Transmission Line Model (LTRA), Uniform Distributed RC Lines (Lossy), Lossy Transmission Lines, Transmission Lines
+@subsection  Lossy Transmission Line Model (LTRA)
+
+
+The uniform RLC/RC/LC/RG transmission line model (referred to as the
+LTRA model henceforth) models a uniform constant-parameter distributed
+transmission line.  The RC and LC cases may also be modelled using the
+URC and TRA models; however, the newer LTRA model is usually faster and
+more accurate than the others.  The operation of the LTRA model is based
+on the convolution of the transmission line's impulse responses with its
+inputs (see [8]).
+
+The LTRA model takes a number of parameters, some of which must be given
+and some of which are optional.
+
+@multitable @columnfractions .15 .4 .2 .1 .1
+@item name @tab parameter @tab units/type @tab default @tab example
+@item name @tab parameter @tab units/type @tab default @tab example
+@item R @tab resistance/length @tab Z/unit @tab 0.0 @tab 0.2
+@item L @tab inductance/length @tab henrys/unit @tab 0.0 @tab 9.13e-9
+@item G @tab conductance/length @tab mhos/unit @tab 0.0 @tab 0.0
+@item C @tab capacitance/length @tab farads/unit @tab 0.0 @tab 3.65e-12
+@item LEN @tab length of line @tab no default @tab 1.0
+@item REL @tab breakpoint control @tab arbitrary unit @tab 1 @tab 0.5
+@item ABS @tab breakpoint control @tab 1 @tab 5
+@item NOSTEPLIMIT @tab don't limit timestep to less than line delay
+      @tab flag @tab not set @tab set
+@item NOCONTROL @tab don't do complex timestep control
+      @tab flag @tab not set @tab set
+@item LININTERP @tab use linear interpolation
+      @tab flag @tab not set @tab set
+@item MIXEDINTERP @tab use linear when quadratic seems bad
+      @tab not set @tab set
+@item COMPACTREL @tab special reltol for history compaction
+      @tab flag @tab RELTOL @tab 1.0e-3
+@item COMPACTABS @tab special abstol for history compaction
+      @tab ABSTOL @tab 1.0e-9
+@item TRUNCNR @tab use Newton-Raphson method for timestep control
+      @tab flag @tab not set @tab set
+@item TRUNCDONTCUT @tab don't limit timestep to keep impulse-response
+errors low @tab flag @tab not set @tab set
+@end multitable
+
+
+The following types of lines have been implemented so far: RLC (uniform
+transmission line with series loss only), RC (uniform RC line), LC
+(lossless transmission line), and RG (distributed series resistance and
+parallel conductance only).  Any other combination will yield erroneous
+results and should not be tried.  The length LEN of the line must be
+specified.
+
+NOSTEPLIMIT is a flag that will remove the default restriction of
+limiting time-steps to less than the line delay in the RLC case.
+NOCONTROL is a flag that prevents the default limiting of the time-step
+based on convolution error criteria in the RLC and RC cases.  This
+speeds up simulation but may in some cases reduce the accuracy of
+results.  LININTERP is a flag that, when specified, will use linear
+interpolation instead of the default quadratic interpolation for
+calculating delayed signals.  MIXEDINTERP is a flag that, when
+specified, uses a metric for judging whether quadratic interpolation is
+not applicable and if so uses linear interpolation; otherwise it uses
+the default quadratic interpolation.  TRUNCDONTCUT is a flag that
+removes the default cutting of the time-step to limit errors in the
+actual calculation of impulse-response related quantities.  COMPACTREL
+and COMPACTABS are quantities that control the compaction of the past
+history of values stored for convolution.  Larger values of these lower
+accuracy but usually increase simulation speed.  These are to be used
+with the TRYTOCOMPACT option, described in the .OPTIONS section.
+TRUNCNR is a flag that turns on the use of Newton-Raphson iterations to
+determine an appropriate timestep in the timestep control routines. The
+default is a trial and error procedure by cutting the previous timestep
+in half.  REL and ABS are quantities that control the setting of
+breakpoints.
+
+The option most worth experimenting with for increasing the speed of
+simulation is REL.  The default value of 1 is usually safe from the
+point of view of accuracy but occasionally increases computation time.
+A value greater than 2 eliminates all breakpoints and may be worth
+trying depending on the nature of the rest of the circuit, keeping in
+mind that it might not be safe from the viewpoint of accuracy.
+Breakpoints may usually be entirely eliminated if it is expected the
+circuit will not display sharp discontinuities.  Values between 0 and 1
+are usually not required but may be used for setting many breakpoints.
+
+COMPACTREL may also be experimented with when the option TRYTOCOMPACT is
+specified in a .OPTIONS card.  The legal range is between 0 and 1.
+Larger values usually decrease the accuracy of the simulation but in
+some cases improve speed.  If TRYTOCOMPACT is not specified on a
+.OPTIONS card, history compaction is not attempted and accuracy is high.
+NOCONTROL, TRUNCDONTCUT and NOSTEPLIMIT also tend to increase speed at
+the expense of accuracy.
+        </p>
+    </body>
+</html>

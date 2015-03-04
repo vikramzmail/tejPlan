@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Junction Field-Effect Transistors (JFETs)</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <span class="intro">
+            <big>Spice Modeling</big>
+            <br/>        <br/>
+	General form:
+            <br/>
+            <code>JXXXXXXX ND NG NS MNAME [AREA] [OFF] [IC=VDS, VGS] [TEMP=VALUE]</code>
+            <br/>
+            <br/>
+            Examples:
+            <br/>
+            <code>J1 7 2 3 JM1 OFF</code>
+        </span>
+        <p>
+            <var>ND</var>, <var>NG</var>, and <var>NS</var> are the drain, gate, and source nodes, respectively.
+            <var>MNAME</var> is the model name, <var>AREA</var> is the area factor, and <var>OFF</var> indicates an
+            (optional) initial condition on the device for dc analysis.  If the area
+            factor is omitted, a value of 1.0 is assumed.  The (optional) initial
+            condition specification, using <var>IC</var>=<var>VDS</var>, <var>VGS</var> is intended for use with the
+            UIC option on the .TRAN control line, when a transient analysis is
+            desired starting from other than the quiescent operating point.  See the
+            .IC control line for a better way to set initial conditions.  The
+            (optional) <var>TEMP</var> value is the temperature at which this device is to
+            operate, and overrides the temperature specification on the .OPTION
+            control line.
+        </p>
+        <a name="model">JFET Models (NJF/PJF)</a>
+        <p>
+            The JFET model is derived from the FET model of Shichman and Hodges.
+            The dc characteristics are defined by the parameters <var>VTO</var> and <var>BETA</var>, which
+            determine the variation of drain current with gate voltage, <var>LAMBDA</var>,
+            which determines the output conductance, and <var>IS</var>, the saturation current
+            of the two gate junctions.  Two ohmic resistances, <var>RD</var> and <var>RS</var>, are
+            included.  Charge storage is modelled by nonlinear depletion layer
+            capacitances for both gate junctions which vary as the -1/2 power of
+            junction voltage and are defined by the parameters <var>CGS</var>, <var>CGD</var>, and <var>PB</var>.
+        </p>
+        <table border="1">
+            <tbody>
+                <tr><td>Name</td><td>Parameter</td><td>Units</td><td>Default</td><td>Example</td></tr>
+                <tr><td>VTO</td><td>Threshold voltage (V<sub>T0</sub>)</td><td> V</td><td>-2.0</td><td>-2.0</td></tr>
+                <tr><td>BETA</td><td>Transconductance parameter (B)</td><td>A/V<sup>2</sup></td><td>1.0e-4</td><td>1.0e-3</td></tr>
+                <tr><td>LAMBDA</td><td>Channel-length modulation parameter (L)</td><td>1/V</td><td>0</td><td>1.0e-4</td></tr>
+                <tr><td>RD</td><td>Drain ohmic resistance</td><td>Z</td><td>0</td><td>100</td></tr>
+                <tr><td>RS</td><td>Source ohmic resistance</td><td>Z</td><td>0</td><td>100</td></tr>
+                <tr><td>CGS</td><td>Zero-bias G-S junction capacitance (C<sub>gs</sub>)</td><td>F</td><td>0</td><td>5pF</td></tr>
+                <tr><td>CGD</td><td>Zero-bias G-D junction capacitance (C<sub>gs</sub>)</td><td>F</td><td>0</td><td>1pF</td></tr>
+                <tr><td>PB</td><td>Gate junction potential</td><td>V</td><td>1</td><td>0.6</td></tr>
+                <tr><td>IS</td><td>Gate junction saturation current (I<sub>S</sub>)</td><td>A</td><td>1.0e-14</td><td>1.0e-14</td></tr>
+                <tr><td>B</td><td>Doping tail parameter</td><td>- </td><td>1</td><td>1.1</td></tr>
+                <tr><td>KF</td><td>Flicker noise coefficient</td><td>- </td><td>0</td><td>-</td></tr>
+                <tr><td>AF</td><td>Flicker noise exponent</td><td>- </td><td>1</td><td>-</td></tr>
+                <tr><td>FC</td><td>Coefficient for forward-bias depletion capacitance formula</td><td>- </td><td>0.5</td><td>-</td></tr>
+                <tr><td>TNOM</td><td>Parameter measurement temperature</td><td><sup>o</sup>C</td><td>27</td><td>50</td></tr>
+            </tbody>
+        </table>
+        <!--
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>JFET - localInstance parameters (input-output)</th>
+                        </tr>
+                        <tr><td>off</td><td>Device initially off</td></tr>
+                        <tr><td>ic</td><td>Initial VDS,VGS vector</td></tr>
+                        <tr><td>area</td><td>Area factor</td></tr>
+                        <tr><td>ic-vds</td><td>Initial D-S voltage</td></tr>
+                        <tr><td>ic-vgs</td><td>Initial G-S volrage</td></tr>
+                        <tr><td> *     <tr><td>temp</td><td>Instance temperature</td></tr>
+                        <tr>
+                            <th>JFET - localInstance parameters (output-only)</th>
+                        </tr>
+                        <tr><td>drain-node</td><td>drain node index</td></tr>
+                        <tr><td>gate-node</td><td>gate node index</td></tr>
+                        <tr><td>source-node</td><td>source node index</td></tr>
+                        <tr><td>drain-prime-node</td><td>Internal drain node</td></tr>
+                        <tr><td>source-prime-nodeInternal</td><td>source node</td></tr>
+                        <tr><td>vgs</td><td>Voltage G-S</td></tr>
+                        <tr><td>vgd</td><td>Voltage G-D</td></tr>
+                        <tr><td>ig</td><td>Current at gate node</td></tr>
+                        <tr><td>id</td><td>Current at drain node</td></tr>
+                        <tr><td>is</td><td>Source current</td></tr>
+                        <tr><td>igd</td><td>Current G-D</td></tr>
+                        <tr><td>gm</td><td>Transconductance</td></tr>
+                        <tr><td>gds</td><td>Conductance D-S</td></tr>
+                        <tr><td>ggs</td><td>Conductance G-S</td></tr>
+                        <tr><td>ggd</td><td>Conductance G-D</td></tr>
+                        <tr><td>qgs</td><td>Charge storage G-S junction</td></tr>
+                        <tr><td>qgd</td><td>Charge storage G-D junction</td></tr>
+                        <tr><td>cqgs</td><td>Capacitance due to charge storage G-S junction</td></tr>
+                        <tr><td>cqgd</td><td>Capacitance due to charge storage G-D junction</td></tr>
+                        <tr><td>p</td><td>Power dissipated by the JFET</td></tr>
+                        <tr>
+                            <th>JFET - localInstance parameters (input-output)</th>
+                        </tr>
+                        <tr><td>njf</td><td>N type JFET localInstance</td></tr>
+                        <tr><td>pjf</td><td>P type JFET localInstance</td></tr>
+                        <tr><td>vt0</td><td>Threshold voltage</td></tr>
+                        <tr><td>vto</td><td>null</td></tr>
+                        <tr><td>beta</td><td>Transconductance parameter</td></tr>
+                        <tr><td>lambda</td><td>Channel length modulation param.</td></tr>
+                        <tr><td>rd</td><td>Drain ohmic resistance</td></tr>
+                        <tr><td>rs</td><td>Source ohmic resistance</td></tr>
+                        <tr><td>cgs</td><td>G-S junction capacitance</td></tr>
+                        <tr><td>cgd</td><td>G-D junction cap</td></tr>
+                        <tr><td>pb</td><td>Gate junction potential</td></tr>
+                        <tr><td>is</td><td>Gate junction saturation current</td></tr>
+                        <tr><td>fc</td><td>Forward bias junction fit param.</td></tr>
+                        <tr><td>b</td><td>Doping tail parameter</td></tr>
+                        <tr><td>tnom</td><td>parameter measurement temperature</td></tr>
+                        <tr><td>kf</td><td>Flicker Noise Coefficient</td></tr>
+                        <tr><td>af</td><td>Flicker Noise Exponent</td></tr>
+                        <tr>
+                            <th>JFET - localInstance parameters (output-only)</th></tr>
+                        <tr><td>type</td><td>N-type or P-type JFET localInstance</td></tr>
+                        <tr><td>gd</td><td>Drain conductance</td></tr>
+                        <tr><td>gs</td><td>Source conductance</td></tr>
+                    </tbody>
+                </table>
+        -->
+    </body>
+</html>

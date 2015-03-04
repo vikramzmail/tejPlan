@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!--
+
+        Copyright (C) 1996 The Regents of the University of California.
+        All Rights Reserved.
+
+        Permission to use, copy, modify, and distribute this software and its
+        documentation for educational, research and non-profit purposes,
+        without fee, and without a written agreement is hereby granted,
+        provided that the above copyright notice, this paragraph and the
+        following three paragraphs appear in all copies.
+
+        This software program and documentation are copyrighted by The Regents
+        of the University of California. The software program and
+        documentation are supplied "as is", without any accompanying services
+        from The Regents. The Regents does not warrant that the operation of
+        the program will be uninterrupted or error-free. The end-user
+        understands that the program was developed for research purposes and
+        is advised not to rely exclusively on the program for any reason.
+
+        IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+        FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+        INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+        ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+        ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+        CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+        LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+        A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+        BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+        MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+        -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>DC Transfer Function</title>
+        <link rel="stylesheet" type="text/css" href="doc.css"/>
+    </head>
+    <body>
+        <p>
+            .DC: DC Transfer Function
+            <br/>
+	    <br/>
+            General form:
+        <br/>
+        <code>
+            .DC SRCNAM VSTART VSTOP VINCR [SRC2 START2 STOP2 INCR2]
+        </code>
+	<br/>
+	<br/>
+        Examples:
+	<br/>
+        <code>.DC VIN 0.25 5.0 0.25</code><br/>
+            <code>.DC VDS 0 10 .5 VGS 0 5 1</code><br/>
+            <code>.DC VCE 0 10 .25 IB 0 10U 1U</code><br/>
+            <code>.DC RLoad 1k 2k 100</code><br/>
+            <code>.DC TEMP -15 75 5</code>
+	    </p>
+        <p>
+            The DC line defines the dc transfer curve source and sweep limits (again
+            with capacitors open and inductors shorted). <var>SRCNAM</var> is the name of an
+            independent voltage or current source, a resistor or the circuit temperature.
+            <var>VSTART</var>, <var>VSTOP</var>, and <var>VINCR</var> are the starting, final, and incrementing values
+            respectively.  The first example causes the value of the voltage source <var>VIN</var>
+            to be swept from 0.25 Volts to 5.0 Volts in increments of 0.25 Volts.  A
+            second source (<var>SRC2</var>) may optionally be specified with associated sweep
+            parameters.  In this case, the first source is swept over its range for each
+            value of the second source.  This option can be useful for obtaining
+            semiconductor device output characteristics.<!--  See the second example circuit
+            description in Appendix A.-->
+        </p>
+    </body>
+</html>

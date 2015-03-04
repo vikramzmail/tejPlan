@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd"[
+    <!ENTITY mathml "http://www.w3.org/1998/Math/MathML">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+            <title>MOSFET</title>
+            <link rel="stylesheet" type="text/css" href="doc.css"/>
+        </head>
+        <body>
+            <!--
+
+    Copyright (C) 1996 The Regents of the University of California.
+    All Rights Reserved.
+
+    Permission to use, copy, modify, and distribute this software and its
+    documentation for educational, research and non-profit purposes,
+    without fee, and without a written agreement is hereby granted,
+    provided that the above copyright notice, this paragraph and the
+    following three paragraphs appear in all copies.
+
+    This software program and documentation are copyrighted by The Regents
+    of the University of California. The software program and
+    documentation are supplied "as is", without any accompanying services
+    from The Regents. The Regents does not warrant that the operation of
+    the program will be uninterrupted or error-free. The end-user
+    understands that the program was developed for research purposes and
+    is advised not to rely exclusively on the program for any reason.
+
+    IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+    FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+    INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+    ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+    ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+    CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+    BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+    MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+            -->
+            <span class="intro">
+                <big>Spice Modeling</big>
+                <br/>	<br/>
+                <code>MXXXXXXX ND NG NS NB MNAME [M=VALUE] [L=VALUE] [W=VALUE] [AD=VALUE] [AS=VALUE]
+                    [PD=VALUE] [PS=VALUE] [NRD=VALUE] [NRS=VALUE] [OFF]
+                    [IC=VDS, VGS, VBS] [TEMP=T]</code>
+                <br/>
+                <br/>
+                Examples:
+                <br/>
+                <code>M1 24 2 0 20 TYPE1</code><br/>
+                <code>M31 2 17 6 10 MODM L=5U W=2U</code><br/>
+                <code>M1 2 9 3 0 MOD1 L=10U W=5U AD=100P AS=100P PD=40U PS=40U</code>
+            </span>
+            <p>
+                <var>ND</var>, <var>NG</var>, <var>NS</var>, and <var>NB</var> are the drain,
+	    gate, source, and bulk (substrate) nodes, respectively.  <var>MNAME</var> is the model name.
+                <var>M</var> is the multiplicity parameter, which simulates m paralleled devices. All MOS models
+                support the <var>M</var> parameter. <var>L</var> and <var>W</var> are the channel length and width,
+                in meters.  <var>AD</var> and <var>AS</var> are the areas of the drain and source diffusions,
+                in meters<sup>2</sup>.
+            </p>
+            <p>
+                Note that the suffix U specifies microns (1e-6 m) and P sq-microns
+                (1e-12 m<sup>2</sup>). If any of <var>L</var>, <var>W</var>, <var>AD</var>,
+	    or <var>AS</var> are not specified,
+                default values are used.  The use of defaults simplifies input file
+                preparation, as well as the editing required if device geometries are
+                to be changed.  <var>PD</var> and <var>PS</var> are the perimeters of the drain and source
+                junctions, in meters.  <var>NRD</var> and <var>NRS</var> designate the equivalent number of
+                squares of the drain and source diffusions; these values multiply the
+                sheet resistance RSH specified on the .MODEL control line for an
+                accurate representation of the parasitic series drain and source
+                resistance of each transistor.  <var>PD</var> and <var>PS</var>
+	    default to 0.0 while <var>NRD</var> and <var>NRS</var> to 1.0.
+                <var>OFF</var> indicates an (optional) initial condition on the
+                device for dc analysis.  The (optional) initial condition specification
+                using <var>IC</var>=<var>VDS</var>, <var>VGS</var>, <var>VBS</var>
+	    is intended for use with the <var>UIC</var> option on the
+                .TRAN control line, when a transient analysis is desired starting from
+                other than the quiescent operating point.  See the .IC control line for
+                a better and more convenient way to specify transient initial conditions.
+                The (optional) <var>TEMP</var> value is the temperature at which this device is to
+                operate, and overrides the temperature specification on the .OPTION
+                control line.  The temperature specification is ONLY valid for level 1,
+                2, 3, and 6 MOSFETs, not for level 4 or 5 (BSIM) devices.
+            </p>
+            <a name="model">MOSFET Models (NMOS/PMOS)</a>
+            <p>
+                MOSFET models are the central part of NGSPICE, probably because they are
+                the most widely used devices in the electronics world. NGSPICE provides
+                all the MOSFETs implemented in the original Spice3f and adds several models
+                developed by Berkeley's Device Group and other independent groups. Not all
+                models below are included in the standard NGSPICE distribution because of
+                copyright restrictions.
+            </p>
+            <p>
+                NGSPICE provides four MOSFET device models, which differ in the
+                formulation of the I-V characteristic.  The variable <var>LEVEL</var> specifies the
+                model to be used:
+            </p>
+
+            <table>
+                <tbody>
+                    <tr><td>LEVEL</td><td>Instance</td><td>Notes</td></tr>
+                    <tr><td>1</td><td>Shichman-Hodges</td><td>The classical localInstance</td></tr>
+                    <tr><td>2</td><td>MOS2</td><td>Described in [2]</td></tr>
+                    <tr><td>3</td><td>MOS3</td><td>A semi-empirical localInstance (see [1])</td></tr>
+                    <tr><td>4</td><td>BSIM</td><td>Described in [3]</td></tr>
+                    <tr><td>5</td><td>BSIM2</td><td>Described in [5]</td></tr>
+                    <tr><td>6</td><td>MOS6</td><td>Described in [2]</td></tr>
+                    <tr><td>8</td><td>BSIM3</td><td>Described in [13]</td></tr>
+                    <tr><td>9</td><td>MOS9</td><td>n/a</td></tr>
+                    <tr><td>10</td><td>B3SOI</td><td>n/a</td></tr>
+                    <tr><td>17</td><td>HiSIM1</td><td>n/a</td></tr>
+                    <tr><td>29</td><td>B3SOIPD</td><td>n/a</td></tr>
+                    <tr><td>30</td><td>B3SOIFD</td><td>n/a</td></tr>
+                    <tr><td>31</td><td>B3SOIDD</td><td>n/a</td></tr>
+                    <tr><td>49</td><td>BSIM3v1s</td><td>n/a (Serban Version)</td></tr>
+                    <tr><td>50</td><td>BSIM3v1</td><td>n/a (Berkeley Version)</td></tr>
+                    <tr><td>51</td><td>BSIM3v1a</td><td>n/a (Alan Version)</td></tr>
+                    <tr><td>52</td><td>BSIM3v0</td><td>n/a (Berkeley Version)</td></tr>
+                    <tr><td>14</td><td>BSIM4</td><td>n/a</td></tr>
+                    <tr><td>62</td><td>STAG</td><td>n/a</td></tr>
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+            <p>
+                The dc characteristics of the level 1 through level 3 MOSFETs are
+                defined by the device parameters <var>VTO</var>, <var>KP</var>, <var>LAMBDA</var>,
+                <var>PHI</var> and <var>GAMMA</var>.  These
+                parameters are computed by NGSPICE if process parameters (<var>NSUB</var>, <var>TOX</var>, ...)
+                are given, but users specified values always override.  <var>VTO</var> is positive
+                (negative) for enhancement mode and negative (positive) for depletion
+                mode N-channel (P-channel) devices.  Charge storage is modelled by three
+                constant capacitors, <var>CGSO</var>, <var>CGDO</var>, and <var>CGBO</var> which represent overlap
+                capacitances, by the nonlinear thin-oxide capacitance which is
+                distributed among the gate, source, drain, and bulk regions, and by the
+                nonlinear depletion-layer capacitances for both substrate junctions
+                divided into bottom and periphery, which vary as the <var>MJ</var> and <var>MJSW</var> power
+                of junction voltage respectively, and are determined by the parameters
+                <var>CBD</var>, <var>CBS</var>, <var>CJ</var>, <var>CJSW</var>, <var>MJ</var>, <var>MJSW</var> and <var>PB</var>.
+	    Charge storage effects are modelled
+                by the piecewise linear voltages-dependent capacitance model proposed by
+                Meyer.  The thin-oxide charge-storage effects are treated slightly
+                different for the <var>LEVEL</var>=1 model.  These voltage-dependent capacitances
+                are included only if <var>TOX</var> is specified in the input description and they
+                are represented using Meyer's formulation.
+            </p>
+            <p>
+                There is some overlap among the parameters describing the junctions,
+                e.g. the reverse current can be input either as <var>IS</var> (in A) or as <var>JS</var> (in
+                A/m<sup>2</sup>). Whereas the first is an absolute value the second is
+                multiplied by <var>AD</var> and <var>AS</var> to give the reverse current of the drain and
+                source junctions respectively.  This methodology has been chosen since
+                there is no sense in relating always junction characteristics with <var>AD</var>
+                and <var>AS</var> entered on the device line; the areas can be defaulted.  The same
+                idea applies also to the zero-bias junction capacitances <var>CBD</var> and <var>CBS</var> (in
+                F) on one hand, and <var>CJ</var> (in F/m<sup>2</sup>) on the other.  The parasitic
+                drain and source series resistance can be expressed as either <var>RD</var> and <var>RS</var>
+                (in ohms) or <var>RSH</var> (in ohms/sq.), the latter being multiplied by the
+                number of squares <var>NRD</var> and <var>NRS</var> input on the device line.
+            </p>
+            <p>
+                A discontinuity in the MOS level 3 model with respect to the <var>KAPPA</var>
+                parameter has been detected (see [10]).  The supplied fix has been
+                implemented in Spice3f2 and later.  Since this fix may affect parameter
+                fitting, the option "BADMOS3" may be set to use the old implementation
+                (see the section on simulation variables and the ".OPTIONS" line).
+                NGSPICE level 1, 2, 3 and 6 parameters:
+            </p>
+            <br/>
+            <strong>NGSPICE level 1, 2, 3 and 6 parameters:</strong>
+            <table border="1">
+                <tr><td>Name</td><td>Parameter</td><td>Units </td><td>Default </td><td>Example</td></tr>
+                <tr><td>LEVEL</td><td>Instance index</td><td>-</td><td>1</td><td>-</td></tr>
+                <tr><td>VTO</td><td>Zero-bias threshold voltage (V<sub>T0</sub>)</td><td>V </td><td>0.0 </td><td>1.0</td></tr>
+                <tr><td>KP</td><td>Transconductance parameter</td><td>A/V<sup>2</sup> </td><td>2.0e-5 </td><td>3.1e-5</td></tr>
+                <tr><td>GAMMA</td><td>Bulk threshold parameter</td><td>V<sup>1/2</sup> </td><td>0.0 </td><td>0.37</td></tr>
+                <tr><td>PHI</td><td>Surface potential (U)</td><td>V </td><td>0.6 </td><td>0.65</td></tr>
+                <tr><td>LAMBDA</td><td>Channel-length modulation (MOS1 and MOS2 only) (L)</td><td>1/V </td><td>0.0 </td><td>0.02</td></tr>
+                <tr><td>RD</td><td>Drain ohmic resistance</td><td>Z </td><td>0.0 </td><td>1.0</td></tr>
+                <tr><td>RS</td><td>Source ohmic resistance</td><td>Z </td><td>0.0 </td><td>1.0</td></tr>
+                <tr><td>CBD</td><td>Zero-bias B-D junction capacitance</td><td>F </td><td>0.0 </td><td>20fF</td></tr>
+                <tr><td>CBS</td><td>Zero-bias B-S junction capacitance</td><td>F </td><td>0.0 </td><td>20fF</td></tr>
+                <tr><td>IS</td><td>Bulk junction saturation current (I<sub>S</sub>)</td><td>A </td><td>1.0e-14 </td><td>1.0e-15</td></tr>
+                <tr><td>PB</td><td>Bulk junction potential</td><td>V </td><td>0.8 </td><td>0.87</td></tr>
+                <tr><td>CGSO</td><td>Gate-source overlap capacitance per meter channel width</td><td>F/m </td><td>0.0 </td><td>4.0e-11</td></tr>
+                <tr><td>CGDO</td><td>Gate-drain overlap capacitance per meter channel width</td><td>F/m </td><td>0.0 </td><td>4.0e-11</td></tr>
+                <tr><td>CGBO</td><td>Gate-bulk overlap capacitance per meter channel length</td><td>F/m </td><td>0.0 </td><td>2.0e-10</td></tr>
+                <tr><td>RSH</td><td>Drain and source diffusion sheet resistance</td><td>Z/[] </td><td>0.0 </td><td>10.0</td></tr>
+                <tr><td>CJ</td><td>Zero-bias bulk junction bottom cap. per sq-meter of junction area</td><td>F/m<sup>2</sup> </td><td>0.0 </td><td>2.0e-4</td></tr>
+                <tr><td>MJ</td><td>Bulk junction bottom grading coeff.</td><td>- </td><td>0.5 </td><td>0.5</td></tr>
+                <tr><td>CJSW</td><td>Zero-bias bulk junction sidewall cap. per meter of junction perimeter</td><td>F/m </td><td>0.0 </td><td>1.0e-9</td></tr>
+                <tr><td>MJSW</td><td>Bulk junction sidewall grading coeff. - </td><td>0.50(level1),</td><td>0.33(level2,</td><td>3)</td></tr>
+                <tr><td>JS</td><td>Bulk junction saturation current per sq-meter of junction</td><td>area</td><td>A/m<sup>2</sup> </td><td>1.0e-8</td></tr>
+                <tr><td>TOX</td><td>Oxide thickness</td><td>meter </td><td>1.0e-7 </td><td>1.0e-7</td></tr>
+                <tr><td>NSUB</td><td>Substrate doping</td><td>1/cm<sup>3</sup> </td><td>0.0 </td><td>4.0e15</td></tr>
+                <tr><td>NSS</td><td>Surface state density</td><td>1/cm<sup>2</sup> </td><td>0.0 </td><td>1.0e10</td></tr>
+                <tr><td>NFS</td><td>Fast surface state density</td><td>1/cm<sup>2</sup> </td><td>0.0 </td><td>1.0e10</td></tr>
+                <tr><td>TPG</td><td>Type of gate material: +1 opp. to substrate, -1 same as substrate, 0  Al gate</td><td>- </td><td>1.0</td><td>-</td></tr>
+                <tr><td>XJ</td><td>Metallurgical junction depth</td><td>meter </td><td>0.0 </td><td>1M</td></tr>
+                <tr><td>LD</td><td>Lateral diffusion</td><td>meter </td><td>0.0 </td><td>0.8M</td></tr>
+                <tr><td>UO</td><td>Surface mobility</td><td>cm<sup>2/Vs</sup> </td><td>600 </td><td>700</td></tr>
+                <tr><td>UCRIT</td><td>Critical field for mobility degradation (MOS2 only)</td><td>V/cm </td><td>1.0e4 </td><td>1.0e4</td></tr>
+                <tr><td>UEXP</td><td>Critical field exponent in mobility degradation (MOS2 only)</td><td>- </td><td>0.0 </td><td>0.1</td></tr>
+                <tr><td>UTRA</td><td>Transverse field coeff. (mobility) (deleted for MOS2)</td><td>- </td><td>0.0 </td><td>0.3</td></tr>
+                <tr><td>VMAX</td><td>Maximum drift velocity of carriers</td><td>m/s </td><td>0.0 </td><td>5.0e4</td></tr>
+                <tr><td>NEFF</td><td>Total channel-charge (fixed and mobile) coefficient (MOS2 only)</td><td>- </td><td>1.0 </td><td>5.0</td></tr>
+                <tr><td>KF</td><td>Flicker noise coefficient</td><td>- </td><td>0.0 </td><td>1.0e-26</td></tr>
+                <tr><td>AF</td><td>Flicker noise exponent</td><td>- </td><td>1.0 </td><td>1.2</td></tr>
+                <tr><td>FC</td><td>Coefficient for forward-bias depletion capacitance</td><td>formula</td><td>- </td><td>0.5</td></tr>
+                <tr><td>DELTA</td><td>Width effect on threshold voltage (MOS2 and MOS3)</td><td>- </td><td>0.0 </td><td>1.0</td></tr>
+                <tr><td>THETA</td><td>Mobility modulation (MOS3 only)</td><td>1/V </td><td>0.0 </td><td>0.1</td></tr>
+                <tr><td>ETA</td><td>Static feedback (MOS3 only)</td><td>- </td><td>0.0 </td><td>1.0</td></tr>
+                <tr><td>KAPPA</td><td>Saturation field factor (MOS3 only)</td><td>- </td><td>0.2 </td><td>0.5</td></tr>
+                <tr><td>TNOM</td><td>Parameter measurement temperature</td><td><sup>o</sup>C </td><td>27 </td><td>50</td></tr>
+            </table>
+
+            <p>
+                The level 3 model available into ngspice takes into account
+                length and width mask adjustments (<var>xl</var> and <var>xw</var>)
+                and device width narrowing due to diffusion (<var>wd</var>).
+            </p>
+            <p>
+                The level 4 and level 5 (BSIM1 and BSIM2) parameters are all values
+                obtained from process characterization, and can be generated
+                automatically.  J. Pierret [4] describes a means of generating a
+                'process' file, and the program Proc2Mod provided with NGSPICE converts
+                this file into a sequence of BSIM1 ".MODEL" lines suitable for inclusion
+                in a NGSPICE input file.  Parameters marked below with anin the l/w
+                column also have corresponding parameters with a length and width
+                dependency.  For example, <var>VFB</var> is the basic parameter with units of
+                Volts, and <var>LVFB</var> and <var>WVFB</var> also exist and have units of Volt-Mmeter The
+                formula
+            </p>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mrow>
+                    <mi>P</mi>
+                </mrow>
+                <mo>=</mo>
+                <mrow>
+                    <mrow>
+                        <msub>
+                            <mi>P</mi>
+                            <mi>0</mi>
+                        </msub>
+                    </mrow>
+                    <mo>+</mo>
+                    <mrow>
+                        <mfrac>
+                            <mrow>
+                                <msub>
+                                    <mi>P</mi>
+                                    <mi>L</mi>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <msub>
+                                    <mi>L</mi>
+                                    <mi>effective</mi>
+                                </msub>
+                            </mrow>
+                        </mfrac>
+                    </mrow>
+                    <mo>+</mo>
+                    <mrow>
+                        <mfrac>
+                            <mrow>
+                                <msub>
+                                    <mi>P</mi>
+                                    <mi>W</mi>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <msub>
+                                    <mi>W</mi>
+                                    <mi>effective</mi>
+                                </msub>
+                            </mrow>
+                        </mfrac>
+                    </mrow>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <p>
+            is used to evaluate the parameter for the actual device specified with
+        </p>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mrow>
+                    <msub>
+                        <mi>L</mi>
+                        <mi>effective</mi>
+                    </msub>
+                </mrow>
+                <mo>=</mo>
+                <mrow>
+                    <msub>
+                        <mi>L</mi>
+                        <mi>input</mi>
+                    </msub>
+                    <mo>-</mo>
+                    <mi>DL</mi>
+                </mrow>
+            </mrow>
+        </math>
+        <br/>
+        <br/>
+        and
+        <br/>
+        <br/>
+        <math xmlns="&mathml;" class="equation">
+            <mrow>
+                <mrow>
+                    <msub>
+                        <mi>W</mi>
+                        <mi>effective</mi>
+                    </msub>
+                </mrow>
+                <mo>=</mo>
+                <mrow>
+                    <msub>
+                        <mi>W</mi>
+                        <mi>input</mi>
+                    </msub>
+                    <mo>-</mo>
+                    <mi>DW</mi>
+                </mrow>
+            </mrow>
+        </math>
+        <p>
+            Note that unlike the other models in NGSPICE, the BSIM model is designed
+            for use with a process characterization system that provides all the
+            parameters, thus there are no defaults for the parameters, and leaving
+            one out is considered an error.  For an example set of parameters and
+            the format of a process file, see the SPICE2 implementation notes[3].
+        </p>
+        <p>
+            For more information on BSIM2, see reference [5].
+        </p>
+        <!--
+        NGSPICE BSIM (level 4) parameters.
+
+        @multitable @columnfractions .15 .55 .20 .10
+        @item name  @tab  parameter                                            @tab units       @tab  l/w
+        @item VFB   @tab  flat-band voltage                                    @tab   V         @tab   *
+        @item PHI   @tab  surface inversion potential                          @tab   V         @tab   *
+        @item K1    @tab  body effect coefficient                              @tab  V<sup>(1/2)</sup>    @tab   *
+        @item K2    @tab  drain/source depletion charge-sharing coefficient    @tab   -         @tab   *
+        @item ETA   @tab  zero-bias drain-induced barrier-lowering coefficient @tab   -         @tab   *
+        @item MUZ   @tab  zero-bias mobility                                   @tab cm<sup>2</sup>/V-s  @tab
+        @item DL    @tab  shortening of channel                                @tab   Mm        @tab
+        @item DW    @tab  narrowing of channel                                 @tab   Mm        @tab
+        @item U0    @tab  zero-bias transverse-field mobility degradation
+        coefficient                                          @tab   V@math{^-1}    @tab   *
+        @item U1    @tab  zero-bias velocity saturation coefficient            @tab   Mm/V      @tab   *
+        @item X2MZ  @tab  sens. of mobility to substrate bias at V_ds=0        @tab cm<sup>2</sup>/V-s  @tab   *
+        @item X2E   @tab  sens. of drain-induced barrier lowering effect to
+        substrate bias                                       @tab   V@math{^-1}    @tab   *
+        @item X3E   @tab  sens. of drain-induced barrier lowering effect to
+        drain bias at V_ds=V_dd                              @tab   V@math{^-1}    @tab   *
+        @item X2U0  @tab  sens. of transverse field mobility degradation
+        effect to substrate bias                             @tab   V<sup>2</sup>    @tab   *
+        @item X2U1  @tab  sens. of velocity saturation effect to substrate
+        bias                                                 @tab  MmV<sup>2</sup>   @tab   *
+        @item MUS   @tab  mobility at zero substrate bias and at V_ds=V_dd     @tab  cm<sup>2</sup>/V<sup>2</sup>-s @tab
+        @item X2MS  @tab  sens. of mobility to substrate bias at V_ds=V_dd     @tab  cm<sup>2</sup>/V<sup>2</sup>-s @tab   *
+        @item X3MS  @tab  sens. of mobility to drain bias at V_ds=V_dd         @tab  cm<sup>2</sup>/V<sup>2</sup>-s @tab   *
+        @item X3U1  @tab  sens. of velocity saturation effect on drain bias
+        at V_ds=V_dd                                         @tab  MmV<sup>2</sup>   @tab   *
+        @item TOX   @tab  gate oxide thickness                                 @tab  Mm         @tab
+        @item TEMP  @tab  temperature at which parameters were measured        @tab  C          @tab
+        @item VDD   @tab  measurement bias range                               @tab  V          @tab
+        @item CGDO  @tab  gate-drain overlap capacitance per meter channel
+        width                                                @tab  F/m        @tab
+        @item CGSO  @tab  gate-source overlap capacitance per meter channel
+        width                                                @tab  F/m        @tab
+        @item CGBO  @tab  gate-bulk overlap capacitance per meter channel
+        length                                               @tab  F/m        @tab
+        @item XPART @tab  gate-oxide capacitance-charge model flag             @tab   -         @tab
+        @item N0    @tab  zero-bias subthreshold slope coefficient             @tab   -         @tab   *
+        @item NB    @tab  sens. of subthreshold slope to substrate bias        @tab   -         @tab   *
+        @item ND    @tab  sens. of subthreshold slope to drain bias            @tab   -         @tab   *
+        @item RSH   @tab  drain and source diffusion sheet resistance          @tab   Z/[]      @tab
+        @item JS    @tab  source drain junction current density                @tab   A/m<sup>2</sup>     @tab
+        @item PB    @tab  built in potential of source drain junction          @tab   V         @tab
+        @item MJ    @tab  Grading coefficient of source drain junction         @tab   -         @tab
+        @item BSW   @tab  built in potential of source, drain junction
+        sidewall                                             @tab   V         @tab
+        @item MJSW  @tab  grading coefficient of source drain junction
+        sidewall                                             @tab   -         @tab
+        @item CJ    @tab  Source drain junction capacitance per unit area      @tab   F/m<sup>2</sup>     @tab
+        @item CJSW  @tab  source drain junction sidewall capacitance per
+        unit length                                          @tab   F/m       @tab
+        @item WDF   @tab  source drain junction default width                  @tab   m         @tab
+        @item DELL  @tab  Source drain junction length reduction               @tab   m         @tab
+        @end multitable
+
+        <p>
+            XPART = 0 selects a 40/60 drain/source charge partition in saturation,
+            while XPART=1 selects a 0/100 drain/source charge partition.
+            </p>
+            <p>
+            ND, NG, and NS are the drain, gate, and source nodes, respectively.
+            MNAME is the model name, AREA is the area factor, and OFF indicates an
+            (optional) initial condition on the device for dc analysis.  If the area
+            factor is omitted, a value of 1.0 is assumed.  The (optional) initial
+            condition specification, using IC=VDS, VGS is intended for use with the
+            UIC option on the .TRAN control line, when a transient analysis is
+            desired starting from other than the quiescent operating point.  See the
+            .IC control line for a better way to set initial conditions.
+
+        </p>
+        -->
+        <!--
+         * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (input-only)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>off</td><td>Device initially off</td></tr>
+     *     <tr><td>ic</td><td>Vector of D-S, G-S, B-S voltages</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (input-output)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>m</td><td>Multiplicity</td></tr>
+     *     <tr><td>l</td><td>Length</td></tr>
+     *     <tr><td>w</td><td>Width</td></tr>
+     *     <tr><td>ad</td><td>Drain area</td></tr>
+     *     <tr><td>as</td><td>Source area</td></tr>
+     *     <tr><td>pd</td><td>Drain perimeter</td></tr>
+     *     <tr><td>ps</td><td>Source perimeter</td></tr>
+     *     <tr><td>nrd</td><td>Drain squares</td></tr>
+     *     <tr><td>nrs</td><td>Source squares</td></tr>
+     *     <tr><td>icvds</td><td>Initial D-S voltage</td></tr>
+     *     <tr><td>icvgs</td><td>Initial G-S voltage</td></tr>
+     *     <tr><td>icvbs</td><td>Initial B-S voltage</td></tr>
+     *     <tr><td>temp</td><td>Instance operating temperature</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (output-only)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>id</td><td>Drain current</td></tr>
+     *     <tr><td>cd</td><td>?                                       </td></tr>
+     *     <tr><td>ibd</td><td>B-D junction current</td></tr>
+     *     <tr><td>ibs</td><td>B-S junction current</td></tr>
+     *     <tr><td>is</td><td>Source current</td></tr>
+     *     <tr><td>ig</td><td>Gate current</td></tr>
+     *     <tr><td>ib</td><td>Bulk current</td></tr>
+     *     <tr><td>vgs</td><td>Gate-Source voltage</td></tr>
+     *     <tr><td>vds</td><td>Drain-Source voltage</td></tr>
+     *     <tr><td>vbs</td><td>Bulk-Source voltage</td></tr>
+     *     <tr><td>vbd</td><td>Bulk-Drain voltage</td></tr>
+     *     <tr><td>dnode</td><td>drain node index</td></tr>
+     *     <tr><td>gnode</td><td>gate node index</td></tr>
+     *     <tr><td>snode</td><td>source node index</td></tr>
+     *     <tr><td>bnode</td><td>bulk node index</td></tr>
+     *     <tr><td>dnodeprime</td><td>internal drain node index</td></tr>
+     *     <tr><td>snodeprime</td><td>internal source node index</td></tr>
+     *     <tr><td>von</td><td> </td></tr>
+     *     <tr><td>vdsat</td><td>Saturation drain voltage</td></tr>
+     *     <tr><td>sourcevcrit</td><td>Critical source voltage</td></tr>
+     *     <tr><td>drainvcrit</td><td>Critical drain voltage</td></tr>
+     *     <tr><td>rs</td><td>Source resistance</td></tr>
+     *     <tr><td>sourceconductance</td><td>Source conductance</td></tr>
+     *     <tr><td>rd</td><td>Drain resistance</td></tr>
+     *     <tr><td>drainconductance</td><td>Drain conductance</td></tr>
+     *     <tr><td>gm</td><td>Transconductance</td></tr>
+     *     <tr><td>gds</td><td>Drain-Source conductance</td></tr>
+     *     <tr><td>gmb</td><td>Bulk-Source transconductance</td></tr>
+     *     <tr><td>gmbs</td><td> </td></tr>
+     *     <tr><td>gbd</td><td>Bulk-Drain conductance</td></tr>
+     *     <tr><td>gbs</td><td>Bulk-Source conductance</td></tr>
+     *     <tr><td>cbd</td><td>Bulk-Drain capacitance</td></tr>
+     *     <tr><td>cbs</td><td>Bulk-Source capacitance</td></tr>
+     *     <tr><td>cgs</td><td>Gate-Source capacitance</td></tr>
+     *     <tr><td>cgd</td><td>Gate-Drain capacitance</td></tr>
+     *     <tr><td>cgb</td><td>Gate-Bulk capacitance</td></tr>
+     *     <tr><td>cbd0</td><td>Zero-Bias B-D junction capacitance</td></tr>
+     *     <tr><td>cbdsw0</td><td> </td></tr>
+     *     <tr><td>cbs0</td><td>Zero-Bias B-S junction capacitance</td></tr>
+     *     <tr><td>cbssw0</td><td> </td></tr>
+     *     <tr><td>cqgs</td><td>Capacitance due to gate-source charge storage</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th> </th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>cqgd</td><td>Capacitance due to gate-drain charge storage</td></tr>
+     *     <tr><td>cqgb</td><td>Capacitance due to gate-bulk charge storage</td></tr>
+     *     <tr><td>cqbd</td><td>Capacitance due to bulk-drain charge storage</td></tr>
+     *     <tr><td>cqbs</td><td>Capacitance due to bulk-source charge storage</td></tr>
+     *     <tr><td>qgs</td><td>Gate-Source charge storage</td></tr>
+     *     <tr><td>qgd</td><td>Gate-Drain charge storage</td></tr>
+     *     <tr><td>qgb</td><td>Gate-Bulk charge storage</td></tr>
+     *     <tr><td>qbd</td><td>Bulk-Drain charge storage</td></tr>
+     *     <tr><td>qbs</td><td>Bulk-Source charge storage</td></tr>
+     *     <tr><td>p</td><td>Instantaneous power</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (input-only)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>nmos</td><td>N type MOSfet localInstance</td></tr>
+     *     <tr><td>pmos</td><td>P type MOSfet localInstance</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (input-output)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>vto</td><td>Threshold voltage</td></tr>
+     *     <tr><td>vt0</td><td>null</td></tr>
+     *     <tr><td>kp</td><td>Transconductance parameter</td></tr>
+     *     <tr><td>gamma</td><td>Bulk threshold parameter</td></tr>
+     *     <tr><td>phi</td><td>Surface potential</td></tr>
+     *     <tr><td>lambda</td><td>Channel length modulation</td></tr>
+     *     <tr><td>rd</td><td>Drain ohmic resistance</td></tr>
+     *     <tr><td>rs</td><td>Source ohmic resistance</td></tr>
+     *     <tr><td>cbd</td><td>B-D junction capacitance</td></tr>
+     *     <tr><td>cbs</td><td>B-S junction capacitance</td></tr>
+     *     <tr><td>is</td><td>Bulk junction sat. current</td></tr>
+     *     <tr><td>pb</td><td>Bulk junction potential</td></tr>
+     *     <tr><td>cgso</td><td>Gate-source overlap cap.                </td></tr>
+     *     <tr><td>cgdo</td><td>Gate-drain overlap cap.                 </td></tr>
+     *     <tr><td>cgbo</td><td>Gate-bulk overlap cap.                  </td></tr>
+     *     <tr><td>rsh</td><td>Sheet resistance</td></tr>
+     *     <tr><td>cj</td><td>Bottom junction cap per area</td></tr>
+     *     <tr><td>mj</td><td>Bottom grading coefficient</td></tr>
+     *     <tr><td>cjsw</td><td>Side junction cap per area</td></tr>
+     *     <tr><td>mjsw</td><td>Side grading coefficient</td></tr>
+     *     <tr><td>js</td><td>Bulk jct. sat. current density</td></tr>
+     *     <tr><td>tox</td><td>Oxide thickness</td></tr>
+     *     <tr><td>ld</td><td>Lateral diffusion</td></tr>
+     *     <tr><td>u0</td><td>Surface mobility</td></tr>
+     *     <tr><td>uo</td><td>null</td></tr>
+     *     <tr><td>fc</td><td>Forward bias jct. fit param.            </td></tr>
+     *     <tr><td>nsub</td><td>Substrate doping</td></tr>
+     *     <tr><td>tpg</td><td>Gate type</td></tr>
+     *     <tr><td>nss</td><td>Surface state density</td></tr>
+     *     <tr><td>delta</td><td>Width effect on threshold</td></tr>
+     *     <tr><td>uexp</td><td>Crit. field exp for mob. deg.           </td></tr>
+     *     <tr><td>ucrit</td><td>Crit. field for mob. degradation</td></tr>
+     *     <tr><td>vmax</td><td>Maximum carrier drift velocity</td></tr>
+     *     <tr><td>xj</td><td>Junction depth</td></tr>
+     *     <tr><td>neff</td><td>Total channel charge coeff.             </td></tr>
+     *     <tr><td>nfs</td><td>Fast surface state density</td></tr>
+     *     <tr><td>tnom</td><td>Parameter measurement temperature</td></tr>
+     *     <tr><td>kf</td><td>Flicker noise coefficient</td></tr>
+     *     <tr><td>af</td><td>Flicker noise exponent</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr>
+     *       <th>Mos2 - localInstance parameters (output-only)</th>
+     *     </tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>type</td><td>N-channel or P-channel MOS</td></tr>
+     *   </tbody>
+     *  </table>
+     * *
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (input-output)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>l</td><td>Length</td></tr>
+     *     <tr><td>w</td><td>Width</td></tr>
+     *     <tr><td>ad</td><td>Drain area</td></tr>
+     *     <tr><td>as</td><td>Source area</td></tr>
+     *     <tr><td>pd</td><td>Drain perimeter</td></tr>
+     *     <tr><td>ps</td><td>Source perimeter</td></tr>
+     *     <tr><td>nrd</td><td>Drain squares</td></tr>
+     *     <tr><td>nrs</td><td>Source squares</td></tr>
+     *     <tr><td>icvds</td><td>Initial D-S voltage</td></tr>
+     *     <tr><td>icvgs</td><td>Initial G-S voltage</td></tr>
+     *     <tr><td>icvbs</td><td>Initial B-S voltage</td></tr>
+     *     <tr><td>temp</td><td>Instance temperature</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (output-only)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>id</td><td>Drain current</td></tr>
+     *     <tr><td>cd</td><td>Drain current</td></tr>
+     *     <tr><td>is</td><td>Source current</td></tr>
+     *     <tr><td>ig</td><td>Gate current</td></tr>
+     *     <tr><td>ib</td><td>Bulk current</td></tr>
+     *     <tr><td>ibs</td><td>B-S junction capacitance</td></tr>
+     *     <tr><td>ibd</td><td>B-D junction capacitance</td></tr>
+     *     <tr><td>vgs</td><td>Gate-Source voltage</td></tr>
+     *     <tr><td>vds</td><td>Drain-Source voltage</td></tr>
+     *     <tr><td>vbs</td><td>Bulk-Source voltage</td></tr>
+     *     <tr><td>vbd</td><td>Bulk-Drain voltage</td></tr>
+     *     <tr><td>dnode</td><td>the drain node index</td></tr>
+     *     <tr><td>gnode</td><td>the gate node index</td></tr>
+     *     <tr><td>snode</td><td>the source node index</td></tr>
+     *     <tr><td>bnode</td><td>the node index</td></tr>
+     *     <tr><td>dnodeprime</td><td>Number of int. drain node</td></tr>
+     *     <tr><td>snodeprime</td><td>Number of int. source node</td></tr>
+     *     <tr><td>rs</td><td>Source resistance</td></tr>
+     *     <tr><td>sourceconductance</td><td>Source conductance</td></tr>
+     *     <tr><td>rd</td><td>Drain resistance</td></tr>
+     *     <tr><td>drainconductance</td><td>Drain conductance</td></tr>
+     *     <tr><td>von</td><td>Turn-on voltage</td></tr>
+     *     <tr><td>vdsat</td><td>Saturation drain voltage</td></tr>
+     *     <tr><td>sourcevcrit</td><td>Critical source voltage</td></tr>
+     *     <tr><td>drainvcrit</td><td>Critical drain voltage</td></tr>
+     *     <tr><td>gmbs</td><td>Bulk-Source transconductance</td></tr>
+     *     <tr><td>gm</td><td>Transconductance</td></tr>
+     *     <tr><td>gds</td><td>Drain-Source conductance</td></tr>
+     *     <tr><td>gbd</td><td>Bulk-Drain conductance</td></tr>
+     *     <tr><td>gbs</td><td>Bulk-Source conductance</td></tr>
+     *     <tr><td>cgs</td><td>Gate-Source capacitance</td></tr>
+     *     <tr><td>cgd</td><td>Gate-Drain capacitance</td></tr>
+     *     <tr><td>cgb</td><td>Gate-Bulk capacitance</td></tr>
+     *     <tr><td>cbd</td><td>Bulk-Drain capacitance</td></tr>
+     *     <tr><td>cbs</td><td>Bulk-Source capacitance</td></tr>
+     *     <tr><td>cbd0</td><td>Zero-Bias B-D junction capacitance</td></tr>
+     *     <tr><td>cbdsw0</td><td>?</td></tr>
+     *     <tr><td>cbs0</td><td>Zero-Bias B-S junction capacitance</td></tr>
+     *     <tr><td>cbssw0</td><td>?</td></tr>
+     *     <tr><td>cqgs</td><td>Capacitance due to gate-source charge storage</td></tr>
+     *     <tr><td>cqgd</td><td>Capacitance due to gate-drain charge storage</td></tr>
+     *     <tr><td>cqgb</td><td>Capacitance due to gate-bulk charge storage</td></tr>
+     *     <tr><td>cqbd</td><td>Capacitance due to bulk-drain charge storage</td></tr>
+     *     <tr><td>cqbs</td><td>Capacitance due to bulk-source charge storage</td></tr>
+     *     <tr><td>qgs</td><td>Gate-Source charge storage</td></tr>
+     *     <tr><td>qgd</td><td>Gate-Drain charge storage</td></tr>
+     *     <tr><td>qgb</td><td>Gate-Bulk charge storage</td></tr>
+     *     <tr><td>qbd</td><td>Bulk-Drain charge storage</td></tr>
+     *     <tr><td>qbs</td><td>Bulk-Source charge storage</td></tr>
+     *     <tr><td>p</td><td>Instantaneous power</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (input-only)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>nmos</td><td>N type MOSfet localInstance</td></tr>
+     *     <tr><td>pmos</td><td>P type MOSfet localInstance</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (input-output)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>vto</td><td>Threshold voltage</td></tr>
+     *     <tr><td>vt0</td><td>null</td></tr>
+     *     <tr><td>kv</td><td>Saturation voltage factor</td></tr>
+     *     <tr><td>nv</td><td>Saturation voltage coeff.</td></tr>
+     *     <tr><td>kc</td><td>Saturation current factor</td></tr>
+     *     <tr><td>nc</td><td>Saturation current coeff.</td></tr>
+     *     <tr><td>nvth</td><td>Threshold voltage coeff.</td></tr>
+     *     <tr><td>ps</td><td>Sat. current modification  par.</td></tr>
+     *     <tr><td>gamma</td><td>Bulk threshold parameter</td></tr>
+     *     <tr><td>gamma1</td><td>Bulk threshold parameter 1</td></tr>
+     *     <tr><td>sigma</td><td>Static feedback effect par.</td></tr>
+     *     <tr><td>phi</td><td>Surface potential</td></tr>
+     *     <tr><td>lambda</td><td>Channel length modulation param.</td></tr>
+     *     <tr><td>lambda0</td><td>Channel length modulation param. 0</td></tr>
+     *     <tr><td>lambda1</td><td>Channel length modulation param. 1</td></tr>
+     *     <tr><td>rd</td><td>Drain ohmic resistance</td></tr>
+     *     <tr><td>rs</td><td>Source ohmic resistance</td></tr>
+     *     <tr><td>cbd</td><td>B-D junction capacitance</td></tr>
+     *     <tr><td>cbs</td><td>B-S junction capacitance</td></tr>
+     *     <tr><td>is</td><td>Bulk junction sat. current</td></tr>
+     *     <tr><td>pb</td><td>Bulk junction potential</td></tr>
+     *     <tr><td>cgso</td><td>Gate-source overlap cap.</td></tr>
+     *     <tr><td>cgdo</td><td>Gate-drain overlap cap.</td></tr>
+     *     <tr><td>cgbo</td><td>Gate-bulk overlap cap.</td></tr>
+     *     <tr><td>rsh</td><td>Sheet resistance</td></tr>
+     *     <tr><td>cj</td><td>Bottom junction cap per area</td></tr>
+     *     <tr><td>mj</td><td>Bottom grading coefficient</td></tr>
+     *     <tr><td>cjsw</td><td>Side junction cap per area</td></tr>
+     *     <tr><td>mjsw</td><td>Side grading coefficient</td></tr>
+     *     <tr><td>js</td><td>Bulk jct. sat. current density</td></tr>
+     *     <tr><td>ld</td><td>Lateral diffusion</td></tr>
+     *     <tr><td>tox</td><td>Oxide thickness</td></tr>
+     *     <tr><td>u0</td><td>Surface mobility</td></tr>
+     *     <tr><td>uo</td><td>null</td></tr>
+     *     <tr><td>fc</td><td>Forward bias jct. fit param.</td></tr>
+     *     <tr><td>tpg</td><td>Gate type</td></tr>
+     *     <tr><td>nsub</td><td>Substrate doping</td></tr>
+     *     <tr><td>nss</td><td>Surface state density</td></tr>
+     *     <tr><td>tnom</td><td>Parameter measurement temperature</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (input-only)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>off</td><td>Device initially off</td></tr>
+     *     <tr><td>ic</td><td>Vector of D-S, G-S, B-S voltages</td></tr>
+     *   </tbody>
+     * </table>
+     * <table>
+     *   <thread>
+     *     <tr><th>Mos6 - localInstance parameters (output-only)</th></tr>
+     *   </thread>
+     *   <tbody>
+     *     <tr><td>type</td><td>N-channel or P-channel MOS</td></tr>
+     *   </tbody>
+     *  </table>
+
+        -->
+        </body>
+    </html>

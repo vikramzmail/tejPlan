@@ -1,0 +1,142 @@
+/*******************************************************************************
+ * Copyright (c) 2013-2014 Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * Contributors:
+ *     Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza - initial API and implementation
+ ******************************************************************************/
+
+package com.tejas.engine.utils;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
+import com.net2plan.utils.AdvancedJTable;
+import com.net2plan.utils.ClassAwareTableModel;
+
+/**
+ *
+ * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza
+ * @since 0.2.0
+ */
+public final class ParamValueTable extends AdvancedJTable
+{
+    private static final long serialVersionUID = 1L;
+    private String[] columnNames;
+
+    /**
+     * Default constructor.
+     * 
+     * @since 0.2.0
+     */
+    public ParamValueTable()
+    {
+	this(null, null);
+    }
+    
+    /**
+     * Constructor which allows to indicate the table model.
+     * 
+     * @param model Table model
+     * @since 0.2.3
+     */
+    public ParamValueTable(DefaultTableModel model)
+    {
+        this(model, null);
+    }
+
+    /**
+     * Constructor that allows to set the column names.
+     * 
+     * @param columnNames Column name vector
+     * @since 0.2.0
+     */
+    public ParamValueTable(String[] columnNames)
+    {
+        this(null, columnNames);
+    }
+
+    /**
+     * Constructor that allows to set the table model and the column names.
+     * 
+     * @param model Table model
+     * @param columnNames Column name vector
+     * @since 0.2.3
+     */
+    public ParamValueTable(DefaultTableModel model, String[] columnNames)
+    {
+	super();
+        
+	if (columnNames == null) columnNames = new String[] {"Parameter", "Value"};
+	if (columnNames.length != 2) throw new RuntimeException("'columnNames' must have a length of 2 (or null to default values");
+
+	this.columnNames = columnNames;
+	if (model == null) model = new ClassAwareTableModel(new Object[1][2], columnNames);
+	setModel(model);
+	reset();
+    }
+
+    /**
+     * Sets a given data in the table. Current data will be removed.
+     * 
+     * @param data New data
+     * @since 0.2.0
+     */
+    public void setData(Map data)
+    {
+	Object[][] objectData = new Object[data.size()][2];
+	int i = 0;
+
+	Iterator it = data.entrySet().iterator();
+	while (it.hasNext())
+	{
+	    Map.Entry aux = (Map.Entry) it.next();
+
+	    objectData[i][0] = aux.getKey();
+	    objectData[i][1] = aux.getValue();
+	    i++;
+	}
+
+	setData(objectData);
+    }
+    
+    private void setData(Object[][] data)
+    {
+	((DefaultTableModel) getModel()).setDataVector(data, columnNames);
+	setEnabled(true);
+    }
+    
+    /**
+     * Returns the data within the table.
+     * 
+     * @return Table data
+     * @since 0.2.3
+     */
+    public Map<String, String> getData()
+    {
+        Map<String, String> data = new HashMap<String, String>();
+        
+        if (isEnabled())
+            for(Object row : ((DefaultTableModel) getModel()).getDataVector())
+                data.put(((Vector) row).elementAt(0).toString(), ((Vector) row).elementAt(1).toString());
+        
+        return data;
+    }
+
+    /**
+     * Resets the table.
+     * 
+     * @since 0.2.0
+     */
+    public void reset()
+    {
+	((DefaultTableModel) getModel()).setDataVector(new Object[1][2], columnNames);
+	setEnabled(false);
+    }
+}

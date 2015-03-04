@@ -1,0 +1,85 @@
+<h2>Network evolution</h2>
+
+<p>This report shows some metrics characterizing the evolution of the network during the simulation.</p>
+
+<p><b>Important</b>: Average values are computed in a time-averaged fashion, taking into account the period of time in each state.</p>
+
+<h3>Topology and link capacities</h3>
+
+<center>
+<table border="1">
+<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+<tr><td><a href='#topologyInfo_numberOfNodes'>Number of nodes</a></td><td>#topologyInfo_numberOfNodes#</td></tr>
+<tr><td><a href='#topologyInfo_numberOfLinks'>Average number of links</a></td><td>#topologyInfo_numberOfLinks#</td></tr>
+<tr><td><a href='#topologyInfo_nodeDegree'>Average node in/out degree</a></td><td>#topologyInfo_nodeDegree#</td></tr>
+<tr><td><a href='#topologyInfo_diameter'>Average network diameter</a> (hops, km, ms)</td><td>#topologyInfo_diameter#</td></tr>
+<tr><td><a href='#topologyInfo_totalCapacity'>Average total capacity installed</a> (Erlangs, bps)</td><td>#topologyInfo_totalCapacity#</td></tr>
+</table>
+</center>
+            
+<ul>
+<li><a name='topologyInfo_numberOfNodes'>Number of nodes</a>: Number of nodes of the network. This value remains fixed during the simulation</li>
+<li><a name='topologyInfo_numberOfLinks'>Average number of links</a>: Average number of links installed in the network during the simulation</li>
+<li><a name='topologyInfo_nodeDegree'>Average node in/out degree</a>: Average number of links per node</li>
+<li><a name='topologyInfo_diameter'>Average network diameter</a>: Average length of the largest path among all-pairs shortest path. This metric is measured in hops, kilometers and miliseconds</li>
+<li><a name='topologyInfo_totalCapacity'>Average total capacity installed</a>: Average capacity installed in the whole network, summing the capacity in all the links</li>
+</ul>
+
+<h3>Traffic</h3>
+
+<center>
+<table border="1">
+<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+<tr><td><a href='#trafficInfo_numberOfDemands'>Number of demands</a></td><td>#trafficInfo_numberOfDemands#</td></tr>
+<tr><td><a href='#trafficInfo_totalTraffic'>Average total offered traffic</a> (Erlangs, bps)</td><td>#trafficInfo_totalTraffic#</td></tr>
+<tr><td><a href='#trafficInfo_trafficPerNodePair'>Average offered traffic per node pair</a> (Erlangs, bps)</td><td>#trafficInfo_trafficPerNodePair#</td></tr>
+<tr><td><a href='#trafficInfo_blockedTraffic'>Average blocked traffic</a> (%)</td><td>#trafficInfo_blockedTraffic#</td></tr>
+<tr><td><a href='#trafficInfo_oversubscribedTraffic'>Average over-subscribed traffic</a> (%)</td><td>#trafficInfo_oversubscribedTraffic#</td></tr>
+</table>
+</center>
+
+<ul>
+<li><a name='trafficInfo_numberOfDemands'>Number of demands</a>: Number of demands. This value remains fixed during the simulation</li>
+<li><a name='trafficInfo_totalTraffic'>Average total offered traffic</a>: Average offered traffic to the whole network, summing the offered traffic by every demand</li>
+<li><a name='trafficInfo_trafficPerNodePair'>Average offered traffic per node pair</a>: Average offered traffic between each pair of nodes. It is equivalent to the ratio between the previous metric and the number of node pairs</li>
+<li><a name='trafficInfo_blockedTraffic'>Average blocked traffic</a>: Average percentage of the offered traffic which is blocked</li>
+<li><a name='trafficInfo_oversubscribedTraffic'>Average over-subscribed traffic</a>: Average percentage of the carried traffic which is above the capacity of the links. In other words, it is the time-average of the summation of the excess traffic in each link divided by the total carried traffic</li>
+</ul>
+
+<h3>Routing</h3>
+
+<center>
+<table border="1">
+<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+<tr><td><a href='#routingInfo_numberOfRoutes'>Average number of routes</a></td><td>#routingInfo_numberOfRoutes#</td></tr>
+<tr><td><a href='#routingInfo_bottleneckUtilization'>Average bottleneck utilization (w. reserved bw, w.o. reserved bw)</a></td><td>#routingInfo_bottleneckUtilization#</td></tr>
+<tr><td><a href='#routingInfo_routeLength'>Average route length</a> (hops, km, ms)</td><td>#routingInfo_routeLength#</td></tr>
+</table>
+</center>
+
+<ul>
+<li><a name='routingInfo_numberOfRoutes'>Average number of routes</a>: Average number of established routes</li>
+<li><a name='routingInfo_bottleneckUtilization'>Average bottleneck utilization (w. reserved bw, w.o. reserved bw)</a>: Average utilization of the bottleneck link in the whole network. This metric is computed considering or not the reserved bandwidth by protection segments (if any)</li>
+<li><a name='routingInfo_routeLength'>Average route length</a>: Average length of the defined routes. This metric is measured in hops, kilometers and miliseconds</li>
+</ul>
+
+<h3>Protection segments</h3>
+
+<center>
+<table border="1">
+<tr><th><b>Metric</b></th><th><b>Value</b></th></tr>
+<tr><td><a href='#segmentInfo_numberOfSegments'>Average number of protection segments</a></td><td>#segmentInfo_numberOfSegments#</td></tr>
+<tr><td><a href='#segmentInfo_capacityReserved'>Average link capacity reserved for protection</a> (%, Erlangs, bps)</td><td>#segmentInfo_capacityReserved#</td></tr>
+<tr><td><a href='#segmentInfo_unprotectedTraffic'>Average carried traffic unprotected</a> (%)</td><td>#segmentInfo_unprotectedTraffic#</td></tr>
+<tr><td><a href='#segmentInfo_dedicatedProtectionTraffic'>Average carried traffic with complete and dedicated protection</a> (%)</td><td>#segmentInfo_dedicatedProtectionTraffic#</td></tr>
+<tr><td><a href='#segmentInfo_sharedProtectionTraffic'>Average carried traffic with partial and/or shared protection</a> (%)</td><td>#segmentInfo_sharedProtectionTraffic#</td></tr>
+</table>
+</center>
+
+<ul>
+<li><a name='segmentInfo_numberOfSegments'>Average number of protection segments</a>: Average number of defined protection segments</li>
+<li><a name='segmentInfo_capacityReserved'>Average link capacity reserved for protection</a>: Average capacity reserved for protection in each link. This metric is measured in percentage of the link capacity (summation of the total reserved bandwidth divided by the total link capacity), Erlangs and bps</li>
+<li><a name='segmentInfo_unprotectedTraffic'>Average carried traffic unprotected</a>: Average percentage of traffic which is not protected by any segment</li>
+<li><a name='segmentInfo_dedicatedProtectionTraffic'>Average carried traffic with complete and dedicated protection</a>: Average percentage of traffic which is totally protected by some dedicated protection segment(s), that is, which under a failure is able to carry the whole traffic carried by the primary path</li>
+<li><a name='segmentInfo_sharedProtectionTraffic'>Average carried traffic with partial and/or shared protection</a>: Average percentage of traffic that does not fall into the two previous categories</li>
+</ul>

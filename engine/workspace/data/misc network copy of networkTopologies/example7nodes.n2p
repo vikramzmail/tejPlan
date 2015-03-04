@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><network description="Fictitious mesh network connecting the seven most populated cities in Spain. It is composed of 7 nodes and 16 unidirectional links. It does not contain any traffic demand" name="7-node network">
+    <physicalTopology>
+        <node level="1" name="Madrid" population="3265038" xCoord="0.0" yCoord="0.0"/>
+        <node level="1" name="Barcelona" population="1615448" xCoord="652.15083456" yCoord="107.07645432"/>
+        <node level="1" name="Valencia" population="798033" xCoord="368.39358024" yCoord="-105.44054568"/>
+        <node level="1" name="Sevilla" population="703021" xCoord="-256.0699284" yCoord="-337.34176296"/>
+        <node level="1" name="Zaragoza" population="674725" xCoord="312.09285432" yCoord="136.80105432"/>
+        <node level="1" name="Málaga" population="568030" xCoord="-80.90158272" yCoord="-411.0823284"/>
+        <node level="1" name="Murcia" population="442203" xCoord="284.65232592" yCoord="-270.33029136"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="50.0" linkLengthInKm="383.186036587115" originNodeId="0"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="50.0" linkLengthInKm="423.52245898859" originNodeId="0"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="50.0" linkLengthInKm="340.758680271931" originNodeId="0"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="50.0" linkLengthInKm="354.516085203796" originNodeId="1"/>
+        <link destinationNodeId="4" linkCapacityInErlangs="50.0" linkLengthInKm="341.354627579689" originNodeId="1"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="383.186036587115" originNodeId="2"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="50.0" linkLengthInKm="354.516085203796" originNodeId="2"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="50.0" linkLengthInKm="184.935734528246" originNodeId="2"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="423.52245898859" originNodeId="3"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="50.0" linkLengthInKm="190.05688706195" originNodeId="3"/>
+        <link destinationNodeId="0" linkCapacityInErlangs="50.0" linkLengthInKm="340.758680271931" originNodeId="4"/>
+        <link destinationNodeId="1" linkCapacityInErlangs="50.0" linkLengthInKm="341.354627579689" originNodeId="4"/>
+        <link destinationNodeId="3" linkCapacityInErlangs="50.0" linkLengthInKm="190.05688706195" originNodeId="5"/>
+        <link destinationNodeId="6" linkCapacityInErlangs="50.0" linkLengthInKm="391.715197628189" originNodeId="5"/>
+        <link destinationNodeId="2" linkCapacityInErlangs="50.0" linkLengthInKm="184.935734528246" originNodeId="6"/>
+        <link destinationNodeId="5" linkCapacityInErlangs="50.0" linkLengthInKm="391.715197628189" originNodeId="6"/>
+    </physicalTopology>
+</network>

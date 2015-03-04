@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 1996 The Regents of the University of California.
+All Rights Reserved.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for educational, research and non-profit purposes,
+without fee, and without a written agreement is hereby granted,
+provided that the above copyright notice, this paragraph and the
+following three paragraphs appear in all copies.
+
+This software program and documentation are copyrighted by The Regents
+of the University of California. The software program and
+documentation are supplied "as is", without any accompanying services
+from The Regents. The Regents does not warrant that the operation of
+the program will be uninterrupted or error-free. The end-user
+understands that the program was developed for research purposes and
+is advised not to rely exclusively on the program for any reason.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY
+FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND
+ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THE UNIVERSITY OF
+CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS"
+BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <p>
+Lossless Transmission Lines
+
+ General form:
+
+<code>TXXXXXXX N1 N2 N3 N4 Z0=VALUE [TD=VALUE] [F=FREQ [NL=NRMLEN]]
+                     [IC=V1, I1, V2, I2]</code>
+
+
+ Examples:
+<br/>
+<code>
+  T1 1 0 2 0 Z0=50 TD=10NS
+</code>
+<p>
+N1 and N2 are the nodes at port 1; N3 and N4 are the nodes at port 2.
+Z0 is the characteristic impedance.  The length of the line may be
+expressed in either of two forms.  The transmission delay, TD, may be
+specified directly (as TD=10ns, for example).  Alternatively, a
+frequency F may be given, together with NL, the normalized electrical
+length of the transmission line with respect to the wavelength in the
+line at the frequency F.  If a frequency is specified but NL is omitted,
+0.25 is assumed (that is, the frequency is assumed to be the
+quarter-wave frequency).  Note that although both forms for expressing
+the line length are indicated as optional, one of the two must be
+specified.
+</p>
+Note that this element models only one propagating mode.  If all four
+nodes are distinct in the actual circuit, then two modes may be excited.
+To simulate such a situation, two transmission-line elements are
+required.  (see the example in Appendix A for further clarification.)
+
+The (optional) initial condition specification consists of the voltage
+and current at each of the transmission line ports.  Note that the
+initial conditions (if any) apply 'only' if the UIC option is specified
+on the .TRAN control line.
+
+Note that a lossy transmission line (see below) with zero loss may be
+more accurate than than the lossless transmission line due to
+implementation details.
+
+Lossy Transmission Lines
+
+ General form:
+
+<code>
+  OXXXXXXX N1 N2 N3 N4 MNAME
+</code>
+
+
+ Examples:
+
+<code>
+  O23 1 0 2 0 LOSSYMOD
+  OCONNECT 10 5 20 5 INTERCONNECT
+</code>
+
+
+
+This is a two-port convolution model for singleconductor lossy
+transmission lines.  N1 and N2 are the nodes at port 1; N3 and N4 are
+the nodes at port 2.  Note that a lossy transmission line with zero loss
+may be more accurate than than the lossless transmission line due to
+implementation details.
+        </p>
+    </body>
+</html>

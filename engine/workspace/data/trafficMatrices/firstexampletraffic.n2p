@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><network description="" name="">
+    <physicalTopology>
+        <node name="Node 0" xCoord="0.0" yCoord="0.0"/>
+        <node name="Node 1" xCoord="0.0" yCoord="0.0"/>
+    </physicalTopology>
+    <demandSet>
+        <demandEntry egressNodeId="1" ingressNodeId="0" offeredTrafficInErlangs="1.0"/>
+        <demandEntry egressNodeId="0" ingressNodeId="1" offeredTrafficInErlangs="1.0"/>
+    </demandSet>
+</network>

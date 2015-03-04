@@ -1,0 +1,76 @@
+<h2>Connection report</h2>
+
+<p>This report shows some metrics characterizing routing and blocking of traffic during the simulation.</p>
+
+<h3>Network-wide information</h3>
+
+<ul>
+<li><a href='#network_numConnections'>Max./Min./Avg. number of active connections</a>: #network_numConnections#</li>
+<li><a href='#network_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a>: #network_carriedTraffic#</li>
+<li><a href='#network_connBlockingProbability'>Avg. connection blocking probability (%)</a>: #network_connBlockingProbability#</li>
+<li><a href='#network_connWeightedBlockingProbability'>Avg. weighted connection blocking probability (%)</a>: #network_connWeightedBlockingProbability#</li>
+<li><a href='#network_trafficBlockingProbability'>Avg. traffic blocking probability (%)</a>: #network_trafficBlockingProbability#</li>
+<li><a href='#network_avgOverSubscribedLinkCapacity'>Avg. over-subscribed link capacity (%)</a>: #network_avgOverSubscribedLinkCapacity#</li>
+<li><a href='#network_avgExcessCarriedTraffic'>Avg. excess carried traffic (%)</a>: #network_avgExcessCarriedTraffic#</li>
+</ul>
+
+<h3>Per-demand information</h3>
+
+<table border='1'>
+<thead><tr><th><b><a href='#demand_id'>Id</a></b></th><th><b><a href='#demand_ingressNode'>Ingress node</a></b></th><th><b><a href='#demand_egressNode'>Egress node</a></b></th><th><b><a href='#demand_plannedOfferedTraffic'>Planned offered traffic (E)</a></b></th><th><b><a href='#demand_avgOfferedTraffic'>Average offered traffic (E)</a></b></th><th><b><a href='#demand_plannedCarriedTraffic'>Planned carried traffic (E)</a></b></th><th><b><a href='#demand_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a></b></th><th><b><a href='#demand_numConnections'>Max./Min./Avg. number of concurrent connections</a></b></th><th><b><a href='#demand_connBlockingProbability'>Connection blocking probability (%)</a></b></th><th><b><a href='#demand_connWeightedBlockingProbability'>Connection weighted blocking probability (%)</a></b></th><th><b><a href='#'>Traffic blocking probability (%)</a></b></th><th><b><a href='#demand_attributes'>Attributes</a></b></th></tr></thead>
+<tbody>
+    #perDemandInformation#
+</tbody>
+</table>
+        
+<h3>Per-link information</h3>
+
+<table border='1'>
+<thead><tr><th><b><a href='#link_id'>Id</a></b></th><th><b><a href='#link_originNode'>Origin node</a></b></th><th><b><a href='#link_destinationNode'>Destination node</a></b></th><th><b><a href='#link_capacity'>Capacity (E)</a></b></th><th><b><a href='#link_capacityNotReserved'>Capacity not reserved for protection (E)</a></b></th><th><b><a href='#link_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a></b></th><th><b><a href='#link_numConnections'>Max./Min./Avg. number of traversing connection routes</a></b></th><th><b><a href='#link_attributes'>Attributes</a></b></th></tr></thead>
+<tbody>
+    #perLinkInformation#
+</tbody>
+</table>
+
+<h3>Definitions</h3>
+<p><b>Important</b>: "Time-averaged" means that the value of the metric is weighted by the period of time in that the network can be found in that state, divided by the total simulation time.</p>
+<h4>Network-wide information</h4>
+<ul>
+<li><a name='network_numConnections'>Max./Min./Avg. number of active connections</a>: It is equal to the maximum, minimum, and average number of active connections at any time. The average value is a time-averaged metric</li>
+<li><a name='network_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a>: It is equal to the maximum, minimum, and average carried traffic by active connections. The average value is a time-averaged metric</li>
+<li><a name='network_connBlockingProbability'>Avg. connection blocking probability (%)</a>: It is equal to the total number of blocked connections divided by the total number of offered connections, multiplied by 100</li>
+<li><a name='network_connWeightedBlockingProbability'>Avg. weighted connection blocking probability (%)</a>: It is equal to the total number of blocked connections multiplied by their requested traffic, divided by the total number of offered connections multiplied by their requested traffic, multiplied by 100</li>
+<li><a name='network_trafficBlockingProbability'>Avg. traffic blocking probability (%)</a>: It is equal to the time-averaged value of the per-connection blocked traffic, multiplied by 100. Here, at time <i>t</i>, all active connections (even those blocked, released by algorithms, or degraded, which in an ideal case should be active at 100%) are evaluated. A degraded connection is that whose current carried traffic is below the requested one</li>
+<li><a name='network_avgOverSubscribedLinkCapacity'>Avg. over-subscribed link capacity (%)</a>: It is equal to the time-averaged value of the sum of the excess carried traffic (exceding link capacity) per link, divided by the total carried traffic, multiplied by 100</li>
+<li><a name='network_avgExcessCarriedTraffic'>Avg. excess carried traffic (%)</a>: It is equal to the time-averaged value of the sum of the excess carried per connection (exceding requested bandwidth), divided by the total carried traffic, multiplied by 100</li>
+</ul>
+
+<h4>Per-demand information</h4>
+
+<ul>
+    <li><a name='demand_id'>Id</a>: Unique identifier of the demand</li>
+    <li><a name='demand_ingressNode'>Ingress node</a>: Ingress node of the demand</li>
+    <li><a name='demand_egressNode'>Egress node</a>: Egress node of the demand</li>
+    <li><a name='demand_plannedOfferedTraffic'>Planned offered traffic (E)</a>: Offered traffic by this demand in the original design</li>
+    <li><a name='demand_avgOfferedTraffic'>Average offered traffic (E)</a>: Average offered traffic by connections of this demand, including blocked connections. It is a time-averaged metric</li>
+    <li><a name='demand_plannedCarriedTraffic'>Planned carried traffic (E)</a>: Carried traffic for this demand in the original design</li>
+    <li><a name='demand_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a>: It is equal to the maximum, minimum, and average carried traffic by active connections of the demand. The average value is a time-averaged metric</li>
+    <li><a name='demand_numConnections'>Max./Min./Avg. number of concurrent connections</a>: It is equal to the maximum, minimum, and average number of active connections of the demand at any time. The average value is a time-averaged metric</li>
+    <li><a name='demand_connBlockingProbability'>Connection blocking probability (%)</a>: It is equal to the total number of blocked connections divided by the total number of offered connections, multiplied by 100</li>
+    <li><a name='demand_connWeightedBlockingProbability'>Connection weighted blocking probability (%)</a>: It is equal to the total number of blocked connections multiplied by their requested traffic, divided by the total number of offered connections multiplied by their requested traffic, multiplied by 100</li>
+    <li><a name='demand_trafficBlockingProbability'>Traffic blocking probability (%)</a>: It is equal to the time-averaged value of the per-connection blocked traffic, multiplied by 100. Here, at time <i>t</i>, all active connections (even those blocked, released by algorithms, or degraded, which in an ideal case should be active at 100%) are evaluated. A degraded connection is that whose current carried traffic is below the requested one</li>
+    <li><a name='demand_attributes'>Attributes</a>: Set of demand-specific name-value attributes</li>
+</ul>
+
+<h4>Per-link information</h4>
+
+<ul>
+    <li><a name='link_id'>Id</a>: Unique identifier of the link</li>
+    <li><a name='link_originNode'>Origin node</a>: Origin node of the link</li>
+    <li><a name='link_destinationNode'>Destination node</a>: Destination node of the link</li>
+    <li><a name='link_capacity'>Capacity (E)</a>: Capacity of the link, measured in Erlangs</li>
+    <li><a name='link_capacityNotReserved'>Capacity not reserved for protection (E)</a>: Capacity of the link, measured in Erlangs, excluding the reserved bandwidth of traversing protection segments</li>
+    <li><a name='link_carriedTraffic'>Max./Min./Avg. carried traffic (E)</a>: It is equal to the maximum, minimum, and average carried traffic by active connections traversing the link. The average value is a time-averaged metric</li>
+    <li><a name='link_numConnections'>Max./Min./Avg. number of traversing connection routes</a>: It is equal to the maximum, minimum, and average number of active connection routes traversing the link at any time. The average value is a time-averaged metric</li>
+    <li><a name='link_attributes'>Attributes</a>: Set of link-specific name-value attributes</li>
+</ul>

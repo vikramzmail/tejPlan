@@ -1,0 +1,38 @@
+/* 
+    Document   : doc
+    Created on : Jan 15, 2010, 3:36:55 PM
+    Author     : owenbad
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+.equation{
+    padding-left:20px;
+}
+
+code{
+    margin-left:20px;
+}
+
+table{
+    margin-left: 20px;
+}
+.math{
+
+    /*text-align:center;*/
+    
+}
+math{
+    /*text-align:center;
+    padding-left:20px;*/
+}
+
